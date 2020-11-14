@@ -1,6 +1,7 @@
 use bevy::{input, prelude::*};
 
 fn main() {
+    // TASK: Set window title to "Von Neumann Defense Force"
     App::build()
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
