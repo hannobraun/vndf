@@ -7,6 +7,7 @@ use bevy_rapier2d::{
 
 fn main() {
     // TASK: Set window title to "Von Neumann Defense Force"
+    // TASK: Implement background grid.
     App::build()
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
@@ -33,6 +34,7 @@ fn setup(
 ) {
     rapier_config.gravity = na::Vector2::zeros();
 
+    // TASK: Follow player ship with camera.
     commands.spawn(Camera2dComponents::default());
 
     spawn_ship(
