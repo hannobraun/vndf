@@ -63,10 +63,8 @@ fn spawn_ship(
     commands
         .spawn((Ship(name),))
         .with(
-            // TASK: Make dynamic. Currently Rapier simulates gravity though, so
-            //       that has to be removed first.
             // TASK: Set initial linear and angular velocities.
-            RigidBodyBuilder::new_static()
+            RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y()),
         )
         .with(ColliderBuilder::cuboid(size, size))
