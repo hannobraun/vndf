@@ -28,6 +28,7 @@ struct Ship(&'static str);
 struct Position(Vec2);
 
 fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
+    // TASK: Add one square per ship.
     commands
         .spawn(Camera2dComponents::default())
         .spawn(SpriteComponents {
