@@ -32,12 +32,13 @@ fn setup(mut commands: Commands) {
 fn print_position(
     time: Res<Time>,
     mut timer: ResMut<PrintTimer>,
-    ship: &Ship,
-    position: &Position,
+    query: Query<(&Ship, &Position)>,
 ) {
     timer.0.tick(time.delta_seconds);
 
     if timer.0.finished {
-        println!("{}: {:?}", ship.0, position);
+        for (ship, position) in query.iter() {
+            println!("{}: {:?}", ship.0, position);
+        }
     }
 }
