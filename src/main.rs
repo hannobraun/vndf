@@ -69,6 +69,7 @@ fn update_transform(mut query: Query<(&Position, &mut Transform)>) {
     }
 }
 
+// TASK: Remove
 fn print_position(
     time: Res<Time>,
     mut timer: ResMut<PrintTimer>,
