@@ -30,7 +30,6 @@ struct Position(Vec2);
 fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
     commands.spawn(Camera2dComponents::default());
 
-    // TASK: Adjust initial positions.
     // TASK: Update transform according to position.
     spawn_ship(
         "player",
@@ -41,7 +40,7 @@ fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
     );
     spawn_ship(
         "enemy",
-        Vec2::new(0.0, 10.0),
+        Vec2::new(0.0, 200.0),
         Color::rgb(1.0, 0.0, 0.0),
         &mut commands,
         &mut materials,
