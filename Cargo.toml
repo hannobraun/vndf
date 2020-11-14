@@ -5,4 +5,4 @@ authors = ["Hanno Braun <hb@hannobraun.de>"]
 edition = "2018"
 
 [dependencies]
-bevy = "0.3.0"
+bevy = "*"
