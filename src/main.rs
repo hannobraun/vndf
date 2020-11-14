@@ -12,7 +12,8 @@ struct GamePlugin;
 
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_resource(PrintTimer(Timer::from_seconds(1.0, true)))
+        app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
+            .add_resource(PrintTimer(Timer::from_seconds(1.0, true)))
             .add_startup_system(setup.system())
             .add_system(print_position.system());
     }
