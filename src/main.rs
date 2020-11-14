@@ -28,16 +28,27 @@ struct Ship(&'static str);
 struct Position(Vec2);
 
 fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
-    // TASK: Add one square per ship.
+    commands.spawn(Camera2dComponents::default());
+
+    // TASK: Consolidate into some kind of constructor.
+    // TASK: Adjust initial positions.
+    // TASK: Update transform according to position.
     commands
-        .spawn(Camera2dComponents::default())
-        .spawn(SpriteComponents {
+        .spawn((Ship("player"), Position(Vec2::new(0.0, 0.0))))
+        .with_bundle(SpriteComponents {
             material: materials.add(Color::rgb(1.0, 1.0, 0.0).into()),
             sprite: Sprite::new(Vec2::new(100.0, 100.0)),
+            transform: Transform::from_translation(Vec3::new(0.0, 0.0, 0.0)),
             ..Default::default()
-        })
-        .spawn((Ship("player"), Position(Vec2::new(0.0, 0.0))))
-        .spawn((Ship("enemy"), Position(Vec2::new(0.0, 10.0))));
+        });
+    commands
+        .spawn((Ship("enemy"), Position(Vec2::new(0.0, 10.0))))
+        .with_bundle(SpriteComponents {
+            material: materials.add(Color::rgb(1.0, 0.0, 0.0).into()),
+            sprite: Sprite::new(Vec2::new(100.0, 100.0)),
+            transform: Transform::from_translation(Vec3::new(0.0, 10.0, 0.0)),
+            ..Default::default()
+        });
 }
 
 fn print_position(
