@@ -16,6 +16,7 @@ impl Plugin for GamePlugin {
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_resource(PrintTimer(Timer::from_seconds(1.0, true)))
             .add_startup_system(setup.system())
+            .add_system(update_transform.system())
             .add_system(print_position.system());
     }
 }
@@ -30,7 +31,6 @@ struct Position(Vec2);
 fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
     commands.spawn(Camera2dComponents::default());
 
-    // TASK: Update transform according to position.
     spawn_ship(
         "player",
         Vec2::new(0.0, 0.0),
@@ -59,9 +59,14 @@ fn spawn_ship(
         .with_bundle(SpriteComponents {
             material: materials.add(color.into()),
             sprite: Sprite::new(Vec2::new(100.0, 100.0)),
-            transform: Transform::from_translation(position.extend(0.0)),
             ..Default::default()
         });
+}
+
+fn update_transform(mut query: Query<(&Position, &mut Transform)>) {
+    for (position, mut transform) in query.iter_mut() {
+        *transform = Transform::from_translation(position.0.extend(0.0));
+    }
 }
 
 fn print_position(
