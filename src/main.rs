@@ -30,23 +30,37 @@ struct Position(Vec2);
 fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
     commands.spawn(Camera2dComponents::default());
 
-    // TASK: Consolidate into some kind of constructor.
     // TASK: Adjust initial positions.
     // TASK: Update transform according to position.
+    spawn_ship(
+        "player",
+        Vec2::new(0.0, 0.0),
+        Color::rgb(1.0, 1.0, 0.0),
+        &mut commands,
+        &mut materials,
+    );
+    spawn_ship(
+        "enemy",
+        Vec2::new(0.0, 10.0),
+        Color::rgb(1.0, 0.0, 0.0),
+        &mut commands,
+        &mut materials,
+    );
+}
+
+fn spawn_ship(
+    name: &'static str,
+    position: Vec2,
+    color: Color,
+    commands: &mut Commands,
+    materials: &mut ResMut<Assets<ColorMaterial>>,
+) {
     commands
-        .spawn((Ship("player"), Position(Vec2::new(0.0, 0.0))))
+        .spawn((Ship(name), Position(position)))
         .with_bundle(SpriteComponents {
-            material: materials.add(Color::rgb(1.0, 1.0, 0.0).into()),
+            material: materials.add(color.into()),
             sprite: Sprite::new(Vec2::new(100.0, 100.0)),
-            transform: Transform::from_translation(Vec3::new(0.0, 0.0, 0.0)),
-            ..Default::default()
-        });
-    commands
-        .spawn((Ship("enemy"), Position(Vec2::new(0.0, 10.0))))
-        .with_bundle(SpriteComponents {
-            material: materials.add(Color::rgb(1.0, 0.0, 0.0).into()),
-            sprite: Sprite::new(Vec2::new(100.0, 100.0)),
-            transform: Transform::from_translation(Vec3::new(0.0, 10.0, 0.0)),
+            transform: Transform::from_translation(position.extend(0.0)),
             ..Default::default()
         });
 }
