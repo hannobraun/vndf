@@ -16,8 +16,7 @@ impl Plugin for GamePlugin {
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_resource(PrintTimer(Timer::from_seconds(1.0, true)))
             .add_startup_system(setup.system())
-            .add_system(update_transform.system())
-            .add_system(print_position.system());
+            .add_system(update_transform.system());
     }
 }
 
@@ -66,20 +65,5 @@ fn spawn_ship(
 fn update_transform(mut query: Query<(&Position, &mut Transform)>) {
     for (position, mut transform) in query.iter_mut() {
         *transform = Transform::from_translation(position.0.extend(0.0));
-    }
-}
-
-// TASK: Remove
-fn print_position(
-    time: Res<Time>,
-    mut timer: ResMut<PrintTimer>,
-    query: Query<(&Ship, &Position)>,
-) {
-    timer.0.tick(time.delta_seconds);
-
-    if timer.0.finished {
-        for (ship, position) in query.iter() {
-            println!("{}: {:?}", ship.0, position);
-        }
     }
 }
