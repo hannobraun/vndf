@@ -1,4 +1,8 @@
 use bevy::{input, prelude::*};
+use bevy_rapier2d::{
+    physics::RapierPhysicsPlugin,
+    rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder},
+};
 
 fn main() {
     // TASK: Set window title to "Von Neumann Defense Force"
@@ -13,16 +17,13 @@ struct GamePlugin;
 
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
-            .add_startup_system(setup.system())
-            .add_system(update_transform.system());
+        app.add_plugin(RapierPhysicsPlugin)
+            .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
+            .add_startup_system(setup.system());
     }
 }
 
 struct Ship(&'static str);
-
-#[derive(Debug)]
-struct Position(Vec2);
 
 fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
     commands.spawn(Camera2dComponents::default());
@@ -51,16 +52,18 @@ fn spawn_ship(
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
     commands
-        .spawn((Ship(name), Position(position)))
+        .spawn((Ship(name),))
+        .with(
+            // TASK: Make dynamic. Currently Rapier simulates gravity though, so
+            //       that has to be removed first.
+            // TASK: Set initial linear and angular velocities.
+            RigidBodyBuilder::new_static()
+                .translation(position.x(), position.y()),
+        )
+        .with(ColliderBuilder::cuboid(100.0, 100.0))
         .with_bundle(SpriteComponents {
             material: materials.add(color.into()),
             sprite: Sprite::new(Vec2::new(100.0, 100.0)),
             ..Default::default()
         });
-}
-
-fn update_transform(mut query: Query<(&Position, &mut Transform)>) {
-    for (position, mut transform) in query.iter_mut() {
-        *transform = Transform::from_translation(position.0.extend(0.0));
-    }
 }
