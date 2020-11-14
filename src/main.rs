@@ -1,6 +1,7 @@
 use bevy::{input, prelude::*};
 use bevy_rapier2d::{
-    physics::RapierPhysicsPlugin,
+    na,
+    physics::{RapierConfiguration, RapierPhysicsPlugin},
     rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder},
 };
 
@@ -25,7 +26,13 @@ impl Plugin for GamePlugin {
 
 struct Ship(&'static str);
 
-fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
+fn setup(
+    mut commands: Commands,
+    mut rapier_config: ResMut<RapierConfiguration>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+) {
+    rapier_config.gravity = na::Vector2::zeros();
+
     commands.spawn(Camera2dComponents::default());
 
     spawn_ship(
