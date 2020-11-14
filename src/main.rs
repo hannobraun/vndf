@@ -63,9 +63,10 @@ fn spawn_ship(
     commands
         .spawn((Ship(name),))
         .with(
-            // TASK: Set initial linear and angular velocities.
             RigidBodyBuilder::new_dynamic()
-                .translation(position.x(), position.y()),
+                .translation(position.x(), position.y())
+                .linvel(10.0, 10.0)
+                .angvel(0.1),
         )
         .with(ColliderBuilder::cuboid(size, size))
         .with_bundle(SpriteComponents {
