@@ -27,8 +27,14 @@ struct Ship(&'static str);
 #[derive(Debug)]
 struct Position(Vec2);
 
-fn setup(mut commands: Commands) {
+fn setup(mut commands: Commands, mut materials: ResMut<Assets<ColorMaterial>>) {
     commands
+        .spawn(Camera2dComponents::default())
+        .spawn(SpriteComponents {
+            material: materials.add(Color::rgb(1.0, 1.0, 0.0).into()),
+            sprite: Sprite::new(Vec2::new(100.0, 100.0)),
+            ..Default::default()
+        })
         .spawn((Ship("player"), Position(Vec2::new(0.0, 0.0))))
         .spawn((Ship("enemy"), Position(Vec2::new(0.0, 10.0))));
 }
