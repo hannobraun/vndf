@@ -20,21 +20,24 @@ impl Plugin for GamePlugin {
 
 struct PrintTimer(Timer);
 
+struct Ship(&'static str);
+
 #[derive(Debug)]
 struct Position(Vec2);
 
 fn setup(mut commands: Commands) {
-    commands.spawn((Position(Vec2::new(0.0, 0.0)),));
+    commands.spawn((Ship("player"), Position(Vec2::new(0.0, 0.0))));
 }
 
 fn print_position(
     time: Res<Time>,
     mut timer: ResMut<PrintTimer>,
+    ship: &Ship,
     position: &Position,
 ) {
     timer.0.tick(time.delta_seconds);
 
     if timer.0.finished {
-        println!("{:?}", position);
+        println!("{}: {:?}", ship.0, position);
     }
 }
