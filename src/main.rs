@@ -26,7 +26,9 @@ struct Ship(&'static str);
 struct Position(Vec2);
 
 fn setup(mut commands: Commands) {
-    commands.spawn((Ship("player"), Position(Vec2::new(0.0, 0.0))));
+    commands
+        .spawn((Ship("player"), Position(Vec2::new(0.0, 0.0))))
+        .spawn((Ship("enemy"), Position(Vec2::new(0.0, 10.0))));
 }
 
 fn print_position(
