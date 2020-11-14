@@ -51,7 +51,7 @@ fn spawn_ship(
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
-    let size = 100.0;
+    let size = 50.0;
 
     commands
         .spawn((Ship(name),))
