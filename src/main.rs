@@ -50,7 +50,6 @@ fn setup(
 ) {
     rapier_config.gravity = na::Vector2::zeros();
 
-    // TASK: Follow player ship with camera.
     commands.spawn(Camera2dComponents::default());
 
     spawn_ship(
