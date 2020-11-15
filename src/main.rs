@@ -1,8 +1,13 @@
-use bevy::{input, prelude::*};
+use bevy::{input, prelude::*, render::camera::Camera};
 use bevy_rapier2d::{
     na,
-    physics::{RapierConfiguration, RapierPhysicsPlugin},
-    rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder},
+    physics::{
+        RapierConfiguration, RapierPhysicsPlugin, RigidBodyHandleComponent,
+    },
+    rapier::{
+        dynamics::{RigidBodyBuilder, RigidBodySet},
+        geometry::ColliderBuilder,
+    },
 };
 
 fn main() {
@@ -21,7 +26,8 @@ impl Plugin for GamePlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_plugin(RapierPhysicsPlugin)
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
-            .add_startup_system(setup.system());
+            .add_startup_system(setup.system())
+            .add_system(update_camera.system());
     }
 }
 
@@ -83,5 +89,24 @@ fn spawn_ship(
 
     if player {
         commands.with(Player);
+    }
+}
+
+fn update_camera(
+    bodies: Res<RigidBodySet>,
+    players: Query<(&Player, &RigidBodyHandleComponent)>,
+    mut cameras: Query<(&Camera, &mut Transform)>,
+) {
+    for (_, body) in players.iter() {
+        let body = bodies
+            .get(body.handle())
+            .expect("Could not find body for ship");
+
+        for (_, mut transform) in cameras.iter_mut() {
+            let position = body.position.translation.vector;
+            *transform = Transform::from_translation(Vec3::new(
+                position.x, position.y, 0.0,
+            ));
+        }
     }
 }
