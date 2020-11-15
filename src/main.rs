@@ -26,6 +26,7 @@ impl Plugin for GamePlugin {
 }
 
 struct Ship(&'static str);
+struct Player;
 
 fn setup(
     mut commands: Commands,
@@ -41,6 +42,7 @@ fn setup(
         "player",
         Vec2::new(0.0, 0.0),
         Color::rgb(1.0, 1.0, 0.0),
+        true,
         &mut commands,
         &mut materials,
     );
@@ -48,6 +50,7 @@ fn setup(
         "enemy",
         Vec2::new(0.0, 200.0),
         Color::rgb(1.0, 0.0, 0.0),
+        false,
         &mut commands,
         &mut materials,
     );
@@ -57,12 +60,13 @@ fn spawn_ship(
     name: &'static str,
     position: Vec2,
     color: Color,
+    player: bool,
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
     let size = 50.0;
 
-    commands
+    let commands = commands
         .spawn((Ship(name),))
         .with(
             RigidBodyBuilder::new_dynamic()
@@ -76,4 +80,8 @@ fn spawn_ship(
             sprite: Sprite::new(Vec2::new(size, size)),
             ..Default::default()
         });
+
+    if player {
+        commands.with(Player);
+    }
 }
