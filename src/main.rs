@@ -78,7 +78,7 @@ fn spawn_ship(
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
-    let size = Vec2::new(50.0, 50.0);
+    let size = Vec2::new(150.0, 50.0);
 
     let commands = commands
         .spawn((Ship(name),))
