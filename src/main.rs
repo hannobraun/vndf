@@ -78,7 +78,7 @@ fn spawn_ship(
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
-    let size = 50.0;
+    let size = Vec2::new(50.0, 50.0);
 
     let commands = commands
         .spawn((Ship(name),))
@@ -88,10 +88,10 @@ fn spawn_ship(
                 .linvel(10.0, 10.0)
                 .angvel(0.1),
         )
-        .with(ColliderBuilder::cuboid(size, size))
+        .with(ColliderBuilder::cuboid(size.x(), size.y()))
         .with_bundle(SpriteComponents {
             material: materials.add(color.into()),
-            sprite: Sprite::new(Vec2::new(size, size)),
+            sprite: Sprite::new(size),
             ..Default::default()
         });
 
