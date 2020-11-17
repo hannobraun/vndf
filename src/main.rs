@@ -36,7 +36,8 @@ impl Plugin for GamePlugin {
         app.add_plugin(RapierPhysicsPlugin)
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_startup_system(setup.system())
-            .add_system(update_camera.system());
+            .add_system(update_camera.system())
+            .add_system(handle_mouse_click.system());
     }
 }
 
@@ -116,5 +117,23 @@ fn update_camera(
                 position.x, position.y, 0.0,
             ));
         }
+    }
+}
+
+#[derive(Default)]
+pub struct MousePosition(Vec2);
+
+fn handle_mouse_click(
+    mut state: Local<MousePosition>,
+    mut events: ResMut<Events<CursorMoved>>,
+    input: Res<Input<MouseButton>>,
+) {
+    for event in events.drain() {
+        state.0 = event.position;
+    }
+
+    // TASK: Point player ship towards mouse.
+    if input.just_pressed(MouseButton::Left) {
+        println!("Left mouse button pressed at {:?}", state.0);
     }
 }
