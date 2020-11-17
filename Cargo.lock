@@ -925,9 +925,9 @@ dependencies = [
 
 [[package]]
 name = "cmake"
-version = "0.1.44"
+version = "0.1.45"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0e56268c17a6248366d66d4a47a3381369d068cce8409bb1716ed77ea32163bb"
+checksum = "eb6210b637171dfba4cda12e579ac6dc73f5165ad56133e5d72ef3131f320855"
 dependencies = [
  "cc",
 ]
@@ -2045,7 +2045,7 @@ checksum = "cb1fc4429a33e1f80d41dc9fea4d108a88bec1de8053878898ae448a0b52f613"
 dependencies = [
  "cfg-if 1.0.0",
  "js-sys",
- "time 0.2.22",
+ "time 0.2.23",
  "wasm-bindgen",
  "web-sys",
 ]
@@ -3242,9 +3242,9 @@ checksum = "c46a3482db8f247956e464d783693ece164ca056e6e67563ee5505bdb86452cd"
 
 [[package]]
 name = "smallvec"
-version = "1.4.2"
+version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fbee7696b84bbf3d89a1c2eccff0850e3047ed46bfcd2e92c29a2d074d57e252"
+checksum = "7acad6f34eb9e8a259d3283d1e8c1d34d7415943d4895f65cc73813c7396fc85"
 dependencies = [
  "serde",
 ]
@@ -3271,9 +3271,9 @@ dependencies = [
 
 [[package]]
 name = "spirv_cross"
-version = "0.22.0"
+version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d8221f4aebf53a4447aebd4fe29ebff2c66dd2c2821e63675e09e85bd21c8633"
+checksum = "ea964c42ce40326fe96111918abe71fa45076da1ea85769f3f1ab1cda9a1d496"
 dependencies = [
  "cc",
  "js-sys",
@@ -3292,9 +3292,9 @@ dependencies = [
 
 [[package]]
 name = "standback"
-version = "0.2.11"
+version = "0.2.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f4e0831040d2cf2bdfd51b844be71885783d489898a192f254ae25d57cce725c"
+checksum = "cf906c8b8fc3f6ecd1046e01da1d8ddec83e48c8b08b84dcc02b585a6bedf5a8"
 dependencies = [
  "version_check",
 ]
@@ -3464,9 +3464,9 @@ dependencies = [
 
 [[package]]
 name = "time"
-version = "0.2.22"
+version = "0.2.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "55b7151c9065e80917fbf285d9a5d1432f60db41d170ccafc749a136b41a93af"
+checksum = "bcdaeea317915d59b2b4cd3b5efcd156c309108664277793f5351700c02ce98b"
 dependencies = [
  "const_fn",
  "libc",
@@ -3546,9 +3546,9 @@ dependencies = [
 
 [[package]]
 name = "ttf-parser"
-version = "0.8.2"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d973cfa0e6124166b50a1105a67c85de40bbc625082f35c0f56f84cb1fb0a827"
+checksum = "7622061403fd00f0820df288e5a580e87d3ce15a1c4313c59fd1ffb77129903f"
 
 [[package]]
 name = "typed-arena"
