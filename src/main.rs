@@ -1,4 +1,4 @@
-use bevy::{input, prelude::*, render::camera::Camera};
+use bevy::{input, prelude::*};
 use bevy_rapier2d::{
     na,
     physics::{
@@ -42,7 +42,9 @@ impl Plugin for GamePlugin {
 }
 
 struct Ship(&'static str);
-struct Player;
+struct Player {
+    camera: Entity,
+}
 
 fn setup(
     mut commands: Commands,
@@ -51,13 +53,16 @@ fn setup(
 ) {
     rapier_config.gravity = na::Vector2::zeros();
 
-    commands.spawn(Camera2dComponents::default());
+    let camera = commands
+        .spawn(Camera2dComponents::default())
+        .current_entity()
+        .unwrap();
 
     spawn_ship(
         "player",
         Vec2::new(0.0, 0.0),
         Color::rgb(1.0, 1.0, 0.0),
-        true,
+        Some(camera),
         &mut commands,
         &mut materials,
     );
@@ -65,7 +70,7 @@ fn setup(
         "enemy",
         Vec2::new(0.0, 200.0),
         Color::rgb(1.0, 0.0, 0.0),
-        false,
+        None,
         &mut commands,
         &mut materials,
     );
@@ -75,7 +80,7 @@ fn spawn_ship(
     name: &'static str,
     position: Vec2,
     color: Color,
-    is_player: bool,
+    is_player: Option<Entity>,
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
@@ -96,29 +101,25 @@ fn spawn_ship(
             ..Default::default()
         });
 
-    if is_player {
-        commands.with(Player);
+    if let Some(camera) = is_player {
+        commands.with(Player { camera });
     }
 }
 
 fn update_camera(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
-    mut cameras: Query<(&Camera, &mut Transform)>,
+    mut transforms: Query<(&mut Transform,)>,
 ) {
-    for (_, body) in players.iter() {
+    for (player, body) in players.iter() {
         let body = bodies
             .get(body.handle())
             .expect("Could not find body for ship");
 
-        // We're assuming there's only one camera, so the transform should
-        // always be updated only once.
-        for (_, mut transform) in cameras.iter_mut() {
-            let position = body.position.translation.vector;
-            *transform = Transform::from_translation(Vec3::new(
-                position.x, position.y, 0.0,
-            ));
-        }
+        let mut camera = transforms.get_mut(player.camera).unwrap();
+        let position = body.position.translation.vector;
+        *camera.0 =
+            Transform::from_translation(Vec3::new(position.x, position.y, 0.0));
     }
 }
 
