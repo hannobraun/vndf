@@ -111,6 +111,8 @@ fn update_camera(
             .get(body.handle())
             .expect("Could not find body for ship");
 
+        // We're assuming there's only one camera, so the transform should
+        // always be updated only once.
         for (_, mut transform) in cameras.iter_mut() {
             let position = body.position.translation.vector;
             *transform = Transform::from_translation(Vec3::new(
