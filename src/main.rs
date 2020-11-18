@@ -75,7 +75,7 @@ fn spawn_ship(
     name: &'static str,
     position: Vec2,
     color: Color,
-    player: bool,
+    is_player: bool,
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
@@ -96,7 +96,7 @@ fn spawn_ship(
             ..Default::default()
         });
 
-    if player {
+    if is_player {
         commands.with(Player);
     }
 }
