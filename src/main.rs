@@ -137,6 +137,7 @@ fn handle_mouse_click(
 
     // TASK: Point player ship towards mouse.
     if input.just_pressed(MouseButton::Left) {
+        // TASK: Convert to world coordinates.
         println!("Left mouse button pressed at {:?}", state.0);
     }
 }
