@@ -124,7 +124,9 @@ fn update_camera(
 }
 
 #[derive(Default)]
-pub struct MousePosition(Vec2);
+pub struct MousePosition {
+    position: Vec2,
+}
 
 fn handle_mouse_click(
     mut state: Local<MousePosition>,
@@ -132,12 +134,12 @@ fn handle_mouse_click(
     input: Res<Input<MouseButton>>,
 ) {
     for event in events.drain() {
-        state.0 = event.position;
+        state.position = event.position;
     }
 
     // TASK: Point player ship towards mouse.
     if input.just_pressed(MouseButton::Left) {
         // TASK: Convert to world coordinates.
-        println!("Left mouse button pressed at {:?}", state.0);
+        println!("Left mouse button pressed at {:?}", state.position);
     }
 }
