@@ -125,7 +125,6 @@ fn update_camera(
     }
 }
 
-#[derive(Default)]
 pub struct MousePosition {
     position: Vec2,
 }
