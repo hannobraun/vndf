@@ -134,6 +134,9 @@ fn handle_mouse_click(
     mut state: Local<Option<MousePosition>>,
     mut events: ResMut<Events<CursorMoved>>,
     input: Res<Input<MouseButton>>,
+    windows: Res<Windows>,
+    players: Query<(&Player,)>,
+    transforms: Query<(&Transform,)>,
 ) {
     for event in events.drain() {
         *state = Some(MousePosition {
@@ -145,11 +148,22 @@ fn handle_mouse_click(
     // TASK: Point player ship towards mouse.
     if input.just_pressed(MouseButton::Left) {
         if let Some(state) = state.deref() {
-            // TASK: Convert to world coordinates.
-            println!(
-                "Left mouse button pressed at {:?} ({:?})",
-                state.position, state.window_id
-            );
+            for (player,) in players.iter() {
+                let window = windows
+                    .get(state.window_id)
+                    .expect("Could not find window");
+                let size =
+                    Vec2::new(window.width() as f32, window.height() as f32)
+                        / 2.0;
+
+                let position = state.position - size;
+
+                let camera = transforms.get(player.camera).unwrap().0;
+                let position =
+                    camera.compute_matrix() * position.extend(0.0).extend(1.0);
+
+                println!("Left mouse button pressed at {:?}", position);
+            }
         }
     }
 }
