@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use bevy::{input, prelude::*};
+use bevy::{input, prelude::*, window::WindowId};
 use bevy_rapier2d::{
     na,
     physics::{
@@ -127,6 +127,7 @@ fn update_camera(
 
 pub struct MousePosition {
     position: Vec2,
+    window_id: WindowId,
 }
 
 fn handle_mouse_click(
@@ -137,6 +138,7 @@ fn handle_mouse_click(
     for event in events.drain() {
         *state = Some(MousePosition {
             position: event.position,
+            window_id: event.id,
         });
     }
 
@@ -144,7 +146,10 @@ fn handle_mouse_click(
     if input.just_pressed(MouseButton::Left) {
         if let Some(state) = state.deref() {
             // TASK: Convert to world coordinates.
-            println!("Left mouse button pressed at {:?}", state.position);
+            println!(
+                "Left mouse button pressed at {:?} ({:?})",
+                state.position, state.window_id
+            );
         }
     }
 }
