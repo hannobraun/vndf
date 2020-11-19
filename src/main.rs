@@ -116,9 +116,9 @@ fn update_camera(
             .get(body.handle())
             .expect("Could not find body for ship");
 
-        let mut camera = transforms.get_mut(player.camera).unwrap();
+        let mut camera = transforms.get_mut(player.camera).unwrap().0;
         let position = body.position.translation.vector;
-        *camera.0 =
+        *camera =
             Transform::from_translation(Vec3::new(position.x, position.y, 0.0));
     }
 }
