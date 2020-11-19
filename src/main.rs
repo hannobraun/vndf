@@ -1,3 +1,5 @@
+use std::ops::Deref;
+
 use bevy::{input, prelude::*};
 use bevy_rapier2d::{
     na,
@@ -129,17 +131,21 @@ pub struct MousePosition {
 }
 
 fn handle_mouse_click(
-    mut state: Local<MousePosition>,
+    mut state: Local<Option<MousePosition>>,
     mut events: ResMut<Events<CursorMoved>>,
     input: Res<Input<MouseButton>>,
 ) {
     for event in events.drain() {
-        state.position = event.position;
+        *state = Some(MousePosition {
+            position: event.position,
+        });
     }
 
     // TASK: Point player ship towards mouse.
     if input.just_pressed(MouseButton::Left) {
-        // TASK: Convert to world coordinates.
-        println!("Left mouse button pressed at {:?}", state.position);
+        if let Some(state) = state.deref() {
+            // TASK: Convert to world coordinates.
+            println!("Left mouse button pressed at {:?}", state.position);
+        }
     }
 }
