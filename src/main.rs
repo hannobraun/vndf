@@ -87,6 +87,7 @@ fn spawn_ship(
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
     let size = Vec2::new(150.0, 50.0);
+    let angvel = if is_player.is_none() { 0.1 } else { 0.0 };
 
     let commands = commands
         .spawn((Ship(name),))
@@ -94,7 +95,7 @@ fn spawn_ship(
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y())
                 .linvel(10.0, 10.0)
-                .angvel(0.1),
+                .angvel(angvel),
         )
         .with(ColliderBuilder::cuboid(size.x() / 2.0, size.y() / 2.0))
         .with_bundle(SpriteComponents {
