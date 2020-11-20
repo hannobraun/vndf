@@ -60,12 +60,11 @@ fn setup(
         .current_entity()
         .unwrap();
 
-    spawn_ship(
+    let player = spawn_ship(
         "player",
         Vec2::new(0.0, 0.0),
         Color::rgb(0.0, 0.0, 1.0),
         0.0,
-        Some(camera),
         &mut commands,
         &mut materials,
     );
@@ -74,10 +73,11 @@ fn setup(
         Vec2::new(0.0, 200.0),
         Color::rgb(1.0, 0.0, 0.0),
         0.1,
-        None,
         &mut commands,
         &mut materials,
     );
+
+    commands.insert_one(player, Player { camera });
 }
 
 fn spawn_ship(
@@ -85,13 +85,12 @@ fn spawn_ship(
     position: Vec2,
     color: Color,
     angvel: f32,
-    is_player: Option<Entity>,
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
-) {
+) -> Entity {
     let size = Vec2::new(150.0, 50.0);
 
-    let commands = commands
+    commands
         .spawn((Ship(name),))
         .with(
             RigidBodyBuilder::new_dynamic()
@@ -104,11 +103,9 @@ fn spawn_ship(
             material: materials.add(color.into()),
             sprite: Sprite::new(size),
             ..Default::default()
-        });
-
-    if let Some(camera) = is_player {
-        commands.with(Player { camera });
-    }
+        })
+        .current_entity()
+        .unwrap()
 }
 
 fn update_camera(
