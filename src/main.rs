@@ -63,7 +63,7 @@ fn setup(
     spawn_ship(
         "player",
         Vec2::new(0.0, 0.0),
-        Color::rgb(1.0, 1.0, 0.0),
+        Color::rgb(0.0, 0.0, 1.0),
         Some(camera),
         &mut commands,
         &mut materials,
