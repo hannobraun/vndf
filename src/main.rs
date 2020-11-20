@@ -64,6 +64,7 @@ fn setup(
         "player",
         Vec2::new(0.0, 0.0),
         Color::rgb(0.0, 0.0, 1.0),
+        0.0,
         Some(camera),
         &mut commands,
         &mut materials,
@@ -72,6 +73,7 @@ fn setup(
         "enemy",
         Vec2::new(0.0, 200.0),
         Color::rgb(1.0, 0.0, 0.0),
+        0.1,
         None,
         &mut commands,
         &mut materials,
@@ -82,12 +84,12 @@ fn spawn_ship(
     name: &'static str,
     position: Vec2,
     color: Color,
+    angvel: f32,
     is_player: Option<Entity>,
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) {
     let size = Vec2::new(150.0, 50.0);
-    let angvel = if is_player.is_none() { 0.1 } else { 0.0 };
 
     let commands = commands
         .spawn((Ship(name),))
