@@ -96,7 +96,7 @@ fn spawn_ship(
                 .linvel(10.0, 10.0)
                 .angvel(0.1),
         )
-        .with(ColliderBuilder::cuboid(size.x(), size.y()))
+        .with(ColliderBuilder::cuboid(size.x() / 2.0, size.y() / 2.0))
         .with_bundle(SpriteComponents {
             material: materials.add(color.into()),
             sprite: Sprite::new(size),
