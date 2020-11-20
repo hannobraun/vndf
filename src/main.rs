@@ -39,6 +39,7 @@ impl Plugin for GamePlugin {
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_startup_system(setup.system())
             .add_system(update_camera.system())
+            .add_system(update_heading.system())
             .add_system(handle_mouse_click.system());
     }
 }
@@ -46,6 +47,7 @@ impl Plugin for GamePlugin {
 struct Ship(&'static str);
 struct Player {
     camera: Entity,
+    heading: Entity,
 }
 
 fn setup(
@@ -77,7 +79,17 @@ fn setup(
         &mut materials,
     );
 
-    commands.insert_one(player, Player { camera });
+    let heading = commands
+        .spawn((Transform::default(),))
+        .with_bundle(SpriteComponents {
+            material: materials.add(Color::rgb(1.0, 1.0, 1.0).into()),
+            sprite: Sprite::new(Vec2::new(15.0, 15.0)),
+            ..Default::default()
+        })
+        .current_entity()
+        .unwrap();
+
+    commands.insert_one(player, Player { camera, heading });
 }
 
 fn spawn_ship(
@@ -121,6 +133,23 @@ fn update_camera(
         let mut camera = transforms.get_mut(player.camera).unwrap().0;
         let position = body.position.translation.vector;
         *camera =
+            Transform::from_translation(Vec3::new(position.x, position.y, 0.0));
+    }
+}
+
+fn update_heading(
+    bodies: Res<RigidBodySet>,
+    players: Query<(&Player, &RigidBodyHandleComponent)>,
+    mut headings: Query<(&mut Transform,)>,
+) {
+    for (player, body) in players.iter() {
+        let body = bodies.get(body.handle()).unwrap();
+        let mut heading = headings.get_mut(player.heading).unwrap().0;
+
+        let position =
+            body.position.translation.vector + na::Vector2::new(200.0, 0.0);
+        let position = body.position.rotation * position;
+        *heading =
             Transform::from_translation(Vec3::new(position.x, position.y, 0.0));
     }
 }
