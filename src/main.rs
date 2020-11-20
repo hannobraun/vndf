@@ -46,6 +46,9 @@ impl Plugin for GamePlugin {
 
 struct Ship(&'static str);
 
+// TASK: Add target entity and point to it here. The target entity marks the
+//       ship's rotational target. There should be a system that rotates the
+//       ship towards that target.
 struct Player {
     camera: Entity,
     heading: Entity,
@@ -66,6 +69,7 @@ fn setup(
     let player = spawn_ship(
         "player",
         Vec2::new(0.0, 0.0),
+        // TASK: Move to constant `COLOR_PLAYER`.
         Color::rgb(0.0, 0.0, 1.0),
         0.0,
         &mut commands,
@@ -74,6 +78,7 @@ fn setup(
     spawn_ship(
         "enemy",
         Vec2::new(0.0, 200.0),
+        // TASK: Move to constant `COLOR_ENEMY`.
         Color::rgb(1.0, 0.0, 0.0),
         0.1,
         &mut commands,
@@ -83,6 +88,7 @@ fn setup(
     let heading = commands
         .spawn((Transform::default(),))
         .with_bundle(SpriteComponents {
+            // TASK: Use player color.
             material: materials.add(Color::rgb(1.0, 1.0, 1.0).into()),
             sprite: Sprite::new(Vec2::new(15.0, 15.0)),
             ..Default::default()
@@ -97,6 +103,7 @@ fn spawn_ship(
     name: &'static str,
     position: Vec2,
     color: Color,
+    // TASK: Remove argument; rotate all ships the same.
     angvel: f32,
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
