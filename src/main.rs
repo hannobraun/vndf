@@ -45,6 +45,7 @@ impl Plugin for GamePlugin {
 }
 
 struct Ship(&'static str);
+
 struct Player {
     camera: Entity,
     heading: Entity,
