@@ -89,8 +89,7 @@ fn setup(
     let heading = commands
         .spawn((Transform::default(),))
         .with_bundle(SpriteComponents {
-            // TASK: Use player color.
-            material: materials.add(Color::rgb(1.0, 1.0, 1.0).into()),
+            material: materials.add(COLOR_PLAYER.into()),
             sprite: Sprite::new(Vec2::new(15.0, 15.0)),
             ..Default::default()
         })
