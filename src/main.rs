@@ -138,7 +138,7 @@ fn update_camera(
         let mut camera = transforms.get_mut(player.camera).unwrap().0;
         let position = body.position.translation.vector;
         *camera =
-            Transform::from_translation(Vec3::new(position.x, position.y, 0.0));
+            Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
     }
 }
 
