@@ -154,7 +154,7 @@ fn update_heading(
         let offset = body.position.rotation * na::Vector2::new(200.0, 0.0);
         let position = body.position.translation.vector + offset;
         *heading =
-            Transform::from_translation(Vec3::new(position.x, position.y, 0.0));
+            Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
     }
 }
 
