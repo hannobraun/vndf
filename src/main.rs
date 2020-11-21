@@ -113,7 +113,7 @@ fn spawn_ship(
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y())
                 .linvel(10.0, 10.0)
-                .angvel(0.1),
+                .angvel(0.5),
         )
         .with(ColliderBuilder::cuboid(size.x() / 2.0, size.y() / 2.0))
         .with_bundle(SpriteComponents {
