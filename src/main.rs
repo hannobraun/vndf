@@ -44,6 +44,9 @@ impl Plugin for GamePlugin {
     }
 }
 
+const COLOR_PLAYER: Color = Color::rgb_linear(0.0, 0.0, 1.0);
+const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
+
 struct Ship(&'static str);
 
 // TASK: Add target entity and point to it here. The target entity marks the
@@ -69,8 +72,7 @@ fn setup(
     let player = spawn_ship(
         "player",
         Vec2::new(0.0, 0.0),
-        // TASK: Move to constant `COLOR_PLAYER`.
-        Color::rgb_linear(0.0, 0.0, 1.0),
+        COLOR_PLAYER,
         0.0,
         &mut commands,
         &mut materials,
@@ -78,8 +80,7 @@ fn setup(
     spawn_ship(
         "enemy",
         Vec2::new(0.0, 200.0),
-        // TASK: Move to constant `COLOR_ENEMY`.
-        Color::rgb_linear(1.0, 0.0, 0.0),
+        COLOR_ENEMY,
         0.1,
         &mut commands,
         &mut materials,
