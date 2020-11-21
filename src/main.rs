@@ -70,7 +70,7 @@ fn setup(
         "player",
         Vec2::new(0.0, 0.0),
         // TASK: Move to constant `COLOR_PLAYER`.
-        Color::rgb(0.0, 0.0, 1.0),
+        Color::rgb_linear(0.0, 0.0, 1.0),
         0.0,
         &mut commands,
         &mut materials,
@@ -79,7 +79,7 @@ fn setup(
         "enemy",
         Vec2::new(0.0, 200.0),
         // TASK: Move to constant `COLOR_ENEMY`.
-        Color::rgb(1.0, 0.0, 0.0),
+        Color::rgb_linear(1.0, 0.0, 0.0),
         0.1,
         &mut commands,
         &mut materials,
