@@ -47,7 +47,7 @@ impl Plugin for GamePlugin {
 const COLOR_PLAYER: Color = Color::rgb_linear(0.0, 0.0, 1.0);
 const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
 
-struct Ship(&'static str);
+struct Ship;
 
 // TASK: Add target entity and point to it here. The target entity marks the
 //       ship's rotational target. There should be a system that rotates the
@@ -70,14 +70,12 @@ fn setup(
         .unwrap();
 
     let player = spawn_ship(
-        "player",
         Vec2::new(0.0, 0.0),
         COLOR_PLAYER,
         &mut commands,
         &mut materials,
     );
     spawn_ship(
-        "enemy",
         Vec2::new(0.0, 200.0),
         COLOR_ENEMY,
         &mut commands,
@@ -99,7 +97,6 @@ fn setup(
 }
 
 fn spawn_ship(
-    name: &'static str,
     position: Vec2,
     color: Color,
     commands: &mut Commands,
@@ -108,7 +105,7 @@ fn spawn_ship(
     let size = Vec2::new(150.0, 50.0);
 
     commands
-        .spawn((Ship(name),))
+        .spawn((Ship,))
         .with(
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y())
