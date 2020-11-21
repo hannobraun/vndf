@@ -47,14 +47,15 @@ impl Plugin for GamePlugin {
 const COLOR_PLAYER: Color = Color::rgb_linear(0.0, 0.0, 1.0);
 const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
 
-struct Ship;
+struct Ship {
+    heading: Entity,
+}
 
 // TASK: Add target entity and point to it here. The target entity marks the
 //       ship's rotational target. There should be a system that rotates the
 //       ship towards that target.
 struct Player {
     camera: Entity,
-    heading: Entity,
 }
 
 fn setup(
@@ -82,18 +83,7 @@ fn setup(
         &mut materials,
     );
 
-    // TASK: Add heading marker for every ship.
-    let heading = commands
-        .spawn((Transform::default(),))
-        .with_bundle(SpriteComponents {
-            material: materials.add(COLOR_PLAYER.into()),
-            sprite: Sprite::new(Vec2::new(15.0, 15.0)),
-            ..Default::default()
-        })
-        .current_entity()
-        .unwrap();
-
-    commands.insert_one(player, Player { camera, heading });
+    commands.insert_one(player, Player { camera });
 }
 
 fn spawn_ship(
@@ -104,8 +94,18 @@ fn spawn_ship(
 ) -> Entity {
     let size = Vec2::new(150.0, 50.0);
 
+    let heading = commands
+        .spawn((Transform::default(),))
+        .with_bundle(SpriteComponents {
+            material: materials.add(COLOR_PLAYER.into()),
+            sprite: Sprite::new(Vec2::new(15.0, 15.0)),
+            ..Default::default()
+        })
+        .current_entity()
+        .unwrap();
+
     commands
-        .spawn((Ship,))
+        .spawn((Ship { heading },))
         .with(
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y())
@@ -141,12 +141,12 @@ fn update_camera(
 
 fn update_heading(
     bodies: Res<RigidBodySet>,
-    players: Query<(&Player, &RigidBodyHandleComponent)>,
+    ships: Query<(&Ship, &RigidBodyHandleComponent)>,
     mut headings: Query<(&mut Transform,)>,
 ) {
-    for (player, body) in players.iter() {
+    for (ship, body) in ships.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let mut heading = headings.get_mut(player.heading).unwrap().0;
+        let mut heading = headings.get_mut(ship.heading).unwrap().0;
 
         let offset = body.position.rotation * na::Vector2::new(200.0, 0.0);
         let position = body.position.translation.vector + offset;
