@@ -73,7 +73,6 @@ fn setup(
         "player",
         Vec2::new(0.0, 0.0),
         COLOR_PLAYER,
-        0.0,
         &mut commands,
         &mut materials,
     );
@@ -81,7 +80,6 @@ fn setup(
         "enemy",
         Vec2::new(0.0, 200.0),
         COLOR_ENEMY,
-        0.1,
         &mut commands,
         &mut materials,
     );
@@ -104,8 +102,6 @@ fn spawn_ship(
     name: &'static str,
     position: Vec2,
     color: Color,
-    // TASK: Remove argument; rotate all ships the same.
-    angvel: f32,
     commands: &mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) -> Entity {
@@ -117,7 +113,7 @@ fn spawn_ship(
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y())
                 .linvel(10.0, 10.0)
-                .angvel(angvel),
+                .angvel(0.1),
         )
         .with(ColliderBuilder::cuboid(size.x() / 2.0, size.y() / 2.0))
         .with_bundle(SpriteComponents {
