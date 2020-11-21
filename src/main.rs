@@ -97,7 +97,7 @@ fn spawn_ship(
     let heading = commands
         .spawn((Transform::default(),))
         .with_bundle(SpriteComponents {
-            material: materials.add(COLOR_PLAYER.into()),
+            material: materials.add(color.into()),
             sprite: Sprite::new(Vec2::new(15.0, 15.0)),
             ..Default::default()
         })
