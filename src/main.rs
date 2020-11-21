@@ -86,6 +86,7 @@ fn setup(
         &mut materials,
     );
 
+    // TASK: Add heading marker for every ship.
     let heading = commands
         .spawn((Transform::default(),))
         .with_bundle(SpriteComponents {
