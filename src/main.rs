@@ -155,9 +155,8 @@ fn update_heading(
         let body = bodies.get(body.handle()).unwrap();
         let mut heading = headings.get_mut(player.heading).unwrap().0;
 
-        let position =
-            body.position.translation.vector + na::Vector2::new(200.0, 0.0);
-        let position = body.position.rotation * position;
+        let offset = body.position.rotation * na::Vector2::new(200.0, 0.0);
+        let position = body.position.translation.vector + offset;
         *heading =
             Transform::from_translation(Vec3::new(position.x, position.y, 0.0));
     }
