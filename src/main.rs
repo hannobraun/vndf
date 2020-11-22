@@ -37,6 +37,7 @@ impl Plugin for GamePlugin {
     fn build(&self, app: &mut AppBuilder) {
         // TASK: Add system that rotates ship towards targets.
         // TASK: Add system that applies mouse wheel changes to ship thrust.
+        // TASK: Add system that sets z coordinate of ships explicitly.
         app.add_plugin(RapierPhysicsPlugin)
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_startup_system(setup.system())
