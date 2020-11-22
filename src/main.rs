@@ -214,7 +214,8 @@ fn handle_mouse_click(
     mut events: ResMut<Events<CursorMoved>>,
     input: Res<Input<MouseButton>>,
     windows: Res<Windows>,
-    players: Query<(&Player,)>,
+    bodies: Res<RigidBodySet>,
+    mut players: Query<(&mut Player, &RigidBodyHandleComponent)>,
     transforms: Query<(&Transform,)>,
 ) {
     for event in events.drain() {
@@ -224,10 +225,9 @@ fn handle_mouse_click(
         });
     }
 
-    // TASK: Point player ship towards mouse.
     if input.just_pressed(MouseButton::Left) {
         if let Some(state) = state.deref() {
-            for (player,) in players.iter() {
+            for (mut player, body) in players.iter_mut() {
                 let window = windows
                     .get(state.window_id)
                     .expect("Could not find window");
@@ -241,7 +241,11 @@ fn handle_mouse_click(
                 let position =
                     camera.compute_matrix() * position.extend(0.0).extend(1.0);
 
-                println!("Left mouse button pressed at {:?}", position);
+                let body = bodies.get(body.handle()).unwrap();
+                let direction = na::Vector2::new(position.x(), position.y())
+                    - body.position.translation.vector;
+
+                player.target.direction = Vec2::new(direction.x, direction.y);
             }
         }
     }
