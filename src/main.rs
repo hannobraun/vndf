@@ -49,7 +49,7 @@ impl Plugin for GamePlugin {
 const COLOR_PLAYER: Color = Color::rgb_linear(0.0, 0.0, 1.0);
 const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
 
-const LAYER_MARKER: f32 = 1.0;
+const LAYER_MARKER: f32 = 0.5;
 const LAYER_UI: f32 = 1.0;
 
 struct Ship {
