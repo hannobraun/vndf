@@ -36,6 +36,7 @@ struct GamePlugin;
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut AppBuilder) {
         // TASK: Add system that rotates ship towards targets.
+        // TASK: Add system that applies mouse wheel changes to ship thrust.
         app.add_plugin(RapierPhysicsPlugin)
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_startup_system(setup.system())
@@ -52,7 +53,10 @@ const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
 const LAYER_MARKER: f32 = 0.5;
 const LAYER_UI: f32 = 1.0;
 
+// TASK: Add thrust setting and system that applies it to body.
 struct Ship {
+    // TASK: Prototype turning this into general nav marker that also visualizes
+    //       thrust setting through its size.
     heading: Entity,
 }
 
