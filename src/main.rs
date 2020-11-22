@@ -35,11 +35,13 @@ struct GamePlugin;
 
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut AppBuilder) {
+        // TASK: Add system that rotates ship towards targets.
         app.add_plugin(RapierPhysicsPlugin)
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_startup_system(setup.system())
             .add_system(update_camera.system())
             .add_system(update_heading.system())
+            .add_system(update_target.system())
             .add_system(handle_mouse_click.system());
     }
 }
@@ -51,11 +53,14 @@ struct Ship {
     heading: Entity,
 }
 
-// TASK: Add target entity and point to it here. The target entity marks the
-//       ship's rotational target. There should be a system that rotates the
-//       ship towards that target.
 struct Player {
     camera: Entity,
+    target: Target,
+}
+
+struct Target {
+    entity: Entity,
+    direction: Vec2,
 }
 
 fn setup(
@@ -83,7 +88,26 @@ fn setup(
         &mut materials,
     );
 
-    commands.insert_one(player, Player { camera });
+    let target = commands
+        .spawn((Transform::default(),))
+        .with_bundle(SpriteComponents {
+            material: materials.add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
+            sprite: Sprite::new(Vec2::new(15.0, 15.0)),
+            ..Default::default()
+        })
+        .current_entity()
+        .unwrap();
+
+    commands.insert_one(
+        player,
+        Player {
+            camera,
+            target: Target {
+                entity: target,
+                direction: Vec2::unit_x(),
+            },
+        },
+    );
 }
 
 fn spawn_ship(
@@ -151,6 +175,24 @@ fn update_heading(
         let offset = body.position.rotation * na::Vector2::new(200.0, 0.0);
         let position = body.position.translation.vector + offset;
         *heading =
+            Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
+    }
+}
+
+fn update_target(
+    bodies: Res<RigidBodySet>,
+    players: Query<(&Player, &RigidBodyHandleComponent)>,
+    mut targets: Query<(&mut Transform,)>,
+) {
+    for (player, body) in players.iter() {
+        let body = bodies.get(body.handle()).unwrap();
+        let mut target = targets.get_mut(player.target.entity).unwrap().0;
+
+        let dir = player.target.direction.normalize();
+
+        let position = body.position.translation.vector
+            + na::Vector2::new(dir.x(), dir.y()) * 250.0;
+        *target =
             Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
     }
 }
