@@ -49,6 +49,9 @@ impl Plugin for GamePlugin {
 const COLOR_PLAYER: Color = Color::rgb_linear(0.0, 0.0, 1.0);
 const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
 
+const LAYER_MARKER: f32 = 1.0;
+const LAYER_UI: f32 = 1.0;
+
 struct Ship {
     heading: Entity,
 }
@@ -174,8 +177,11 @@ fn update_heading(
 
         let offset = body.position.rotation * na::Vector2::new(200.0, 0.0);
         let position = body.position.translation.vector + offset;
-        *heading =
-            Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
+        *heading = Transform::from_translation(Vec3::new(
+            position.x,
+            position.y,
+            LAYER_MARKER,
+        ));
     }
 }
 
@@ -192,8 +198,9 @@ fn update_target(
 
         let position = body.position.translation.vector
             + na::Vector2::new(dir.x(), dir.y()) * 250.0;
-        *target =
-            Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
+        *target = Transform::from_translation(Vec3::new(
+            position.x, position.y, LAYER_UI,
+        ));
     }
 }
 
