@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use bevy::{input, prelude::*, window::WindowId};
+use bevy::{input::system::exit_on_esc_system, prelude::*, window::WindowId};
 use bevy_rapier2d::{
     na,
     physics::{
@@ -27,7 +27,7 @@ fn main() {
     App::build()
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
-        .add_system(input::system::exit_on_esc_system.system())
+        .add_system(exit_on_esc_system.system())
         .run();
 }
 
