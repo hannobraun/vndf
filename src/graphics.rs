@@ -5,6 +5,17 @@ use bevy_rapier2d::{
 
 use crate::Player;
 
+pub struct GraphicsPlugin;
+
+impl Plugin for GraphicsPlugin {
+    fn build(&self, app: &mut AppBuilder) {
+        // TASK: Add system that sets z coordinate of ships explicitly.
+        app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
+            .add_system(update_camera.system());
+    }
+}
+
+// TASK: Make private
 pub fn update_camera(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
