@@ -70,19 +70,6 @@ fn setup(
         .current_entity()
         .unwrap();
 
-    let player = spawn_ship(
-        Vec2::new(0.0, 0.0),
-        COLOR_PLAYER,
-        &mut commands,
-        &mut materials,
-    );
-    spawn_ship(
-        Vec2::new(0.0, 200.0),
-        COLOR_ENEMY,
-        &mut commands,
-        &mut materials,
-    );
-
     let target = commands
         .spawn((Transform::default(),))
         .with_bundle(SpriteComponents {
@@ -93,24 +80,33 @@ fn setup(
         .current_entity()
         .unwrap();
 
-    commands.insert_one(
-        player,
-        Player {
-            camera,
-            target: Target {
-                entity: target,
-                direction: Vec2::unit_x(),
-            },
+    spawn_ship(
+        Vec2::new(0.0, 0.0),
+        COLOR_PLAYER,
+        &mut commands,
+        &mut materials,
+    )
+    .with(Player {
+        camera,
+        target: Target {
+            entity: target,
+            direction: Vec2::unit_x(),
         },
+    });
+    spawn_ship(
+        Vec2::new(0.0, 200.0),
+        COLOR_ENEMY,
+        &mut commands,
+        &mut materials,
     );
 }
 
-fn spawn_ship(
+fn spawn_ship<'c>(
     position: Vec2,
     color: Color,
-    commands: &mut Commands,
+    commands: &'c mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
-) -> Entity {
+) -> &'c mut Commands {
     let size = Vec2::new(150.0, 50.0);
 
     let heading = commands
@@ -136,9 +132,9 @@ fn spawn_ship(
             material: materials.add(color.into()),
             sprite: Sprite::new(size),
             ..Default::default()
-        })
-        .current_entity()
-        .unwrap()
+        });
+
+    commands
 }
 
 fn update_heading(
