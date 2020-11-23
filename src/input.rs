@@ -5,6 +5,8 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
+use crate::Player;
+
 pub struct InputPlugin;
 
 impl Plugin for InputPlugin {
@@ -13,8 +15,6 @@ impl Plugin for InputPlugin {
         app.add_system(handle_mouse_click.system());
     }
 }
-
-use crate::Player;
 
 struct MousePosition {
     position: Vec2,
