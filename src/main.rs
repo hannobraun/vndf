@@ -60,6 +60,10 @@ struct Target {
 
 pub struct Enemy;
 
+// TASK: Extract graphics-specific parts and move them to a new `setup` system
+//       in `graphics`. This `setup` system would still create the entities and
+//       the new `graphics::setup` system would add components to them, as
+//       required.
 fn setup(
     mut commands: Commands,
     mut rapier_config: ResMut<RapierConfiguration>,
