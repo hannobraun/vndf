@@ -28,6 +28,7 @@ fn main() {
     App::build()
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
+        .add_plugin(crate::input::InputPlugin)
         .add_system(exit_on_esc_system.system())
         .run();
 }
@@ -37,15 +38,13 @@ struct GamePlugin;
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut AppBuilder) {
         // TASK: Add system that rotates ship towards targets.
-        // TASK: Add system that applies mouse wheel changes to ship thrust.
         // TASK: Add system that sets z coordinate of ships explicitly.
         app.add_plugin(RapierPhysicsPlugin)
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_startup_system(setup.system())
             .add_system(crate::graphics::update_camera.system())
             .add_system(update_heading.system())
-            .add_system(update_target.system())
-            .add_system(crate::input::handle_mouse_click.system());
+            .add_system(update_target.system());
     }
 }
 

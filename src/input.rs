@@ -5,6 +5,15 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
+pub struct InputPlugin;
+
+impl Plugin for InputPlugin {
+    fn build(&self, app: &mut AppBuilder) {
+        // TASK: Add system that applies mouse wheel changes to ship thrust.
+        app.add_system(handle_mouse_click.system());
+    }
+}
+
 use crate::Player;
 
 pub struct MousePosition {
