@@ -58,6 +58,8 @@ struct Target {
     direction: Vec2,
 }
 
+pub struct Enemy;
+
 fn setup(
     mut commands: Commands,
     mut rapier_config: ResMut<RapierConfiguration>,
@@ -98,7 +100,8 @@ fn setup(
         COLOR_ENEMY,
         &mut commands,
         &mut materials,
-    );
+    )
+    .with(Enemy);
 }
 
 fn spawn_ship<'c>(
