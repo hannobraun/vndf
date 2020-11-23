@@ -15,8 +15,7 @@ impl Plugin for GraphicsPlugin {
     }
 }
 
-// TASK: Make private
-pub fn update_camera(
+fn update_camera(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
     mut transforms: Query<(&mut Transform,)>,
