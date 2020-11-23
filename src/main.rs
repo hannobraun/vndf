@@ -1,3 +1,4 @@
+mod graphics;
 mod input;
 
 use bevy::{input::system::exit_on_esc_system, prelude::*};
@@ -41,7 +42,7 @@ impl Plugin for GamePlugin {
         app.add_plugin(RapierPhysicsPlugin)
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_startup_system(setup.system())
-            .add_system(update_camera.system())
+            .add_system(crate::graphics::update_camera.system())
             .add_system(update_heading.system())
             .add_system(update_target.system())
             .add_system(crate::input::handle_mouse_click.system());
@@ -152,23 +153,6 @@ fn spawn_ship(
         })
         .current_entity()
         .unwrap()
-}
-
-fn update_camera(
-    bodies: Res<RigidBodySet>,
-    players: Query<(&Player, &RigidBodyHandleComponent)>,
-    mut transforms: Query<(&mut Transform,)>,
-) {
-    for (player, body) in players.iter() {
-        let body = bodies
-            .get(body.handle())
-            .expect("Could not find body for ship");
-
-        let mut camera = transforms.get_mut(player.camera).unwrap().0;
-        let position = body.position.translation.vector;
-        *camera =
-            Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
-    }
 }
 
 fn update_heading(
