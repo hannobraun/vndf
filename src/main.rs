@@ -14,17 +14,6 @@ use bevy_rapier2d::{
 };
 
 fn main() {
-    // TASK: Set window title to "Von Neumann Defense Force"
-    // TASK: Draw background grid. Currently (Bevy 0.3) this is not straight-
-    //       forward. Bevy itself doesn't have support for easy 2D drawing.
-    //       There's `bevy_prototype_lyon`, but that isn't quite what I'd like
-    //       either.
-    //       The best idea I could come up with (using `bevy_prototype_lyon`) is
-    //       to not draw the grid as several lines that leave the screen, but
-    //       use a single polyline instead (connecting the otherwise separate
-    //       lines outside of the screen). Sounds workable, but unless I'm
-    //       seized by motivation, I'd rather just wait for easier drawing in
-    //       Bevy.
     App::build()
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
