@@ -16,12 +16,12 @@ impl Plugin for InputPlugin {
 
 use crate::Player;
 
-pub struct MousePosition {
+struct MousePosition {
     position: Vec2,
     window_id: WindowId,
 }
 
-pub fn handle_mouse_click(
+fn handle_mouse_click(
     mut state: Local<Option<MousePosition>>,
     mut events: ResMut<Events<CursorMoved>>,
     input: Res<Input<MouseButton>>,
