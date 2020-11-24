@@ -66,10 +66,10 @@ pub struct Enemy;
 //       required.
 fn setup(
     mut commands: Commands,
-    mut rapier_config: ResMut<RapierConfiguration>,
+    mut rapier: ResMut<RapierConfiguration>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    rapier_config.gravity = na::Vector2::zeros();
+    rapier.gravity = na::Vector2::zeros();
 
     let camera = commands
         .spawn(Camera2dComponents::default())
