@@ -147,11 +147,11 @@ fn spawn_ship<'c>(
 fn update_heading(
     bodies: Res<RigidBodySet>,
     ships: Query<(&Ship, &RigidBodyHandleComponent)>,
-    mut headings: Query<(&mut Transform,)>,
+    mut headings: Query<&mut Transform>,
 ) {
     for (ship, body) in ships.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let mut heading = headings.get_mut(ship.heading).unwrap().0;
+        let mut heading = headings.get_mut(ship.heading).unwrap();
 
         let offset = body.position.rotation * na::Vector2::new(200.0, 0.0);
         let position = body.position.translation.vector + offset;
@@ -166,11 +166,11 @@ fn update_heading(
 fn update_target(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
-    mut targets: Query<(&mut Transform,)>,
+    mut targets: Query<&mut Transform>,
 ) {
     for (player, body) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let mut target = targets.get_mut(player.target.entity).unwrap().0;
+        let mut target = targets.get_mut(player.target.entity).unwrap();
 
         let dir = player.target.direction.normalize();
 
