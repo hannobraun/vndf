@@ -27,9 +27,9 @@ struct GamePlugin;
 
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut AppBuilder) {
-        // TASK: Add system that rotates ship towards targets.
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(setup.system())
+            .add_system(rotate_ship.system())
             .add_system(update_heading.system())
             .add_system(update_target.system());
     }
@@ -142,6 +142,24 @@ fn spawn_ship<'c>(
         });
 
     commands
+}
+
+fn rotate_ship(
+    mut bodies: ResMut<RigidBodySet>,
+    mut players: Query<(&Player, &mut RigidBodyHandleComponent)>,
+) {
+    for (player, body) in players.iter_mut() {
+        let mut body = bodies.get_mut(body.handle()).unwrap();
+
+        let current_angle = body.position.rotation.angle();
+        let target_angle =
+            Vec2::unit_x().angle_between(player.target.direction);
+
+        // TASK: Be smarter about the thrust. Maybe a PID controller?
+        let thrust = 100_000.0;
+        let impulse = (target_angle - current_angle).signum() * thrust;
+        body.apply_torque_impulse(impulse);
+    }
 }
 
 fn update_heading(
