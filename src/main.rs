@@ -151,13 +151,13 @@ fn rotate_ship(
     for (player, body) in players.iter_mut() {
         let mut body = bodies.get_mut(body.handle()).unwrap();
 
-        let current_angle = body.position.rotation.angle();
-        let target_angle =
-            Vec2::unit_x().angle_between(player.target.direction);
+        let current = body.position.rotation * na::Vector2::new(1.0, 0.0);
+        let target = player.target.direction;
+        let difference = target.angle_between(Vec2::new(current.x, current.y));
 
         // TASK: Be smarter about the thrust. Maybe a PID controller?
         let thrust = 100_000.0;
-        let impulse = (target_angle - current_angle).signum() * thrust;
+        let impulse = -difference.signum() * thrust;
         body.apply_torque_impulse(impulse);
     }
 }
