@@ -12,6 +12,7 @@ use bevy_rapier2d::{
         geometry::ColliderBuilder,
     },
 };
+use pid::Pid;
 
 fn main() {
     App::build()
@@ -56,6 +57,7 @@ pub struct Player {
 struct Target {
     entity: Entity,
     direction: Vec2,
+    control: Pid<f32>,
 }
 
 pub struct Enemy;
@@ -97,6 +99,16 @@ fn setup(
         target: Target {
             entity: target,
             direction: Vec2::unit_x(),
+            // TASK: Optimize PID parameters.
+            control: Pid::new(
+                0.25,
+                0.0,
+                128.0,
+                f32::INFINITY,
+                f32::INFINITY,
+                f32::INFINITY,
+                0.0,
+            ),
         },
     });
     spawn_ship(
@@ -146,18 +158,23 @@ fn spawn_ship<'c>(
 
 fn rotate_ship(
     mut bodies: ResMut<RigidBodySet>,
-    mut players: Query<(&Player, &mut RigidBodyHandleComponent)>,
+    mut players: Query<(&mut Player, &mut RigidBodyHandleComponent)>,
 ) {
-    for (player, body) in players.iter_mut() {
+    for (mut player, body) in players.iter_mut() {
         let mut body = bodies.get_mut(body.handle()).unwrap();
 
         let current = body.position.rotation * na::Vector2::new(1.0, 0.0);
         let target = player.target.direction;
         let difference = target.angle_between(Vec2::new(current.x, current.y));
 
-        // TASK: Be smarter about the thrust. Maybe a PID controller?
+        let control_output =
+            player.target.control.next_control_output(difference);
+
+        // TASK: Place physical limitations on thrust.
+        // TASK: Restrict angular speed to a maximum value that control system
+        //       won't go over.
         let thrust = 100_000.0;
-        let impulse = -difference.signum() * thrust;
+        let impulse = control_output.output * thrust;
         body.apply_torque_impulse(impulse);
     }
 }
