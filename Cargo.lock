@@ -1687,9 +1687,9 @@ dependencies = [
 
 [[package]]
 name = "gfx-backend-dx11"
-version = "0.6.15"
+version = "0.6.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "52b0c3b8b2e0a60c1380a7c27652cd86b791e5d8312fb9592a7a59bd437e9532"
+checksum = "ae373632be90663cfa86d466f6f4e37d2d158eea2ad1b5bef0c89b1fa1ad4193"
 dependencies = [
  "arrayvec",
  "bitflags",
@@ -1740,9 +1740,9 @@ dependencies = [
 
 [[package]]
 name = "gfx-backend-metal"
-version = "0.6.4"
+version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60ba1c77c112e7d35786dbd49ed26f2a76ce53a44bc09fe964935e4e35ed7f2b"
+checksum = "273d60d5207f96d99e0d11d0718995f67e56533a9df1444d83baf787f4c3cb32"
 dependencies = [
  "arrayvec",
  "bitflags",
@@ -2486,9 +2486,9 @@ checksum = "c44922cb3dbb1c70b5e5f443d63b64363a898564d739ba5198e3a9138442868d"
 
 [[package]]
 name = "net2"
-version = "0.2.35"
+version = "0.2.36"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ebc3ec692ed7c9a255596c67808dee269f64655d8baf7b4f0638e51ba1d6853"
+checksum = "d7cf75f38f16cb05ea017784dc6dbfd354f76c223dba37701734c4f5a9337d02"
 dependencies = [
  "cfg-if 0.1.10",
  "libc",
@@ -3403,9 +3403,9 @@ checksum = "8fb1df15f412ee2e9dfc1c504260fa695c1c3f10fe9f4a6ee2d2184d7d6450e2"
 
 [[package]]
 name = "syn"
-version = "1.0.51"
+version = "1.0.52"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3b4f34193997d92804d359ed09953e25d5138df6bcc055a71bf68ee89fdf9223"
+checksum = "6c1e438504729046a5cfae47f97c30d6d083c7d91d94603efdae3477fc070d4c"
 dependencies = [
  "proc-macro2",
  "quote",
