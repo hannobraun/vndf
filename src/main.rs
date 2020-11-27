@@ -175,8 +175,8 @@ fn rotate_ship(
 
         // TASK: Restrict angular speed to a maximum value that control system
         //       won't go over.
-        let thrust = 100_000.0;
-        let impulse = control_output * thrust;
+        let max_thrust = 100_000.0;
+        let impulse = control_output * max_thrust;
         body.apply_torque_impulse(impulse);
     }
 }
