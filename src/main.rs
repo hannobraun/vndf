@@ -168,13 +168,13 @@ fn rotate_ship(
         let difference = target.angle_between(Vec2::new(current.x, current.y));
 
         let control_output =
-            player.target.control.next_control_output(difference);
+            player.target.control.next_control_output(difference).output;
 
         // TASK: Place physical limitations on thrust.
         // TASK: Restrict angular speed to a maximum value that control system
         //       won't go over.
         let thrust = 100_000.0;
-        let impulse = control_output.output * thrust;
+        let impulse = control_output * thrust;
         body.apply_torque_impulse(impulse);
     }
 }
