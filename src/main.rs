@@ -171,12 +171,12 @@ fn rotate_ship(
             player.target.control.next_control_output(difference).output;
 
         // Normalize between -1.0 and 1.0.
-        let control_output = f32::max(f32::min(control_output, 1.0), -1.0);
+        let normalized_output = f32::max(f32::min(control_output, 1.0), -1.0);
 
         // TASK: Restrict angular speed to a maximum value that control system
         //       won't go over.
         let max_thrust = 100_000.0;
-        let impulse = control_output * max_thrust;
+        let impulse = normalized_output * max_thrust;
         body.apply_torque_impulse(impulse);
     }
 }
