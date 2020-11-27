@@ -167,11 +167,11 @@ fn rotate_ship(
         let target = player.target.direction;
         let difference = target.angle_between(Vec2::new(current.x, current.y));
 
-        let control_output =
+        let output =
             player.target.control.next_control_output(difference).output;
 
         // Normalize between -1.0 and 1.0.
-        let normalized_output = f32::max(f32::min(control_output, 1.0), -1.0);
+        let normalized_output = f32::max(f32::min(output, 1.0), -1.0);
 
         // TASK: Restrict angular speed to a maximum value that control system
         //       won't go over.
