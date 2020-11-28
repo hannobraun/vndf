@@ -56,7 +56,12 @@ struct Ship {
 }
 
 impl Ship {
+    /// Control angular thrusters
+    ///
+    /// `setting` will be clamped to the range from `-1.0` to `1.0`.
     fn control_angular_thrusters(&self, setting: f32, body: &mut RigidBody) {
+        let setting = f32::max(f32::min(setting, 1.0), -1.0);
+
         let impulse = setting * self.angular_thrust;
         body.apply_torque_impulse(impulse);
     }
@@ -188,12 +193,11 @@ fn rotate_ship(
 
         let output =
             player.target.control.next_control_output(difference).output;
-        let normalized_output = f32::max(f32::min(output, 1.0), -1.0);
 
         let max_vel = PI * 2.0;
 
         if body.angvel < max_vel {
-            ship.control_angular_thrusters(normalized_output, &mut body);
+            ship.control_angular_thrusters(output, &mut body);
         }
     }
 }
