@@ -44,8 +44,12 @@ const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
 const LAYER_MARKER: f32 = 0.5;
 const LAYER_UI: f32 = 1.0;
 
+// TASK: Split `Ship` into two components: One with data relevant to gameplay,
+//       one with data relevant to graphics.
 // TASK: Add thrust setting and a system that applies it to body.
 struct Ship {
+    angular_thrust: f32,
+
     // TASK: Prototype turning this into general nav marker that also visualizes
     //       thrust setting through its size.
     heading: Entity,
@@ -141,7 +145,10 @@ fn spawn_ship<'c>(
         .unwrap();
 
     commands
-        .spawn((Ship { heading },))
+        .spawn((Ship {
+            angular_thrust: 100_000.0,
+            heading,
+        },))
         .with(
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y())
@@ -160,9 +167,9 @@ fn spawn_ship<'c>(
 
 fn rotate_ship(
     mut bodies: ResMut<RigidBodySet>,
-    mut players: Query<(&mut Player, &mut RigidBodyHandleComponent)>,
+    mut players: Query<(&mut Player, &Ship, &mut RigidBodyHandleComponent)>,
 ) {
-    for (mut player, body) in players.iter_mut() {
+    for (mut player, ship, body) in players.iter_mut() {
         let mut body = bodies.get_mut(body.handle()).unwrap();
 
         let current = body.position.rotation * na::Vector2::new(1.0, 0.0);
@@ -176,11 +183,10 @@ fn rotate_ship(
             player.target.control.next_control_output(difference).output;
         let normalized_output = f32::max(f32::min(output, 1.0), -1.0);
 
-        let max_thrust = 100_000.0;
         let max_vel = PI * 2.0;
 
         if body.angvel < max_vel {
-            let impulse = normalized_output * max_thrust;
+            let impulse = normalized_output * ship.angular_thrust;
             body.apply_torque_impulse(impulse);
         }
     }
