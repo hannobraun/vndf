@@ -1,6 +1,8 @@
 mod graphics;
 mod input;
 
+use std::f32::consts::PI;
+
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_rapier2d::{
     na,
@@ -167,15 +169,20 @@ fn rotate_ship(
         let target = player.target.direction;
         let difference = target.angle_between(Vec2::new(current.x, current.y));
 
+        // TASK: Before doing anything else, check whether angular velocity is
+        //       above maximum, and decelerate, if so.
+
         let output =
             player.target.control.next_control_output(difference).output;
         let normalized_output = f32::max(f32::min(output, 1.0), -1.0);
 
-        // TASK: Restrict angular speed to a maximum value that control system
-        //       won't go over.
         let max_thrust = 100_000.0;
-        let impulse = normalized_output * max_thrust;
-        body.apply_torque_impulse(impulse);
+        let max_vel = PI * 2.0;
+
+        if body.angvel < max_vel {
+            let impulse = normalized_output * max_thrust;
+            body.apply_torque_impulse(impulse);
+        }
     }
 }
 
