@@ -44,7 +44,7 @@ const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
 const LAYER_MARKER: f32 = 0.5;
 const LAYER_UI: f32 = 1.0;
 
-// TASK: Add thrust setting and system that applies it to body.
+// TASK: Add thrust setting and a system that applies it to body.
 struct Ship {
     // TASK: Prototype turning this into general nav marker that also visualizes
     //       thrust setting through its size.
