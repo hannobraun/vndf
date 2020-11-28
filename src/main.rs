@@ -10,7 +10,7 @@ use bevy_rapier2d::{
         RapierConfiguration, RapierPhysicsPlugin, RigidBodyHandleComponent,
     },
     rapier::{
-        dynamics::{RigidBodyBuilder, RigidBodySet},
+        dynamics::{RigidBody, RigidBodyBuilder, RigidBodySet},
         geometry::ColliderBuilder,
     },
 };
@@ -53,6 +53,13 @@ struct Ship {
     // TASK: Prototype turning this into general nav marker that also visualizes
     //       thrust setting through its size.
     heading: Entity,
+}
+
+impl Ship {
+    fn control_angular_thrusters(&self, setting: f32, body: &mut RigidBody) {
+        let impulse = setting * self.angular_thrust;
+        body.apply_torque_impulse(impulse);
+    }
 }
 
 pub struct Player {
@@ -186,8 +193,7 @@ fn rotate_ship(
         let max_vel = PI * 2.0;
 
         if body.angvel < max_vel {
-            let impulse = normalized_output * ship.angular_thrust;
-            body.apply_torque_impulse(impulse);
+            ship.control_angular_thrusters(normalized_output, &mut body);
         }
     }
 }
