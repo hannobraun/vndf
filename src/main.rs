@@ -1,6 +1,8 @@
 mod graphics;
 mod input;
 
+use std::f32::consts::PI;
+
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_rapier2d::{
     na,
@@ -212,8 +214,12 @@ fn rotate_ship(
         let target = player.target.direction;
         let difference = target.angle_between(Vec2::new(current.x, current.y));
 
-        // TASK: Before doing anything else, check whether angular velocity is
-        //       above maximum, and decelerate, if so.
+        let max_vel = PI * 2.0;
+        if body.angvel.abs() > max_vel {
+            let setting = (max_vel - body.angvel).signum();
+            ship.control_angular_thrusters(setting, &mut body, &log);
+            continue;
+        }
 
         let output =
             player.target.control.next_control_output(difference).output;
