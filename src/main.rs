@@ -57,6 +57,7 @@ const LAYER_UI: f32 = 1.0;
 // TASK: Add thrust setting and a system that applies it to body.
 struct Ship {
     angular_thrust: f32,
+    angular_thrust_setting: f32,
 
     // TASK: Prototype turning this into general nav marker that also visualizes
     //       thrust setting through its size.
@@ -75,7 +76,10 @@ impl Ship {
     ) {
         let setting = f32::max(f32::min(setting, 1.0), -1.0);
 
-        debug!(log, "Controlling angular thrusters"; "setting" => setting);
+        if setting != self.angular_thrust_setting {
+            debug!(log, "Controlling angular thrusters"; "setting" => setting);
+            self.angular_thrust_setting = setting;
+        }
 
         let impulse = setting * self.angular_thrust;
         body.apply_torque_impulse(impulse);
@@ -177,6 +181,7 @@ fn spawn_ship<'c>(
     commands
         .spawn((Ship {
             angular_thrust: 100_000.0,
+            angular_thrust_setting: 0.0,
             heading,
         },))
         .with(
