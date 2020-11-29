@@ -13,7 +13,7 @@ use bevy_rapier2d::{
     },
 };
 use pid::Pid;
-use slog::{info, o, Drain as _, Logger};
+use slog::{debug, info, o, Drain as _, Logger};
 
 fn main() {
     let decorator = slog_term::TermDecorator::new().build();
@@ -67,8 +67,15 @@ impl Ship {
     /// Control angular thrusters
     ///
     /// `setting` will be clamped to the range from `-1.0` to `1.0`.
-    fn control_angular_thrusters(&self, setting: f32, body: &mut RigidBody) {
+    fn control_angular_thrusters(
+        &self,
+        setting: f32,
+        body: &mut RigidBody,
+        log: &Logger,
+    ) {
         let setting = f32::max(f32::min(setting, 1.0), -1.0);
+
+        debug!(log, "Controlling angular thrusters"; "setting" => setting);
 
         let impulse = setting * self.angular_thrust;
         body.apply_torque_impulse(impulse);
@@ -189,6 +196,7 @@ fn spawn_ship<'c>(
 }
 
 fn rotate_ship(
+    log: Res<Logger>,
     mut bodies: ResMut<RigidBodySet>,
     mut players: Query<(&mut Player, &Ship, &mut RigidBodyHandleComponent)>,
 ) {
@@ -205,7 +213,7 @@ fn rotate_ship(
         let output =
             player.target.control.next_control_output(difference).output;
 
-        ship.control_angular_thrusters(output, &mut body);
+        ship.control_angular_thrusters(output, &mut body, &log);
     }
 }
 
