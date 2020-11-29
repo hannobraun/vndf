@@ -76,6 +76,17 @@ impl Ship {
         body: &mut RigidBody,
         log: &Logger,
     ) {
+        // TASK: Split into two methods:
+        //       - One that updates the body based on the thrust setting and is
+        //         called every frame.
+        //       - One that lives in `Player` and decides when to change the
+        //         thrust setting. The logging should be moved there.
+        //
+        //       Right now, this method can be called multiple times per frame
+        //       by accident, which would result in more thrust than is
+        //       physically possible. It should result in the setting being
+        //       overwritten instead.
+
         let setting = f32::max(f32::min(setting, 1.0), -1.0);
 
         if setting != self.angular_thrust_setting {
@@ -221,6 +232,8 @@ fn rotate_ship(
             continue;
         }
 
+        // TASK: Replace PID controller with more aggressive, model-based
+        //       control scheme.
         let output =
             player.target.control.next_control_output(difference).output;
 
