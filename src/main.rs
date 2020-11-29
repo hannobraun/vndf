@@ -25,6 +25,7 @@ fn main() {
     info!(log, "Initialized logging infrastructure.");
 
     App::build()
+        .add_resource(log)
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
         .add_plugin(crate::input::InputPlugin)
@@ -95,6 +96,7 @@ fn setup(
     mut commands: Commands,
     mut rapier: ResMut<RapierConfiguration>,
     mut materials: ResMut<Assets<ColorMaterial>>,
+    log: Res<Logger>,
 ) {
     rapier.gravity = na::Vector2::zeros();
 
@@ -143,6 +145,8 @@ fn setup(
         &mut materials,
     )
     .with(Enemy);
+
+    info!(log, "Set up world.");
 }
 
 fn spawn_ship<'c>(
