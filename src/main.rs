@@ -68,7 +68,7 @@ impl Ship {
     ///
     /// `setting` will be clamped to the range from `-1.0` to `1.0`.
     fn control_angular_thrusters(
-        &self,
+        &mut self,
         setting: f32,
         body: &mut RigidBody,
         log: &Logger,
@@ -198,9 +198,9 @@ fn spawn_ship<'c>(
 fn rotate_ship(
     log: Res<Logger>,
     mut bodies: ResMut<RigidBodySet>,
-    mut players: Query<(&mut Player, &Ship, &mut RigidBodyHandleComponent)>,
+    mut players: Query<(&mut Player, &mut Ship, &mut RigidBodyHandleComponent)>,
 ) {
-    for (mut player, ship, body) in players.iter_mut() {
+    for (mut player, mut ship, body) in players.iter_mut() {
         let mut body = bodies.get_mut(body.handle()).unwrap();
 
         let current = body.position.rotation * na::Vector2::new(1.0, 0.0);
