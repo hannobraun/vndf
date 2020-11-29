@@ -1,8 +1,6 @@
 mod graphics;
 mod input;
 
-use std::f32::consts::PI;
-
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_rapier2d::{
     na,
@@ -194,11 +192,7 @@ fn rotate_ship(
         let output =
             player.target.control.next_control_output(difference).output;
 
-        let max_vel = PI * 2.0;
-
-        if body.angvel < max_vel {
-            ship.control_angular_thrusters(output, &mut body);
-        }
+        ship.control_angular_thrusters(output, &mut body);
     }
 }
 
