@@ -13,8 +13,17 @@ use bevy_rapier2d::{
     },
 };
 use pid::Pid;
+use slog::{info, o, Drain as _};
 
 fn main() {
+    let decorator = slog_term::TermDecorator::new().build();
+    let drain = slog_term::FullFormat::new(decorator).build().fuse();
+    let drain = slog_async::Async::new(drain).build().fuse();
+
+    let log = slog::Logger::root(drain, o!());
+
+    info!(log, "Initialized logging infrastructure.");
+
     App::build()
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
