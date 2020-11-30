@@ -204,7 +204,7 @@ fn spawn_ship<'c>(
 fn rotate_ship(
     log: Res<Logger>,
     mut bodies: ResMut<RigidBodySet>,
-    mut players: Query<(&mut Player, &mut Ship, &mut RigidBodyHandleComponent)>,
+    mut players: Query<(&mut Player, &mut Ship, &RigidBodyHandleComponent)>,
 ) {
     for (mut player, mut ship, body) in players.iter_mut() {
         let body = bodies.get_mut(body.handle()).unwrap();
