@@ -203,11 +203,11 @@ fn spawn_ship<'c>(
 
 fn rotate_ship(
     log: Res<Logger>,
-    mut bodies: ResMut<RigidBodySet>,
+    bodies: Res<RigidBodySet>,
     mut players: Query<(&mut Player, &mut Ship, &RigidBodyHandleComponent)>,
 ) {
     for (mut player, mut ship, body) in players.iter_mut() {
-        let body = bodies.get_mut(body.handle()).unwrap();
+        let body = bodies.get(body.handle()).unwrap();
 
         let current = body.position.rotation * na::Vector2::new(1.0, 0.0);
         let target = player.target.direction;
