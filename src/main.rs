@@ -43,6 +43,7 @@ impl Plugin for GamePlugin {
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
+            .add_system(update_ships.system())
             .add_system(update_heading.system())
             .add_system(update_target.system());
     }
@@ -70,31 +71,17 @@ impl Ship {
     /// Control angular thrusters
     ///
     /// `setting` will be clamped to the range from `-1.0` to `1.0`.
-    fn control_angular_thrusters(
-        &mut self,
-        setting: f32,
-        body: &mut RigidBody,
-        log: &Logger,
-    ) {
-        // TASK: Split into two methods:
-        //       - One that updates the body based on the thrust setting and is
-        //         called every frame.
-        //       - One that lives in `Player` and decides when to change the
-        //         thrust setting. The logging should be moved there.
-        //
-        //       Right now, this method can be called multiple times per frame
-        //       by accident, which would result in more thrust than is
-        //       physically possible. It should result in the setting being
-        //       overwritten instead.
-
+    fn control_angular_thrusters(&mut self, setting: f32, log: &Logger) {
         let setting = f32::max(f32::min(setting, 1.0), -1.0);
 
         if setting != self.angular_thrust_setting {
             debug!(log, "Controlling angular thrusters"; "setting" => setting);
             self.angular_thrust_setting = setting;
         }
+    }
 
-        let impulse = setting * self.angular_thrust;
+    fn update(&self, body: &mut RigidBody) {
+        let impulse = self.angular_thrust_setting * self.angular_thrust;
         body.apply_torque_impulse(impulse);
     }
 }
@@ -220,7 +207,7 @@ fn rotate_ship(
     mut players: Query<(&mut Player, &mut Ship, &mut RigidBodyHandleComponent)>,
 ) {
     for (mut player, mut ship, body) in players.iter_mut() {
-        let mut body = bodies.get_mut(body.handle()).unwrap();
+        let body = bodies.get_mut(body.handle()).unwrap();
 
         let current = body.position.rotation * na::Vector2::new(1.0, 0.0);
         let target = player.target.direction;
@@ -229,7 +216,7 @@ fn rotate_ship(
         let max_vel = PI * 2.0;
         if body.angvel.abs() > max_vel {
             let setting = (max_vel - body.angvel).signum();
-            ship.control_angular_thrusters(setting, &mut body, &log);
+            ship.control_angular_thrusters(setting, &log);
             continue;
         }
 
@@ -238,7 +225,18 @@ fn rotate_ship(
         let output =
             player.target.control.next_control_output(difference).output;
 
-        ship.control_angular_thrusters(output, &mut body, &log);
+        ship.control_angular_thrusters(output, &log);
+    }
+}
+
+fn update_ships(
+    mut bodies: ResMut<RigidBodySet>,
+    ships: Query<(&Ship, &RigidBodyHandleComponent)>,
+) {
+    for (ship, body) in ships.iter() {
+        let mut body = bodies.get_mut(body.handle()).unwrap();
+
+        ship.update(&mut body);
     }
 }
 
