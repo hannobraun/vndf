@@ -82,7 +82,7 @@ impl Ship {
 
     fn update(&self, body: &mut RigidBody) {
         let impulse = self.angular_thrust_setting * self.angular_thrust;
-        body.apply_torque_impulse(impulse);
+        body.apply_torque_impulse(impulse, true);
     }
 }
 
@@ -209,13 +209,13 @@ fn rotate_ship(
     for (mut player, mut ship, body) in players.iter_mut() {
         let body = bodies.get(body.handle()).unwrap();
 
-        let current = body.position.rotation * na::Vector2::new(1.0, 0.0);
+        let current = body.position().rotation * na::Vector2::new(1.0, 0.0);
         let target = player.target.direction;
         let difference = target.angle_between(Vec2::new(current.x, current.y));
 
         let max_vel = PI * 2.0;
-        if body.angvel.abs() > max_vel {
-            let setting = (max_vel - body.angvel).signum();
+        if body.angvel().abs() > max_vel {
+            let setting = (max_vel - body.angvel()).signum();
             ship.control_angular_thrusters(setting, &log);
             continue;
         }
@@ -249,8 +249,8 @@ fn update_heading(
         let body = bodies.get(body.handle()).unwrap();
         let mut heading = headings.get_mut(ship.heading).unwrap();
 
-        let offset = body.position.rotation * na::Vector2::new(200.0, 0.0);
-        let position = body.position.translation.vector + offset;
+        let offset = body.position().rotation * na::Vector2::new(200.0, 0.0);
+        let position = body.position().translation.vector + offset;
         *heading = Transform::from_translation(Vec3::new(
             position.x,
             position.y,
@@ -270,7 +270,7 @@ fn update_target(
 
         let dir = player.target.direction.normalize();
 
-        let position = body.position.translation.vector
+        let position = body.position().translation.vector
             + na::Vector2::new(dir.x(), dir.y()) * 250.0;
         *target = Transform::from_translation(Vec3::new(
             position.x, position.y, LAYER_UI,
