@@ -158,6 +158,7 @@ fn setup(
                 f32::INFINITY,
                 f32::INFINITY,
                 f32::INFINITY,
+                f32::INFINITY,
                 0.0,
             ),
         },
