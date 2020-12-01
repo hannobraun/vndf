@@ -213,6 +213,8 @@ fn rotate_ship(
         let target = player.target.direction;
         let difference = target.angle_between(Vec2::new(current.x, current.y));
 
+        // Decelerate as fast as possible, if angular velocity is above a
+        // maximum value.
         let max_vel = PI * 2.0;
         if body.angvel().abs() > max_vel {
             let setting = (max_vel - body.angvel()).signum();
