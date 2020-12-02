@@ -178,7 +178,7 @@ fn spawn_ship<'c>(
 
 fn rotate_ship(
     mut bodies: ResMut<RigidBodySet>,
-    mut players: Query<(&mut Player, &RigidBodyHandleComponent)>,
+    mut players: Query<(&Player, &RigidBodyHandleComponent)>,
 ) {
     for (player, body) in players.iter_mut() {
         let body = bodies.get_mut(body.handle()).unwrap();
