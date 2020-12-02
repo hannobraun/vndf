@@ -2837,15 +2837,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pid"
-version = "3.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d81764342f0ec3d969b9898925e5b0dc31c95466cb70a79a3064b33eb3b5480a"
-dependencies = [
- "num-traits",
-]
-
-[[package]]
 name = "pin-project"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3816,7 +3807,6 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "bevy_rapier2d",
- "pid",
  "slog",
  "slog-async",
  "slog-term",
