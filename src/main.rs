@@ -10,7 +10,7 @@ use bevy_rapier2d::{
     },
     rapier::math::Isometry,
     rapier::{
-        dynamics::{RigidBody, RigidBodyBuilder, RigidBodySet},
+        dynamics::{RigidBodyBuilder, RigidBodySet},
         geometry::ColliderBuilder,
     },
 };
@@ -42,7 +42,6 @@ impl Plugin for GamePlugin {
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
-            .add_system(update_ships.system())
             .add_system(update_heading.system())
             .add_system(update_target.system());
     }
@@ -58,19 +57,9 @@ const LAYER_UI: f32 = 1.0;
 //       one with data relevant to graphics.
 // TASK: Add thrust setting and a system that applies it to body.
 struct Ship {
-    angular_thrust: f32,
-    angular_thrust_setting: f32,
-
     // TASK: Prototype turning this into general nav marker that also visualizes
     //       thrust setting through its size.
     heading: Entity,
-}
-
-impl Ship {
-    fn update(&self, body: &mut RigidBody) {
-        let impulse = self.angular_thrust_setting * self.angular_thrust;
-        body.apply_torque_impulse(impulse, true);
-    }
 }
 
 pub struct Player {
@@ -155,11 +144,7 @@ fn spawn_ship<'c>(
         .unwrap();
 
     commands
-        .spawn((Ship {
-            angular_thrust: 100_000.0,
-            angular_thrust_setting: 0.0,
-            heading,
-        },))
+        .spawn((Ship { heading },))
         .with(
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y())
@@ -193,17 +178,6 @@ fn rotate_ship(
             ),
             true,
         );
-    }
-}
-
-fn update_ships(
-    mut bodies: ResMut<RigidBodySet>,
-    ships: Query<(&Ship, &RigidBodyHandleComponent)>,
-) {
-    for (ship, body) in ships.iter() {
-        let mut body = bodies.get_mut(body.handle()).unwrap();
-
-        ship.update(&mut body);
     }
 }
 
