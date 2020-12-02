@@ -1,21 +1,20 @@
 mod graphics;
 mod input;
 
-use std::f32::consts::PI;
-
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_rapier2d::{
     na,
+    na::UnitComplex,
     physics::{
         RapierConfiguration, RapierPhysicsPlugin, RigidBodyHandleComponent,
     },
+    rapier::math::Isometry,
     rapier::{
         dynamics::{RigidBody, RigidBodyBuilder, RigidBodySet},
         geometry::ColliderBuilder,
     },
 };
-use pid::Pid;
-use slog::{debug, info, o, Drain as _, Logger};
+use slog::{info, o, Drain as _, Logger};
 
 fn main() {
     let decorator = slog_term::TermDecorator::new().build();
@@ -68,18 +67,6 @@ struct Ship {
 }
 
 impl Ship {
-    /// Control angular thrusters
-    ///
-    /// `setting` will be clamped to the range from `-1.0` to `1.0`.
-    fn control_angular_thrusters(&mut self, setting: f32, log: &Logger) {
-        let setting = f32::max(f32::min(setting, 1.0), -1.0);
-
-        if setting != self.angular_thrust_setting {
-            debug!(log, "Controlling angular thrusters"; "setting" => setting);
-            self.angular_thrust_setting = setting;
-        }
-    }
-
     fn update(&self, body: &mut RigidBody) {
         let impulse = self.angular_thrust_setting * self.angular_thrust;
         body.apply_torque_impulse(impulse, true);
@@ -94,7 +81,6 @@ pub struct Player {
 struct Target {
     entity: Entity,
     direction: Vec2,
-    control: Pid<f32>,
 }
 
 pub struct Enemy;
@@ -137,17 +123,6 @@ fn setup(
         target: Target {
             entity: target,
             direction: Vec2::unit_x(),
-            // TASK: Optimize PID parameters.
-            control: Pid::new(
-                0.25,
-                0.0,
-                128.0,
-                f32::INFINITY,
-                f32::INFINITY,
-                f32::INFINITY,
-                f32::INFINITY,
-                0.0,
-            ),
         },
     });
     spawn_ship(
@@ -202,32 +177,22 @@ fn spawn_ship<'c>(
 }
 
 fn rotate_ship(
-    log: Res<Logger>,
-    bodies: Res<RigidBodySet>,
-    mut players: Query<(&mut Player, &mut Ship, &RigidBodyHandleComponent)>,
+    mut bodies: ResMut<RigidBodySet>,
+    mut players: Query<(&mut Player, &RigidBodyHandleComponent)>,
 ) {
-    for (mut player, mut ship, body) in players.iter_mut() {
-        let body = bodies.get(body.handle()).unwrap();
+    for (player, body) in players.iter_mut() {
+        let body = bodies.get_mut(body.handle()).unwrap();
 
-        let current = body.position().rotation * na::Vector2::new(1.0, 0.0);
-        let target = player.target.direction;
-        let difference = target.angle_between(Vec2::new(current.x, current.y));
+        let target_angle =
+            Vec2::unit_x().angle_between(player.target.direction);
 
-        // Decelerate as fast as possible, if angular velocity is above a
-        // maximum value.
-        let max_vel = PI * 2.0;
-        if body.angvel().abs() > max_vel {
-            let setting = (max_vel - body.angvel()).signum();
-            ship.control_angular_thrusters(setting, &log);
-            continue;
-        }
-
-        // TASK: Replace PID controller with more aggressive, model-based
-        //       control scheme.
-        let output =
-            player.target.control.next_control_output(difference).output;
-
-        ship.control_angular_thrusters(output, &log);
+        body.set_position(
+            Isometry::from_parts(
+                body.position().translation,
+                UnitComplex::from_angle(target_angle),
+            ),
+            true,
+        );
     }
 }
 
