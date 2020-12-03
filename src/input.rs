@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use bevy::{prelude::*, window::WindowId};
+use bevy::{input::mouse::MouseWheel, prelude::*, window::WindowId};
 use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
@@ -11,8 +11,8 @@ pub struct InputPlugin;
 
 impl Plugin for InputPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        // TASK: Add system that applies mouse wheel changes to ship thrust.
-        app.add_system(handle_mouse_click.system());
+        app.add_system(handle_mouse_click.system())
+            .add_system(handle_mouse_wheel.system());
     }
 }
 
@@ -60,5 +60,12 @@ fn handle_mouse_click(
                 player.target.direction = Vec2::new(direction.x, direction.y);
             }
         }
+    }
+}
+
+fn handle_mouse_wheel(mut events: ResMut<Events<MouseWheel>>) {
+    for event in events.drain() {
+        // TASK: Apply to ship thrust.
+        println!("{:?}", event);
     }
 }
