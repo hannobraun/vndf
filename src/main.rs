@@ -55,11 +55,12 @@ const LAYER_UI: f32 = 1.0;
 
 // TASK: Split `Ship` into two components: One with data relevant to gameplay,
 //       one with data relevant to graphics.
-// TASK: Add thrust setting and a system that applies it to body.
+// TASK: Add system that applies thrust to body.
 struct Ship {
     // TASK: Prototype turning this into general nav marker that also visualizes
     //       thrust setting through its size.
     heading: Entity,
+    thrust: f32,
 }
 
 pub struct Player {
@@ -144,7 +145,10 @@ fn spawn_ship<'c>(
         .unwrap();
 
     commands
-        .spawn((Ship { heading },))
+        .spawn((Ship {
+            heading,
+            thrust: 0.0,
+        },))
         .with(
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x(), position.y())

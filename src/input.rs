@@ -5,7 +5,7 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::Player;
+use crate::{Player, Ship};
 
 pub struct InputPlugin;
 
@@ -63,9 +63,15 @@ fn handle_mouse_click(
     }
 }
 
-fn handle_mouse_wheel(mut events: ResMut<Events<MouseWheel>>) {
+fn handle_mouse_wheel(
+    mut events: ResMut<Events<MouseWheel>>,
+    mut players: Query<(&Player, &mut Ship)>,
+) {
     for event in events.drain() {
-        // TASK: Apply to ship thrust.
-        println!("{:?}", event);
+        for (_, mut ship) in players.iter_mut() {
+            // TASK: Clamp thrust between minimum and maximum values.
+            ship.thrust += event.y;
+            println!("thrust: {}", ship.thrust);
+        }
     }
 }
