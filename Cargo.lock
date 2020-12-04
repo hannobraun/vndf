@@ -110,9 +110,9 @@ dependencies = [
 
 [[package]]
 name = "android_logger"
-version = "0.9.0"
+version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5027a747b8132dc36dc894415a300aab31d6489ee788e9ba07bc99558b1278ca"
+checksum = "7e93c367fbabdddb4126bf56402ccb62a676c6817941490961a421d10ae46c2f"
 dependencies = [
  "android_log-sys 0.2.0",
  "env_logger",
@@ -269,7 +269,7 @@ version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8de175e156277bf382d5212e4f580e74caaa62917b5554e12ab2addd87ae789"
 dependencies = [
- "android_logger 0.9.0",
+ "android_logger 0.9.1",
  "bevy_app",
  "bevy_asset",
  "bevy_audio",
@@ -837,9 +837,9 @@ dependencies = [
 
 [[package]]
 name = "bit-vec"
-version = "0.6.2"
+version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5f0dc55f2d8a1a85650ac47858bb001b4c0dd73d79e3c455a842925e68d29cd3"
+checksum = "349f9b6a179ed607305526ca489b34ad0a41aed5f7980fa90eb03160b69598fb"
 
 [[package]]
 name = "bitflags"
@@ -896,9 +896,9 @@ checksum = "631ae5198c9be5e753e5cc215e1bd73c2b466a3565173db433f52bb9d3e66dba"
 
 [[package]]
 name = "cc"
-version = "1.0.65"
+version = "1.0.66"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95752358c8f7552394baf48cd82695b345628ad3f170d607de3ca03b8dacca15"
+checksum = "4c0496836a84f8d0495758516b8621a622beb77c0fed418570e50764093ced48"
 dependencies = [
  "jobserver",
 ]
