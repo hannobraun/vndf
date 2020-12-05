@@ -70,7 +70,7 @@ fn handle_mouse_wheel(
     for event in events.drain() {
         for (_, mut ship) in players.iter_mut() {
             // TASK: Clamp thrust between minimum and maximum values.
-            ship.thrust += event.y;
+            ship.thrust += event.y / 10.0;
             println!("thrust: {}", ship.thrust);
         }
     }
