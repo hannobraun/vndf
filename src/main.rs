@@ -204,6 +204,8 @@ fn update_heading(
     }
 }
 
+// TASK: Rename to `update_nav_marker` or something along those lines.
+// TASK: Update nav marker's size, according to ship thrust.
 fn update_target(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
