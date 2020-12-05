@@ -69,8 +69,10 @@ fn handle_mouse_wheel(
 ) {
     for event in events.drain() {
         for (_, mut ship) in players.iter_mut() {
-            // TASK: Clamp thrust between minimum and maximum values.
+            // TASK: Move this into an accessor method on `Ship`.
             ship.thrust += event.y / 10.0;
+            ship.thrust = f32::min(f32::max(ship.thrust, 0.0), 1.0);
+
             println!("thrust: {}", ship.thrust);
         }
     }
