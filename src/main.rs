@@ -208,11 +208,11 @@ fn update_heading(
 fn update_nav_marker(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
-    mut targets: Query<&mut Transform>,
+    mut nav_markers: Query<&mut Transform>,
 ) {
     for (player, body) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let mut target = targets.get_mut(player.nav_marker.entity).unwrap();
+        let mut target = nav_markers.get_mut(player.nav_marker.entity).unwrap();
 
         let dir = player.nav_marker.direction.normalize();
 
