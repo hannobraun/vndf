@@ -65,7 +65,7 @@ struct Ship {
 
 pub struct Player {
     camera: Entity,
-    target: NavMarker,
+    nav_marker: NavMarker,
 }
 
 struct NavMarker {
@@ -110,7 +110,7 @@ fn setup(
     )
     .with(Player {
         camera,
-        target: NavMarker {
+        nav_marker: NavMarker {
             entity: nav_marker,
             direction: Vec2::unit_x(),
         },
@@ -173,7 +173,7 @@ fn rotate_ship(
         let body = bodies.get_mut(body.handle()).unwrap();
 
         let target_angle =
-            Vec2::unit_x().angle_between(player.target.direction);
+            Vec2::unit_x().angle_between(player.nav_marker.direction);
 
         body.set_position(
             Isometry::from_parts(
@@ -212,9 +212,9 @@ fn update_nav_marker(
 ) {
     for (player, body) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let mut target = targets.get_mut(player.target.entity).unwrap();
+        let mut target = targets.get_mut(player.nav_marker.entity).unwrap();
 
-        let dir = player.target.direction.normalize();
+        let dir = player.nav_marker.direction.normalize();
 
         let position = body.position().translation.vector
             + na::Vector2::new(dir.x(), dir.y()) * 250.0;
