@@ -43,7 +43,7 @@ impl Plugin for GamePlugin {
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
             .add_system(update_heading.system())
-            .add_system(update_target.system());
+            .add_system(update_nav_marker.system());
     }
 }
 
@@ -204,9 +204,8 @@ fn update_heading(
     }
 }
 
-// TASK: Rename to `update_nav_marker` or something along those lines.
 // TASK: Update nav marker's size, according to ship thrust.
-fn update_target(
+fn update_nav_marker(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
     mut targets: Query<&mut Transform>,
