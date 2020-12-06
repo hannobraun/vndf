@@ -201,6 +201,9 @@ fn update_heading(
     }
 }
 
+// TASK: Move to dedicated module, `graphics::nav_marker`.
+// TASK: Split into two system, one that updates position, another that updates
+//       size.
 fn update_nav_marker(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &Ship, &RigidBodyHandleComponent)>,
