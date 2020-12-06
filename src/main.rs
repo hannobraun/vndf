@@ -92,7 +92,7 @@ fn setup(
         .current_entity()
         .unwrap();
 
-    let target = commands
+    let nav_marker = commands
         .spawn((Transform::default(),))
         .with_bundle(SpriteComponents {
             material: materials.add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
@@ -111,7 +111,7 @@ fn setup(
     .with(Player {
         camera,
         target: Target {
-            entity: target,
+            entity: nav_marker,
             direction: Vec2::unit_x(),
         },
     });
