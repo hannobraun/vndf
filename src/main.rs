@@ -172,13 +172,13 @@ fn rotate_ship(
     for (player, body) in players.iter_mut() {
         let body = bodies.get_mut(body.handle()).unwrap();
 
-        let target_angle =
+        let nav_marker_angle =
             Vec2::unit_x().angle_between(player.nav_marker.direction);
 
         body.set_position(
             Isometry::from_parts(
                 body.position().translation,
-                UnitComplex::from_angle(target_angle),
+                UnitComplex::from_angle(nav_marker_angle),
             ),
             true,
         );
