@@ -212,13 +212,14 @@ fn update_nav_marker(
 ) {
     for (player, body) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let mut target = nav_markers.get_mut(player.nav_marker.entity).unwrap();
+        let mut transform =
+            nav_markers.get_mut(player.nav_marker.entity).unwrap();
 
         let dir = player.nav_marker.direction.normalize();
 
         let position = body.position().translation.vector
             + na::Vector2::new(dir.x(), dir.y()) * 250.0;
-        *target = Transform::from_translation(Vec3::new(
+        *transform = Transform::from_translation(Vec3::new(
             position.x, position.y, LAYER_UI,
         ));
     }
