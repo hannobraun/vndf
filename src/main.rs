@@ -94,7 +94,6 @@ fn setup(
         .spawn((Transform::default(),))
         .with_bundle(SpriteComponents {
             material: materials.add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
-            sprite: Sprite::new(Vec2::new(15.0, 15.0)),
             ..Default::default()
         })
         .current_entity()
