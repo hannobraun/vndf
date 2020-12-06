@@ -57,8 +57,6 @@ const LAYER_UI: f32 = 1.0;
 //       one with data relevant to graphics.
 // TASK: Add system that applies thrust to body.
 struct Ship {
-    // TASK: Prototype turning this into general nav marker that also visualizes
-    //       thrust setting through its size.
     heading: Entity,
     thrust: f32,
 }
