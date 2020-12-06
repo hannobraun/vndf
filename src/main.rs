@@ -65,10 +65,10 @@ struct Ship {
 
 pub struct Player {
     camera: Entity,
-    target: Target,
+    target: NavMarker,
 }
 
-struct Target {
+struct NavMarker {
     entity: Entity,
     direction: Vec2,
 }
@@ -110,7 +110,7 @@ fn setup(
     )
     .with(Player {
         camera,
-        target: Target {
+        target: NavMarker {
             entity: nav_marker,
             direction: Vec2::unit_x(),
         },
