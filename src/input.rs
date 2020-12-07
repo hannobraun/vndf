@@ -28,7 +28,7 @@ fn handle_mouse_click(
     windows: Res<Windows>,
     bodies: Res<RigidBodySet>,
     mut players: Query<(&mut Player, &RigidBodyHandleComponent)>,
-    transforms: Query<(&Transform,)>,
+    transforms: Query<&Transform>,
     mut nav_markers: Query<&mut NavMarker>,
 ) {
     for event in events.drain() {
@@ -50,7 +50,7 @@ fn handle_mouse_click(
 
                 let position = state.position - size;
 
-                let camera = transforms.get(player.camera).unwrap().0;
+                let camera = transforms.get(player.camera).unwrap();
                 let position =
                     camera.compute_matrix() * position.extend(0.0).extend(1.0);
 
