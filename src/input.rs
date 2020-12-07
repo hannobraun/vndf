@@ -5,7 +5,7 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{Player, Ship};
+use crate::{NavMarker, Player, Ship};
 
 pub struct InputPlugin;
 
@@ -29,6 +29,7 @@ fn handle_mouse_click(
     bodies: Res<RigidBodySet>,
     mut players: Query<(&mut Player, &RigidBodyHandleComponent)>,
     transforms: Query<(&Transform,)>,
+    mut nav_markers: Query<&mut NavMarker>,
 ) {
     for event in events.drain() {
         *state = Some(MousePosition {
@@ -39,7 +40,7 @@ fn handle_mouse_click(
 
     if input.just_pressed(MouseButton::Left) {
         if let Some(state) = state.deref() {
-            for (mut player, body) in players.iter_mut() {
+            for (player, body) in players.iter_mut() {
                 let window = windows
                     .get(state.window_id)
                     .expect("Could not find window");
@@ -57,8 +58,9 @@ fn handle_mouse_click(
                 let direction = na::Vector2::new(position.x(), position.y())
                     - body.position().translation.vector;
 
-                player.nav_marker.direction =
-                    Vec2::new(direction.x, direction.y);
+                let mut nav_marker =
+                    nav_markers.get_mut(player.nav_marker).unwrap();
+                nav_marker.direction = Vec2::new(direction.x, direction.y);
             }
         }
     }

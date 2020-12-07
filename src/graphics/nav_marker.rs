@@ -3,19 +3,19 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{Player, Ship, LAYER_UI};
+use crate::{NavMarker, Player, Ship, LAYER_UI};
 
 pub fn update_position(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
-    mut nav_markers: Query<&mut Transform>,
+    mut nav_markers: Query<(&NavMarker, &mut Transform)>,
 ) {
     for (player, body) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let mut transform =
-            nav_markers.get_mut(player.nav_marker.entity).unwrap();
+        let (nav_marker, mut transform) =
+            nav_markers.get_mut(player.nav_marker).unwrap();
 
-        let dir = player.nav_marker.direction.normalize();
+        let dir = nav_marker.direction.normalize();
 
         let position = body.position().translation.vector
             + na::Vector2::new(dir.x(), dir.y()) * 250.0;
@@ -30,7 +30,7 @@ pub fn update_size(
     mut nav_markers: Query<&mut Sprite>,
 ) {
     for (player, ship) in players.iter() {
-        let mut sprite = nav_markers.get_mut(player.nav_marker.entity).unwrap();
+        let mut sprite = nav_markers.get_mut(player.nav_marker).unwrap();
 
         let min_size = 5.0;
         let max_size = 25.0;

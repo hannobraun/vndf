@@ -62,11 +62,10 @@ pub struct Ship {
 
 pub struct Player {
     camera: Entity,
-    nav_marker: NavMarker,
+    nav_marker: Entity,
 }
 
 pub struct NavMarker {
-    entity: Entity,
     direction: Vec2,
 }
 
@@ -90,7 +89,10 @@ fn setup(
         .unwrap();
 
     let nav_marker = commands
-        .spawn((Transform::default(),))
+        .spawn((NavMarker {
+            direction: Vec2::unit_x(),
+        },))
+        .with((Transform::default(),))
         .with_bundle(SpriteComponents {
             material: materials.add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
             ..Default::default()
@@ -104,13 +106,7 @@ fn setup(
         &mut commands,
         &mut materials,
     )
-    .with(Player {
-        camera,
-        nav_marker: NavMarker {
-            entity: nav_marker,
-            direction: Vec2::unit_x(),
-        },
-    });
+    .with(Player { camera, nav_marker });
     spawn_ship(
         Vec2::new(0.0, 200.0),
         COLOR_ENEMY,
@@ -164,12 +160,14 @@ fn spawn_ship<'c>(
 fn rotate_ship(
     mut bodies: ResMut<RigidBodySet>,
     mut players: Query<(&Player, &RigidBodyHandleComponent)>,
+    nav_markers: Query<&NavMarker>,
 ) {
     for (player, body) in players.iter_mut() {
         let body = bodies.get_mut(body.handle()).unwrap();
+        let nav_marker = nav_markers.get(player.nav_marker).unwrap();
 
         let nav_marker_angle =
-            Vec2::unit_x().angle_between(player.nav_marker.direction);
+            Vec2::unit_x().angle_between(nav_marker.direction);
 
         body.set_position(
             Isometry::from_parts(
