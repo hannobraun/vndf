@@ -5,16 +5,14 @@ use bevy_rapier2d::{
 
 use crate::{Player, Ship, LAYER_UI};
 
-// TASK: Split into two system, one that updates position, another that updates
-//       size.
-pub fn update_nav_marker(
+pub fn update_position(
     bodies: Res<RigidBodySet>,
-    players: Query<(&Player, &Ship, &RigidBodyHandleComponent)>,
-    mut nav_markers: Query<(&mut Transform, &mut Sprite)>,
+    players: Query<(&Player, &RigidBodyHandleComponent)>,
+    mut nav_markers: Query<&mut Transform>,
 ) {
-    for (player, ship, body) in players.iter() {
+    for (player, body) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let (mut transform, mut sprite) =
+        let mut transform =
             nav_markers.get_mut(player.nav_marker.entity).unwrap();
 
         let dir = player.nav_marker.direction.normalize();
@@ -24,6 +22,15 @@ pub fn update_nav_marker(
         *transform = Transform::from_translation(Vec3::new(
             position.x, position.y, LAYER_UI,
         ));
+    }
+}
+
+pub fn update_size(
+    players: Query<(&Player, &Ship)>,
+    mut nav_markers: Query<&mut Sprite>,
+) {
+    for (player, ship) in players.iter() {
+        let mut sprite = nav_markers.get_mut(player.nav_marker.entity).unwrap();
 
         let min_size = 5.0;
         let max_size = 25.0;
