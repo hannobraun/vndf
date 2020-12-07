@@ -1,3 +1,5 @@
+pub mod nav_marker;
+
 use bevy::prelude::*;
 use bevy_rapier2d::{
     physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,

@@ -43,7 +43,7 @@ impl Plugin for GamePlugin {
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
             .add_system(update_heading.system())
-            .add_system(update_nav_marker.system());
+            .add_system(graphics::nav_marker::update_nav_marker.system());
     }
 }
 
@@ -198,33 +198,5 @@ fn update_heading(
             position.y,
             LAYER_MARKER,
         ));
-    }
-}
-
-// TASK: Move to dedicated module, `graphics::nav_marker`.
-// TASK: Split into two system, one that updates position, another that updates
-//       size.
-fn update_nav_marker(
-    bodies: Res<RigidBodySet>,
-    players: Query<(&Player, &Ship, &RigidBodyHandleComponent)>,
-    mut nav_markers: Query<(&mut Transform, &mut Sprite)>,
-) {
-    for (player, ship, body) in players.iter() {
-        let body = bodies.get(body.handle()).unwrap();
-        let (mut transform, mut sprite) =
-            nav_markers.get_mut(player.nav_marker.entity).unwrap();
-
-        let dir = player.nav_marker.direction.normalize();
-
-        let position = body.position().translation.vector
-            + na::Vector2::new(dir.x(), dir.y()) * 250.0;
-        *transform = Transform::from_translation(Vec3::new(
-            position.x, position.y, LAYER_UI,
-        ));
-
-        let min_size = 5.0;
-        let max_size = 25.0;
-        let size = min_size + (max_size - min_size) * ship.thrust;
-        *sprite = Sprite::new(Vec2::new(size, size));
     }
 }
