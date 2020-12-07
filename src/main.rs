@@ -1,5 +1,6 @@
 mod graphics;
 mod input;
+mod ui;
 
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_rapier2d::{
@@ -15,6 +16,8 @@ use bevy_rapier2d::{
     },
 };
 use slog::{info, o, Drain as _, Logger};
+
+use crate::ui::NavMarker;
 
 fn main() {
     let decorator = slog_term::TermDecorator::new().build();
@@ -63,10 +66,6 @@ pub struct Ship {
 pub struct Player {
     camera: Entity,
     nav_marker: Entity,
-}
-
-pub struct NavMarker {
-    direction: Vec2,
 }
 
 pub struct Enemy;

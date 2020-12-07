@@ -5,7 +5,7 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{NavMarker, Player, Ship};
+use crate::{ui::NavMarker, Player, Ship};
 
 pub struct InputPlugin;
 
