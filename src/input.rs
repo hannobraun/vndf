@@ -27,7 +27,7 @@ fn handle_mouse_click(
     input: Res<Input<MouseButton>>,
     windows: Res<Windows>,
     bodies: Res<RigidBodySet>,
-    mut players: Query<(&mut Player, &RigidBodyHandleComponent)>,
+    players: Query<(&Player, &RigidBodyHandleComponent)>,
     transforms: Query<&Transform>,
     mut nav_markers: Query<&mut NavMarker>,
 ) {
@@ -40,7 +40,7 @@ fn handle_mouse_click(
 
     if input.just_pressed(MouseButton::Left) {
         if let Some(state) = state.deref() {
-            for (player, body) in players.iter_mut() {
+            for (player, body) in players.iter() {
                 let window = windows
                     .get(state.window_id)
                     .expect("Could not find window");
