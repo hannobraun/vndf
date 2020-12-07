@@ -65,7 +65,7 @@ pub struct Player {
     nav_marker: NavMarker,
 }
 
-struct NavMarker {
+pub struct NavMarker {
     entity: Entity,
     direction: Vec2,
 }
