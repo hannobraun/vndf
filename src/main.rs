@@ -56,7 +56,7 @@ const LAYER_UI: f32 = 1.0;
 // TASK: Split `Ship` into two components: One with data relevant to gameplay,
 //       one with data relevant to graphics.
 // TASK: Add system that applies thrust to body.
-struct Ship {
+pub struct Ship {
     heading: Entity,
     thrust: f32,
 }
