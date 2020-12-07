@@ -42,8 +42,7 @@ impl Plugin for GamePlugin {
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
-            .add_system(update_heading.system())
-            .add_system(graphics::nav_marker::update_nav_marker.system());
+            .add_system(update_heading.system());
     }
 }
 

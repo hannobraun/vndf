@@ -24,7 +24,8 @@ impl Plugin for GraphicsPlugin {
         //       I'd rather just wait for easier drawing in Bevy.
         // TASK: Add system that sets z coordinate of ships explicitly.
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
-            .add_system(update_camera.system());
+            .add_system(update_camera.system())
+            .add_system(nav_marker::update_nav_marker.system());
     }
 }
 
