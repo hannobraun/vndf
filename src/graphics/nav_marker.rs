@@ -14,7 +14,7 @@ impl Plugin for NavMarkerPlugin {
     }
 }
 
-pub fn update_position(
+fn update_position(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
     mut nav_markers: Query<(&NavMarker, &mut Transform)>,
@@ -34,7 +34,7 @@ pub fn update_position(
     }
 }
 
-pub fn update_size(
+fn update_size(
     players: Query<(&Player, &Ship)>,
     mut nav_markers: Query<&mut Sprite>,
 ) {
