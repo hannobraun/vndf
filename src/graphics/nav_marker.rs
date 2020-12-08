@@ -5,6 +5,15 @@ use bevy_rapier2d::{
 
 use crate::{ui::NavMarker, Player, Ship, LAYER_UI};
 
+pub struct NavMarkerPlugin;
+
+impl Plugin for NavMarkerPlugin {
+    fn build(&self, app: &mut AppBuilder) {
+        app.add_system(update_position.system())
+            .add_system(update_size.system());
+    }
+}
+
 pub fn update_position(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
