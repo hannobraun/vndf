@@ -91,10 +91,6 @@ fn setup(
         .spawn((NavMarker {
             direction: Vec2::unit_x(),
         },))
-        .with_bundle(SpriteComponents {
-            material: materials.add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
-            ..Default::default()
-        })
         .current_entity()
         .unwrap();
 

@@ -9,8 +9,30 @@ pub struct NavMarkerPlugin;
 
 impl Plugin for NavMarkerPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(update_position.system())
+        app.add_system(add_components.system())
+            .add_system(update_position.system())
             .add_system(update_size.system());
+    }
+}
+
+struct NavMarkerGraphics;
+
+fn add_components(
+    mut commands: Commands,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+    nav_markers: Query<Without<NavMarkerGraphics, (Entity, &NavMarker)>>,
+) {
+    for (entity, _) in nav_markers.iter() {
+        commands
+            .insert(
+                entity,
+                SpriteComponents {
+                    material: materials
+                        .add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
+                    ..Default::default()
+                },
+            )
+            .insert_one(entity, NavMarkerGraphics);
     }
 }
 
