@@ -60,7 +60,7 @@ const LAYER_UI: f32 = 1.0;
 //       one with data relevant to graphics.
 pub struct Ship {
     heading: Entity,
-    thrust: f32,
+    thrust_setting: f32,
 }
 
 pub struct Player {
@@ -133,7 +133,7 @@ fn spawn_ship<'c>(
     commands
         .spawn((Ship {
             heading,
-            thrust: 0.0,
+            thrust_setting: 0.0,
         },))
         .with(
             RigidBodyBuilder::new_dynamic()
@@ -183,7 +183,7 @@ fn accelerate_ship(
         let direction = body.position().rotation * na::Vector2::new(1.0, 0.0);
 
         let thrust = 1_000_000.0 * direction;
-        body.apply_force(ship.thrust * thrust, true);
+        body.apply_force(ship.thrust_setting * thrust, true);
     }
 }
 

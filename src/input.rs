@@ -73,8 +73,8 @@ fn handle_mouse_wheel(
     for event in events.drain() {
         for (_, mut ship) in players.iter_mut() {
             // TASK: Move this into an accessor method on `Ship`.
-            ship.thrust += event.y / 10.0;
-            ship.thrust = f32::min(f32::max(ship.thrust, 0.0), 1.0);
+            ship.thrust_setting += event.y / 10.0;
+            ship.thrust_setting = f32::min(f32::max(ship.thrust_setting, 0.0), 1.0);
         }
     }
 }
