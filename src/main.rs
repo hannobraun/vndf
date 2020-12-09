@@ -45,6 +45,7 @@ impl Plugin for GamePlugin {
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
+            .add_system(accelerate_ship.system())
             .add_system(update_heading.system());
     }
 }
@@ -57,7 +58,6 @@ const LAYER_UI: f32 = 1.0;
 
 // TASK: Split `Ship` into two components: One with data relevant to gameplay,
 //       one with data relevant to graphics.
-// TASK: Add system that applies thrust to body.
 pub struct Ship {
     heading: Entity,
     thrust: f32,
@@ -170,6 +170,20 @@ fn rotate_ship(
             ),
             true,
         );
+    }
+}
+
+fn accelerate_ship(
+    mut bodies: ResMut<RigidBodySet>,
+    ships: Query<(&Ship, &RigidBodyHandleComponent)>,
+) {
+    for (ship, body) in ships.iter() {
+        let body = bodies.get_mut(body.handle()).unwrap();
+
+        let direction = body.position().rotation * na::Vector2::new(1.0, 0.0);
+
+        let thrust = 1_000_000.0 * direction;
+        body.apply_force(ship.thrust * thrust, true);
     }
 }
 
