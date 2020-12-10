@@ -1,4 +1,5 @@
 pub mod nav_marker;
+pub mod rocks;
 
 use bevy::prelude::*;
 use bevy_rapier2d::{
@@ -25,7 +26,8 @@ impl Plugin for GraphicsPlugin {
         // TASK: Add system that sets z coordinate of ships explicitly.
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_system(update_camera.system())
-            .add_plugin(nav_marker::NavMarkerPlugin);
+            .add_plugin(nav_marker::NavMarkerPlugin)
+            .add_plugin(rocks::RocksPlugin);
     }
 }
 
