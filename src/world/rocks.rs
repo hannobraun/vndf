@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 
+pub const ROCK_SIZE: [f32; 2] = [300.0, 300.0];
+
 pub struct RocksPlugin;
 
 impl Plugin for RocksPlugin {

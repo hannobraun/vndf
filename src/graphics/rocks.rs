@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::world::rocks::Rock;
+use crate::world::rocks::{Rock, ROCK_SIZE};
 
 pub struct RocksPlugin;
 
@@ -25,7 +25,7 @@ fn add_components(
                 SpriteComponents {
                     material: materials
                         .add(Color::rgb_linear(0.5, 0.5, 1.0).into()),
-                    sprite: Sprite::new(Vec2::new(300.0, 300.0)),
+                    sprite: Sprite::new(ROCK_SIZE.into()),
                     transform: Transform::from_translation(
                         rock.position.extend(0.0),
                     ),
