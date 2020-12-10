@@ -18,7 +18,6 @@ fn add_components(
     rocks: Query<Without<RockGraphics, (Entity, &Rock)>>,
 ) {
     for (entity, rock) in rocks.iter() {
-        println!("{:?}", entity);
         commands
             .insert(
                 entity,
