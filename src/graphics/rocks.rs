@@ -17,7 +17,7 @@ fn add_components(
     mut materials: ResMut<Assets<ColorMaterial>>,
     rocks: Query<Without<RockGraphics, (Entity, &Rock)>>,
 ) {
-    for (entity, rock) in rocks.iter() {
+    for (entity, _) in rocks.iter() {
         commands
             .insert(
                 entity,
@@ -25,9 +25,6 @@ fn add_components(
                     material: materials
                         .add(Color::rgb_linear(0.5, 0.5, 1.0).into()),
                     sprite: Sprite::new(ROCK_SIZE.into()),
-                    transform: Transform::from_translation(
-                        rock.position.extend(0.0),
-                    ),
                     ..Default::default()
                 },
             )

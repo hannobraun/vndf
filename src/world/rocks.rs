@@ -1,4 +1,7 @@
 use bevy::prelude::*;
+use bevy_rapier2d::rapier::{
+    dynamics::RigidBodyBuilder, geometry::ColliderBuilder,
+};
 
 pub const ROCK_SIZE: [f32; 2] = [300.0, 300.0];
 
@@ -10,14 +13,11 @@ impl Plugin for RocksPlugin {
     }
 }
 
-pub struct Rock {
-    pub position: Vec2,
-}
+pub struct Rock;
 
 // TASK: Make rocks round. At this point, I only know how to easily display
 //       rectangular sprites, but once we get accessible 2D drawing primitives,
 //       it would be nice to make rocks round.
-// TASK: Add physics components to rock entities.
 // TASK: Create rocks procedurally.
 fn setup(mut commands: Commands) {
     let positions = [
@@ -26,6 +26,15 @@ fn setup(mut commands: Commands) {
         Vec2::new(-400.0, 200.0),
     ];
     for &position in positions.iter() {
-        commands.spawn((Rock { position },));
+        commands
+            .spawn((Rock,))
+            .with(
+                RigidBodyBuilder::new_dynamic()
+                    .translation(position.x(), position.y()),
+            )
+            .with(ColliderBuilder::cuboid(
+                ROCK_SIZE[0] / 2.0,
+                ROCK_SIZE[1] / 2.0,
+            ));
     }
 }
