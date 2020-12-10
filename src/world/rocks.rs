@@ -16,9 +16,14 @@ pub struct Rock {
 //       rectangular sprites, but once we get accessible 2D drawing primitives,
 //       it would be nice to make rocks round.
 // TASK: Add physics components to rock entities.
-// TASK: Add multiple rocks.
+// TASK: Create rocks procedurally.
 fn setup(mut commands: Commands) {
-    commands.spawn((Rock {
-        position: Vec2::new(500.0, -300.0),
-    },));
+    let positions = [
+        Vec2::new(500.0, -300.0),
+        Vec2::new(-50.0, -350.0),
+        Vec2::new(-400.0, 200.0),
+    ];
+    for &position in positions.iter() {
+        commands.spawn((Rock { position },));
+    }
 }
