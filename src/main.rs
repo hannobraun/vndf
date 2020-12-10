@@ -1,6 +1,7 @@
 mod graphics;
 mod input;
 mod ui;
+mod world;
 
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_rapier2d::{
@@ -46,7 +47,8 @@ impl Plugin for GamePlugin {
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
             .add_system(accelerate_ship.system())
-            .add_system(update_heading.system());
+            .add_system(update_heading.system())
+            .add_plugin(world::rocks::RocksPlugin);
     }
 }
 
