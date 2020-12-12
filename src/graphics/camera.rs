@@ -13,7 +13,7 @@ impl Plugin for CameraPlugin {
     }
 }
 
-pub fn update(
+fn update(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
     mut transforms: Query<(&mut Transform,)>,
