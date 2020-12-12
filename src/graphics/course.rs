@@ -8,9 +8,9 @@ use na::Rotation2;
 
 use crate::{Ship, LAYER_UI};
 
-pub struct ProjectedPathPlugin;
+pub struct CoursePlugin;
 
-impl Plugin for ProjectedPathPlugin {
+impl Plugin for CoursePlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_system(create.system()).add_system(update.system());
     }
