@@ -24,7 +24,7 @@ fn add_components(
                 SpriteComponents {
                     material: materials
                         .add(Color::rgb_linear(0.5, 0.5, 1.0).into()),
-                    sprite: Sprite::new(ROCK_SIZE.into()),
+                    sprite: Sprite::new(Vec2::new(ROCK_SIZE, ROCK_SIZE)),
                     ..Default::default()
                 },
             )

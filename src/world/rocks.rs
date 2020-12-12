@@ -3,7 +3,7 @@ use bevy_rapier2d::rapier::{
     dynamics::RigidBodyBuilder, geometry::ColliderBuilder,
 };
 
-pub const ROCK_SIZE: [f32; 2] = [300.0, 300.0];
+pub const ROCK_SIZE: f32 = 300.0;
 
 pub struct RocksPlugin;
 
@@ -32,9 +32,6 @@ fn setup(mut commands: Commands) {
                 RigidBodyBuilder::new_dynamic()
                     .translation(position.x(), position.y()),
             )
-            .with(ColliderBuilder::cuboid(
-                ROCK_SIZE[0] / 2.0,
-                ROCK_SIZE[1] / 2.0,
-            ));
+            .with(ColliderBuilder::cuboid(ROCK_SIZE / 2.0, ROCK_SIZE / 2.0));
     }
 }
