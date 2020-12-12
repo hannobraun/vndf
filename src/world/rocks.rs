@@ -3,8 +3,6 @@ use bevy_rapier2d::rapier::{
     dynamics::RigidBodyBuilder, geometry::ColliderBuilder,
 };
 
-pub const ROCK_SIZE: f32 = 300.0;
-
 pub struct RocksPlugin;
 
 impl Plugin for RocksPlugin {
@@ -13,7 +11,15 @@ impl Plugin for RocksPlugin {
     }
 }
 
-pub struct Rock;
+pub struct Rock {
+    size: f32,
+}
+
+impl Rock {
+    pub fn size(&self) -> f32 {
+        self.size
+    }
+}
 
 // TASK: Make rocks round. At this point, I only know how to easily display
 //       rectangular sprites, but once we get accessible 2D drawing primitives,
@@ -26,12 +32,14 @@ fn setup(mut commands: Commands) {
         Vec2::new(-400.0, 200.0),
     ];
     for &position in positions.iter() {
+        let size = 300.0;
+
         commands
-            .spawn((Rock,))
+            .spawn((Rock { size },))
             .with(
                 RigidBodyBuilder::new_dynamic()
                     .translation(position.x(), position.y()),
             )
-            .with(ColliderBuilder::cuboid(ROCK_SIZE / 2.0, ROCK_SIZE / 2.0));
+            .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
     }
 }

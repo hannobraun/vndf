@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::world::rocks::{Rock, ROCK_SIZE};
+use crate::world::rocks::Rock;
 
 pub struct RocksPlugin;
 
@@ -17,14 +17,14 @@ fn add_components(
     mut materials: ResMut<Assets<ColorMaterial>>,
     rocks: Query<Without<RockGraphics, (Entity, &Rock)>>,
 ) {
-    for (entity, _) in rocks.iter() {
+    for (entity, rock) in rocks.iter() {
         commands
             .insert(
                 entity,
                 SpriteComponents {
                     material: materials
                         .add(Color::rgb_linear(0.5, 0.5, 1.0).into()),
-                    sprite: Sprite::new(Vec2::new(ROCK_SIZE, ROCK_SIZE)),
+                    sprite: Sprite::new(Vec2::new(rock.size(), rock.size())),
                     ..Default::default()
                 },
             )
