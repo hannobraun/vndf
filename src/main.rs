@@ -33,7 +33,7 @@ fn main() {
     App::build()
         .add_resource(log)
         .add_plugins(DefaultPlugins)
-        .add_plugin(GamePlugin)
+        .add_plugin(WorldPlugin)
         .add_plugin(camera::CameraPlugin)
         .add_plugin(crate::input::InputPlugin)
         .add_plugin(crate::graphics::GraphicsPlugin)
@@ -41,9 +41,9 @@ fn main() {
         .run();
 }
 
-struct GamePlugin;
+struct WorldPlugin;
 
-impl Plugin for GamePlugin {
+impl Plugin for WorldPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(setup.system())
