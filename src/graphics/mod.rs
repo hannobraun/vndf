@@ -1,4 +1,3 @@
-pub mod camera;
 pub mod course;
 pub mod nav_marker;
 pub mod rocks;
@@ -22,7 +21,6 @@ impl Plugin for GraphicsPlugin {
         //       I'd rather just wait for easier drawing in Bevy.
         // TASK: Add system that sets z coordinate of ships explicitly.
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
-            .add_plugin(camera::CameraPlugin)
             .add_plugin(course::CoursePlugin)
             .add_plugin(nav_marker::NavMarkerPlugin)
             .add_plugin(rocks::RocksPlugin);

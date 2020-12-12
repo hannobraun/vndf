@@ -1,3 +1,4 @@
+mod camera;
 mod graphics;
 mod input;
 mod ui;
@@ -33,6 +34,7 @@ fn main() {
         .add_resource(log)
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
+        .add_plugin(camera::CameraPlugin)
         .add_plugin(crate::input::InputPlugin)
         .add_plugin(crate::graphics::GraphicsPlugin)
         .add_system(exit_on_esc_system.system())
