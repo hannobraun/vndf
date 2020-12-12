@@ -42,11 +42,10 @@ fn create(
 fn update(
     bodies: Res<RigidBodySet>,
     ships: Query<(&Ship, &RigidBodyHandleComponent, &Course)>,
-    mut projected_paths: Query<&mut Transform>,
+    mut courses: Query<&mut Transform>,
 ) {
     for (_, body, projected_path) in ships.iter() {
-        let mut transform =
-            projected_paths.get_mut(projected_path.entity).unwrap();
+        let mut transform = courses.get_mut(projected_path.entity).unwrap();
         let body = bodies.get(body.handle()).unwrap();
 
         let translation = body.position().translation;
