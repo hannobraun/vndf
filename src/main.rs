@@ -68,7 +68,6 @@ pub struct Ship {
 }
 
 pub struct Player {
-    camera: Entity,
     nav_marker: Entity,
 }
 
@@ -86,11 +85,6 @@ fn setup(
 ) {
     rapier.gravity = na::Vector2::zeros();
 
-    let camera = commands
-        .spawn(Camera2dComponents::default())
-        .current_entity()
-        .unwrap();
-
     let nav_marker = commands
         .spawn((NavMarker {
             direction: Vec2::unit_x(),
@@ -104,7 +98,7 @@ fn setup(
         &mut commands,
         &mut materials,
     )
-    .with(Player { camera, nav_marker });
+    .with(Player { nav_marker });
     spawn_ship(
         Vec2::new(0.0, 200.0),
         COLOR_ENEMY,

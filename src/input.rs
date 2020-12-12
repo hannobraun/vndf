@@ -5,7 +5,7 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{ui::NavMarker, Player, Ship};
+use crate::{camera, ui::NavMarker, Player, Ship};
 
 pub struct InputPlugin;
 
@@ -27,7 +27,7 @@ fn handle_mouse_click(
     input: Res<Input<MouseButton>>,
     windows: Res<Windows>,
     bodies: Res<RigidBodySet>,
-    players: Query<(&Player, &RigidBodyHandleComponent)>,
+    players: Query<(&Player, &camera::Focus, &RigidBodyHandleComponent)>,
     transforms: Query<&Transform>,
     mut nav_markers: Query<&mut NavMarker>,
 ) {
@@ -40,7 +40,7 @@ fn handle_mouse_click(
 
     if input.just_pressed(MouseButton::Left) {
         if let Some(state) = state.deref() {
-            for (player, body) in players.iter() {
+            for (player, focus, body) in players.iter() {
                 let window = windows
                     .get(state.window_id)
                     .expect("Could not find window");
@@ -50,7 +50,7 @@ fn handle_mouse_click(
 
                 let position = state.position - size;
 
-                let camera = transforms.get(player.camera).unwrap();
+                let camera = transforms.get(focus.camera()).unwrap();
                 let position =
                     camera.compute_matrix() * position.extend(0.0).extend(1.0);
 
@@ -74,7 +74,8 @@ fn handle_mouse_wheel(
         for (_, mut ship) in players.iter_mut() {
             // TASK: Move this into an accessor method on `Ship`.
             ship.thrust_setting += event.y / 10.0;
-            ship.thrust_setting = f32::min(f32::max(ship.thrust_setting, 0.0), 1.0);
+            ship.thrust_setting =
+                f32::min(f32::max(ship.thrust_setting, 0.0), 1.0);
         }
     }
 }
