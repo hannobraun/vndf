@@ -18,13 +18,13 @@ impl Plugin for CoursePlugin {
 
 const LENGTH: f32 = 1000.0;
 
-struct ProjectedPath {
+struct Course {
     entity: Entity,
 }
 
 fn create(
     mut commands: Commands,
-    ships: Query<Without<ProjectedPath, (Entity, &Ship)>>,
+    ships: Query<Without<Course, (Entity, &Ship)>>,
 ) {
     for (ship, _) in ships.iter() {
         let projected_path = commands
@@ -37,7 +37,7 @@ fn create(
 
         commands.insert_one(
             ship,
-            ProjectedPath {
+            Course {
                 entity: projected_path,
             },
         );
@@ -46,7 +46,7 @@ fn create(
 
 fn update(
     bodies: Res<RigidBodySet>,
-    ships: Query<(&Ship, &RigidBodyHandleComponent, &ProjectedPath)>,
+    ships: Query<(&Ship, &RigidBodyHandleComponent, &Course)>,
     mut projected_paths: Query<&mut Transform>,
 ) {
     for (_, body, projected_path) in ships.iter() {
