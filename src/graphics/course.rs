@@ -27,7 +27,7 @@ fn create(
     ships: Query<Without<Course, (Entity, &Ship)>>,
 ) {
     for (ship, _) in ships.iter() {
-        let projected_path = commands
+        let course = commands
             .spawn(SpriteComponents {
                 sprite: Sprite::new(Vec2::new(LENGTH, 1.0)),
                 ..Default::default()
@@ -35,12 +35,7 @@ fn create(
             .current_entity()
             .unwrap();
 
-        commands.insert_one(
-            ship,
-            Course {
-                entity: projected_path,
-            },
-        );
+        commands.insert_one(ship, Course { entity: course });
     }
 }
 
