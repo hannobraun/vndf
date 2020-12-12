@@ -5,6 +5,14 @@ use bevy_rapier2d::{
 
 use crate::Player;
 
+pub struct CameraPlugin;
+
+impl Plugin for CameraPlugin {
+    fn build(&self, app: &mut AppBuilder) {
+        app.add_system(update.system());
+    }
+}
+
 pub fn update(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
