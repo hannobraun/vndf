@@ -44,8 +44,8 @@ fn update(
     ships: Query<(&Ship, &RigidBodyHandleComponent, &Course)>,
     mut courses: Query<&mut Transform>,
 ) {
-    for (_, body, projected_path) in ships.iter() {
-        let mut transform = courses.get_mut(projected_path.entity).unwrap();
+    for (_, body, course) in ships.iter() {
+        let mut transform = courses.get_mut(course.entity).unwrap();
         let body = bodies.get(body.handle()).unwrap();
 
         let translation = body.position().translation;
