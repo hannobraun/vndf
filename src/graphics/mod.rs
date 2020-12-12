@@ -1,5 +1,5 @@
+pub mod course;
 pub mod nav_marker;
-pub mod projected_path;
 pub mod rocks;
 
 use bevy::prelude::*;
@@ -28,7 +28,7 @@ impl Plugin for GraphicsPlugin {
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_system(update_camera.system())
             .add_plugin(nav_marker::NavMarkerPlugin)
-            .add_plugin(projected_path::ProjectedPathPlugin)
+            .add_plugin(course::ProjectedPathPlugin)
             .add_plugin(rocks::RocksPlugin);
     }
 }
