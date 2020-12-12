@@ -25,6 +25,7 @@ impl Rock {
 //       rectangular sprites, but once we get accessible 2D drawing primitives,
 //       it would be nice to make rocks round.
 // TASK: Create rocks procedurally.
+// TASK: Create rocks of varying sizes.
 fn setup(mut commands: Commands) {
     let positions = [
         Vec2::new(500.0, -300.0),
