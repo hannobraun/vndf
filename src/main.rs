@@ -41,6 +41,8 @@ fn main() {
         .run();
 }
 
+// TASK: Move this `world`. This can't be properly done before everything it
+//       references is moved to `world` first.
 struct WorldPlugin;
 
 impl Plugin for WorldPlugin {
