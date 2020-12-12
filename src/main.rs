@@ -73,10 +73,6 @@ pub struct Player {
 
 pub struct Enemy;
 
-// TASK: Extract graphics-specific parts and move them to a new `setup` system
-//       in `graphics`. This `setup` system would still create the entities and
-//       the new `graphics::setup` system would add components to them, as
-//       required.
 fn setup(
     mut commands: Commands,
     mut rapier: ResMut<RapierConfiguration>,
@@ -85,6 +81,7 @@ fn setup(
 ) {
     rapier.gravity = na::Vector2::zeros();
 
+    // TASK: Create `ui` module and move this there.
     let nav_marker = commands
         .spawn((NavMarker {
             direction: Vec2::unit_x(),
@@ -118,6 +115,7 @@ fn spawn_ship<'c>(
 ) -> &'c mut Commands {
     let size = Vec2::new(150.0, 50.0);
 
+    // TASK: Move to `graphics`.
     let heading = commands
         .spawn((Transform::default(),))
         .with_bundle(SpriteComponents {
@@ -140,6 +138,7 @@ fn spawn_ship<'c>(
                 .angvel(0.5),
         )
         .with(ColliderBuilder::cuboid(size.x() / 2.0, size.y() / 2.0))
+        // TASK: Move to `graphics`.
         .with_bundle(SpriteComponents {
             material: materials.add(color.into()),
             sprite: Sprite::new(size),
