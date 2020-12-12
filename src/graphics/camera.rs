@@ -5,7 +5,7 @@ use bevy_rapier2d::{
 
 use crate::Player;
 
-pub fn update_camera(
+pub fn update(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
     mut transforms: Query<(&mut Transform,)>,
