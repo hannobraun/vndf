@@ -6,9 +6,8 @@ use bevy_rapier2d::{
 use crate::{Player, Ship, LAYER_UI};
 
 struct NavMarker {
-    // TASK: Rename to `entity`.
     // TASK: Make private, once this lives in `graphics::nav_marker`.
-    pub nav_marker: Entity,
+    pub entity: Entity,
 }
 
 pub struct NavMarkerPlugin;
@@ -36,7 +35,7 @@ fn add_components(
             .current_entity()
             .unwrap();
 
-        commands.insert_one(player, NavMarker { nav_marker });
+        commands.insert_one(player, NavMarker { entity: nav_marker });
     }
 }
 
@@ -48,7 +47,7 @@ fn update_position(
     for (player, body, nav_marker) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
 
-        if let Ok(mut transform) = nav_markers.get_mut(nav_marker.nav_marker) {
+        if let Ok(mut transform) = nav_markers.get_mut(nav_marker.entity) {
             let dir = player.direction_setting.normalize();
 
             let position = body.position().translation.vector
@@ -66,7 +65,7 @@ fn update_size(
     mut nav_markers: Query<&mut Sprite>,
 ) {
     for (_, ship, nav_marker) in players.iter() {
-        if let Ok(mut sprite) = nav_markers.get_mut(nav_marker.nav_marker) {
+        if let Ok(mut sprite) = nav_markers.get_mut(nav_marker.entity) {
             let min_size = 5.0;
             let max_size = 25.0;
             let size = min_size + (max_size - min_size) * ship.thrust_setting;
