@@ -2,9 +2,9 @@ use bevy::prelude::*;
 
 use crate::world::rocks::Rock;
 
-pub struct RocksPlugin;
+pub struct RockPlugin;
 
-impl Plugin for RocksPlugin {
+impl Plugin for RockPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_system(setup.system());
     }
