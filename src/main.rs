@@ -48,7 +48,6 @@ impl Plugin for WorldPlugin {
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
             .add_system(accelerate_ship.system())
-            .add_system(update_heading.system())
             .add_plugin(world::rocks::RocksPlugin);
     }
 }
@@ -172,25 +171,5 @@ fn accelerate_ship(
 
         let thrust = 1_000_000.0 * direction;
         body.apply_force(ship.thrust_setting * thrust, true);
-    }
-}
-
-// TASK: Move to `graphics`.
-fn update_heading(
-    bodies: Res<RigidBodySet>,
-    ships: Query<(&Ship, &RigidBodyHandleComponent)>,
-    mut headings: Query<&mut Transform>,
-) {
-    for (ship, body) in ships.iter() {
-        let body = bodies.get(body.handle()).unwrap();
-        let mut heading = headings.get_mut(ship.heading).unwrap();
-
-        let offset = body.position().rotation * na::Vector2::new(200.0, 0.0);
-        let position = body.position().translation.vector + offset;
-        *heading = Transform::from_translation(Vec3::new(
-            position.x,
-            position.y,
-            LAYER_MARKER,
-        ));
     }
 }

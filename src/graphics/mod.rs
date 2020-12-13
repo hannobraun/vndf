@@ -1,6 +1,7 @@
 pub mod course;
 pub mod nav_marker;
 pub mod rocks;
+pub mod ship;
 
 use bevy::prelude::*;
 
@@ -23,6 +24,7 @@ impl Plugin for GraphicsPlugin {
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_plugin(course::CoursePlugin)
             .add_plugin(nav_marker::NavMarkerPlugin)
-            .add_plugin(rocks::RocksPlugin);
+            .add_plugin(rocks::RocksPlugin)
+            .add_plugin(ship::ShipPlugin);
     }
 }
