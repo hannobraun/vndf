@@ -1,1 +1,1 @@
-pub mod rocks;
+pub mod rock;

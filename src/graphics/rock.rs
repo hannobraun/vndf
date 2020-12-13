@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::world::rocks::Rock;
+use crate::world::rock::Rock;
 
 pub struct RockPlugin;
 
