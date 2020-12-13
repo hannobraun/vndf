@@ -15,36 +15,34 @@ impl Plugin for NavMarkerPlugin {
     }
 }
 
-struct NavMarkerGraphics;
-
 fn add_components(
     mut commands: Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
-    nav_markers: Query<Without<NavMarkerGraphics, (Entity, &NavMarker)>>,
+    players: Query<With<Player, Without<NavMarker, Entity>>>,
 ) {
-    for (entity, _) in nav_markers.iter() {
-        commands
-            .insert(
-                entity,
-                SpriteComponents {
-                    material: materials
-                        .add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
-                    ..Default::default()
-                },
-            )
-            .insert_one(entity, NavMarkerGraphics);
+    for player in players.iter() {
+        let nav_marker = commands
+            .spawn(SpriteComponents {
+                material: materials
+                    .add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
+                ..Default::default()
+            })
+            .current_entity()
+            .unwrap();
+
+        commands.insert_one(player, NavMarker { nav_marker });
     }
 }
 
 fn update_position(
     bodies: Res<RigidBodySet>,
-    players: Query<(&Player, &RigidBodyHandleComponent)>,
+    players: Query<(&Player, &RigidBodyHandleComponent, &NavMarker)>,
     mut nav_markers: Query<&mut Transform>,
 ) {
-    for (player, body) in players.iter() {
+    for (player, body, nav_marker) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
 
-        if let Ok(mut transform) = nav_markers.get_mut(player.nav_marker) {
+        if let Ok(mut transform) = nav_markers.get_mut(nav_marker.nav_marker) {
             let dir = player.direction_setting.normalize();
 
             let position = body.position().translation.vector
@@ -57,11 +55,12 @@ fn update_position(
 }
 
 fn update_size(
-    players: Query<(&Player, &Ship)>,
+    // TASK: Simplify query.
+    players: Query<(&Player, &Ship, &NavMarker)>,
     mut nav_markers: Query<&mut Sprite>,
 ) {
-    for (player, ship) in players.iter() {
-        if let Ok(mut sprite) = nav_markers.get_mut(player.nav_marker) {
+    for (_, ship, nav_marker) in players.iter() {
+        if let Ok(mut sprite) = nav_markers.get_mut(nav_marker.nav_marker) {
             let min_size = 5.0;
             let max_size = 25.0;
             let size = min_size + (max_size - min_size) * ship.thrust_setting;

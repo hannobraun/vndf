@@ -19,8 +19,6 @@ use bevy_rapier2d::{
 };
 use slog::{info, o, Drain as _, Logger};
 
-use crate::ui::nav_marker::NavMarker;
-
 fn main() {
     let decorator = slog_term::TermDecorator::new().build();
     let drain = slog_term::FullFormat::new(decorator).build().fuse();
@@ -71,7 +69,6 @@ pub struct Ship {
 
 pub struct Player {
     direction_setting: Vec2,
-    nav_marker: Entity,
 }
 
 pub struct Enemy;
@@ -84,9 +81,6 @@ fn setup(
 ) {
     rapier.gravity = na::Vector2::zeros();
 
-    // TASK: Create `ui` module and move this there.
-    let nav_marker = commands.spawn((NavMarker,)).current_entity().unwrap();
-
     spawn_ship(
         Vec2::new(0.0, 0.0),
         COLOR_PLAYER,
@@ -95,7 +89,6 @@ fn setup(
     )
     .with(Player {
         direction_setting: Vec2::unit_x(),
-        nav_marker,
     });
     spawn_ship(
         Vec2::new(0.0, 200.0),
