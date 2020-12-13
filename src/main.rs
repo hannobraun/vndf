@@ -129,13 +129,7 @@ fn spawn_ship<'c>(
         .with(ColliderBuilder::cuboid(
             SHIP_SIZE[0] / 2.0,
             SHIP_SIZE[1] / 2.0,
-        ))
-        // TASK: Move to `graphics`.
-        .with_bundle(SpriteComponents {
-            material: materials.add(color.into()),
-            sprite: Sprite::new(SHIP_SIZE.into()),
-            ..Default::default()
-        });
+        ));
 
     commands
 }
