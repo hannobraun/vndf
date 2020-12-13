@@ -175,7 +175,7 @@ fn accelerate_ship(
     }
 }
 
-// TASK: Create `ui` module and move this there.
+// TASK: Move to `graphics`.
 fn update_heading(
     bodies: Res<RigidBodySet>,
     ships: Query<(&Ship, &RigidBodyHandleComponent)>,
