@@ -5,8 +5,7 @@ use bevy_rapier2d::{
 
 use crate::{Player, Ship, LAYER_UI};
 
-// TASK: Make private.
-pub struct NavMarker {
+struct NavMarker {
     // TASK: Rename to `entity`.
     // TASK: Make private, once this lives in `graphics::nav_marker`.
     pub nav_marker: Entity,
