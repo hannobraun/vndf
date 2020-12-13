@@ -59,11 +59,10 @@ fn update_position(
 }
 
 fn update_size(
-    // TASK: Simplify query.
-    players: Query<(&Player, &Ship, &NavMarker)>,
+    players: Query<With<Player, (&Ship, &NavMarker)>>,
     mut nav_markers: Query<&mut Sprite>,
 ) {
-    for (_, ship, nav_marker) in players.iter() {
+    for (ship, nav_marker) in players.iter() {
         if let Ok(mut sprite) = nav_markers.get_mut(nav_marker.entity) {
             let min_size = 5.0;
             let max_size = 25.0;
