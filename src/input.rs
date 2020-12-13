@@ -61,7 +61,7 @@ fn handle_mouse_click(
                 let direction = na::Vector2::new(position.x(), position.y())
                     - body.position().translation.vector;
 
-                player.direction = Vec2::new(direction.x, direction.y);
+                player.direction_setting = Vec2::new(direction.x, direction.y);
             }
         }
     }

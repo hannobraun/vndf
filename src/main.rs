@@ -70,8 +70,7 @@ pub struct Ship {
 }
 
 pub struct Player {
-    // TASK: Rename to `direction_setting`.
-    direction: Vec2,
+    direction_setting: Vec2,
     nav_marker: Entity,
 }
 
@@ -95,7 +94,7 @@ fn setup(
         &mut materials,
     )
     .with(Player {
-        direction: Vec2::unit_x(),
+        direction_setting: Vec2::unit_x(),
         nav_marker,
     });
     spawn_ship(
@@ -157,7 +156,8 @@ fn rotate_ship(
     for (player, body) in players.iter_mut() {
         let body = bodies.get_mut(body.handle()).unwrap();
 
-        let nav_marker_angle = Vec2::unit_x().angle_between(player.direction);
+        let nav_marker_angle =
+            Vec2::unit_x().angle_between(player.direction_setting);
 
         body.set_position(
             Isometry::from_parts(

@@ -45,7 +45,7 @@ fn update_position(
         let body = bodies.get(body.handle()).unwrap();
 
         if let Ok((_, mut transform)) = nav_markers.get_mut(player.nav_marker) {
-            let dir = player.direction.normalize();
+            let dir = player.direction_setting.normalize();
 
             let position = body.position().translation.vector
                 + na::Vector2::new(dir.x(), dir.y()) * 250.0;
