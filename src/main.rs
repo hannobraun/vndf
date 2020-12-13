@@ -70,6 +70,8 @@ pub struct Ship {
 }
 
 pub struct Player {
+    // TASK: Rename to `direction_setting`.
+    direction: Vec2,
     nav_marker: Entity,
 }
 
@@ -84,12 +86,7 @@ fn setup(
     rapier.gravity = na::Vector2::zeros();
 
     // TASK: Create `ui` module and move this there.
-    let nav_marker = commands
-        .spawn((NavMarker {
-            direction: Vec2::unit_x(),
-        },))
-        .current_entity()
-        .unwrap();
+    let nav_marker = commands.spawn((NavMarker,)).current_entity().unwrap();
 
     spawn_ship(
         Vec2::new(0.0, 0.0),
@@ -97,7 +94,10 @@ fn setup(
         &mut commands,
         &mut materials,
     )
-    .with(Player { nav_marker });
+    .with(Player {
+        direction: Vec2::unit_x(),
+        nav_marker,
+    });
     spawn_ship(
         Vec2::new(0.0, 200.0),
         COLOR_ENEMY,
@@ -153,14 +153,11 @@ fn spawn_ship<'c>(
 fn rotate_ship(
     mut bodies: ResMut<RigidBodySet>,
     mut players: Query<(&Player, &RigidBodyHandleComponent)>,
-    nav_markers: Query<&NavMarker>,
 ) {
     for (player, body) in players.iter_mut() {
         let body = bodies.get_mut(body.handle()).unwrap();
-        let nav_marker = nav_markers.get(player.nav_marker).unwrap();
 
-        let nav_marker_angle =
-            Vec2::unit_x().angle_between(nav_marker.direction);
+        let nav_marker_angle = Vec2::unit_x().angle_between(player.direction);
 
         body.set_position(
             Isometry::from_parts(
