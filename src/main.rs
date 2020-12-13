@@ -7,9 +7,7 @@ use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_rapier2d::{
     na,
     na::UnitComplex,
-    physics::{
-        RapierConfiguration, RapierPhysicsPlugin, RigidBodyHandleComponent,
-    },
+    physics::{RapierConfiguration, RigidBodyHandleComponent},
     rapier::math::Isometry,
     rapier::{
         dynamics::{RigidBodyBuilder, RigidBodySet},
@@ -38,13 +36,12 @@ fn main() {
         .run();
 }
 
-// TASK: Move this to `world`. This can't be properly done before everything it
-//       references is moved to `world` first.
+// TASK: Integrate into `world::WorldPlugin`.
 struct WorldPlugin;
 
 impl Plugin for WorldPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_plugin(RapierPhysicsPlugin)
+        app.add_plugin(world::WorldPlugin)
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
             .add_system(accelerate_ship.system())
