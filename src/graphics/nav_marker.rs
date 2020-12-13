@@ -6,8 +6,7 @@ use bevy_rapier2d::{
 use crate::{Player, Ship, LAYER_UI};
 
 struct NavMarker {
-    // TASK: Make private, once this lives in `graphics::nav_marker`.
-    pub entity: Entity,
+    entity: Entity,
 }
 
 pub struct NavMarkerPlugin;
