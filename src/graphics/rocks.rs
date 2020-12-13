@@ -6,13 +6,13 @@ pub struct RocksPlugin;
 
 impl Plugin for RocksPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(add_components.system());
+        app.add_system(setup.system());
     }
 }
 
 pub struct RockGraphics;
 
-fn add_components(
+fn setup(
     mut commands: Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
     rocks: Query<Without<RockGraphics, (Entity, &Rock)>>,
