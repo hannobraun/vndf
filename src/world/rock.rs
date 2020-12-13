@@ -3,9 +3,9 @@ use bevy_rapier2d::rapier::{
     dynamics::RigidBodyBuilder, geometry::ColliderBuilder,
 };
 
-pub struct RocksPlugin;
+pub struct RockPlugin;
 
-impl Plugin for RocksPlugin {
+impl Plugin for RockPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_startup_system(setup.system());
     }

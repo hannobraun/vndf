@@ -48,7 +48,7 @@ impl Plugin for WorldPlugin {
             .add_startup_system(setup.system())
             .add_system(rotate_ship.system())
             .add_system(accelerate_ship.system())
-            .add_plugin(world::rock::RocksPlugin);
+            .add_plugin(world::rock::RockPlugin);
     }
 }
 
