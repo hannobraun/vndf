@@ -55,6 +55,8 @@ const COLOR_ENEMY: Color = Color::rgb_linear(1.0, 0.0, 0.0);
 const LAYER_MARKER: f32 = 0.5;
 const LAYER_UI: f32 = 1.0;
 
+const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
+
 // TASK: Split `Ship` into two components: One with data relevant to gameplay,
 //       one with data relevant to graphics.
 pub struct Ship {
@@ -102,8 +104,6 @@ fn spawn_ship<'c>(
     commands: &'c mut Commands,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) -> &'c mut Commands {
-    let size = Vec2::new(150.0, 50.0);
-
     // TASK: Move to `graphics`.
     let heading = commands
         .spawn((Transform::default(),))
@@ -126,11 +126,14 @@ fn spawn_ship<'c>(
                 .linvel(10.0, 10.0)
                 .angvel(0.5),
         )
-        .with(ColliderBuilder::cuboid(size.x() / 2.0, size.y() / 2.0))
+        .with(ColliderBuilder::cuboid(
+            SHIP_SIZE[0] / 2.0,
+            SHIP_SIZE[1] / 2.0,
+        ))
         // TASK: Move to `graphics`.
         .with_bundle(SpriteComponents {
             material: materials.add(color.into()),
-            sprite: Sprite::new(size),
+            sprite: Sprite::new(SHIP_SIZE.into()),
             ..Default::default()
         });
 
