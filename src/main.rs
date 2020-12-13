@@ -106,8 +106,7 @@ fn spawn_ship<'c>(
 ) -> &'c mut Commands {
     // TASK: Move to `graphics`.
     let heading = commands
-        .spawn((Transform::default(),))
-        .with_bundle(SpriteComponents {
+        .spawn(SpriteComponents {
             material: materials.add(color.into()),
             sprite: Sprite::new(Vec2::new(15.0, 15.0)),
             ..Default::default()
