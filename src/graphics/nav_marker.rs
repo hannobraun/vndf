@@ -3,7 +3,7 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{ui::NavMarker, Player, Ship, LAYER_UI};
+use crate::{ui::nav_marker::NavMarker, Player, Ship, LAYER_UI};
 
 pub struct NavMarkerPlugin;
 

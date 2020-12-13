@@ -1,5 +1,1 @@
-use bevy::prelude::*;
-
-pub struct NavMarker {
-    pub direction: Vec2,
-}
+pub mod nav_marker;

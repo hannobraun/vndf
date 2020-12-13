@@ -19,7 +19,7 @@ use bevy_rapier2d::{
 };
 use slog::{info, o, Drain as _, Logger};
 
-use crate::ui::NavMarker;
+use crate::ui::nav_marker::NavMarker;
 
 fn main() {
     let decorator = slog_term::TermDecorator::new().build();
