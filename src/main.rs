@@ -1,7 +1,6 @@
 mod camera;
 mod graphics;
 mod input;
-mod ui;
 mod world;
 
 use bevy::{input::system::exit_on_esc_system, prelude::*};

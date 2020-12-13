@@ -3,7 +3,14 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{ui::nav_marker::NavMarker, Player, Ship, LAYER_UI};
+use crate::{Player, Ship, LAYER_UI};
+
+// TASK: Make private.
+pub struct NavMarker {
+    // TASK: Rename to `entity`.
+    // TASK: Make private, once this lives in `graphics::nav_marker`.
+    pub nav_marker: Entity,
+}
 
 pub struct NavMarkerPlugin;
 
