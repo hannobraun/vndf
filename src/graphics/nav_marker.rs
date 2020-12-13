@@ -39,12 +39,12 @@ fn add_components(
 fn update_position(
     bodies: Res<RigidBodySet>,
     players: Query<(&Player, &RigidBodyHandleComponent)>,
-    mut nav_markers: Query<(&NavMarker, &mut Transform)>,
+    mut nav_markers: Query<&mut Transform>,
 ) {
     for (player, body) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
 
-        if let Ok((_, mut transform)) = nav_markers.get_mut(player.nav_marker) {
+        if let Ok(mut transform) = nav_markers.get_mut(player.nav_marker) {
             let dir = player.direction_setting.normalize();
 
             let position = body.position().translation.vector
