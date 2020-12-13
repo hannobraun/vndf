@@ -16,10 +16,14 @@ impl Plugin for ShipPlugin {
     }
 }
 
+pub struct Heading {
+    entity: Entity,
+}
+
 fn setup(
     mut commands: Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
-    ships: Query<With<Ship, Entity>>,
+    ships: Query<With<Ship, Without<Heading, Entity>>>,
     players: Query<With<Player, ()>>,
     enemies: Query<With<Enemy, ()>>,
 ) {
@@ -35,25 +39,36 @@ fn setup(
             (false, false) => panic!("Ship is neither player nor enemy"),
         };
 
-        commands.insert(
-            ship,
-            SpriteComponents {
+        let heading = commands
+            .spawn(SpriteComponents {
                 material: materials.add(color.into()),
-                sprite: Sprite::new(SHIP_SIZE.into()),
+                sprite: Sprite::new(Vec2::new(15.0, 15.0)),
                 ..Default::default()
-            },
-        );
+            })
+            .current_entity()
+            .unwrap();
+
+        commands
+            .insert(
+                ship,
+                SpriteComponents {
+                    material: materials.add(color.into()),
+                    sprite: Sprite::new(SHIP_SIZE.into()),
+                    ..Default::default()
+                },
+            )
+            .insert_one(ship, Heading { entity: heading });
     }
 }
 
 fn update_heading(
     bodies: Res<RigidBodySet>,
-    ships: Query<(&Ship, &RigidBodyHandleComponent)>,
+    ships: Query<With<Ship, (&RigidBodyHandleComponent, &Heading)>>,
     mut headings: Query<&mut Transform>,
 ) {
-    for (ship, body) in ships.iter() {
+    for (body, heading) in ships.iter() {
         let body = bodies.get(body.handle()).unwrap();
-        let mut heading = headings.get_mut(ship.heading).unwrap();
+        let mut heading = headings.get_mut(heading.entity).unwrap();
 
         let offset = body.position().rotation * na::Vector2::new(200.0, 0.0);
         let position = body.position().translation.vector + offset;

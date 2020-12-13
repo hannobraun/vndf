@@ -57,10 +57,7 @@ const LAYER_UI: f32 = 1.0;
 
 const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 
-// TASK: Split `Ship` into two components: One with data relevant to gameplay,
-//       one with data relevant to graphics.
 pub struct Ship {
-    heading: Entity,
     thrust_setting: f32,
 }
 
@@ -73,50 +70,24 @@ pub struct Enemy;
 fn setup(
     mut commands: Commands,
     mut rapier: ResMut<RapierConfiguration>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
     log: Res<Logger>,
 ) {
     rapier.gravity = na::Vector2::zeros();
 
-    spawn_ship(
-        Vec2::new(0.0, 0.0),
-        COLOR_PLAYER,
-        &mut commands,
-        &mut materials,
-    )
-    .with(Player {
+    spawn_ship(Vec2::new(0.0, 0.0), &mut commands).with(Player {
         direction_setting: Vec2::unit_x(),
     });
-    spawn_ship(
-        Vec2::new(0.0, 200.0),
-        COLOR_ENEMY,
-        &mut commands,
-        &mut materials,
-    )
-    .with(Enemy);
+    spawn_ship(Vec2::new(0.0, 200.0), &mut commands).with(Enemy);
 
     info!(log, "Set up world.");
 }
 
 fn spawn_ship<'c>(
     position: Vec2,
-    color: Color,
     commands: &'c mut Commands,
-    materials: &mut ResMut<Assets<ColorMaterial>>,
 ) -> &'c mut Commands {
-    // TASK: Move to `graphics`.
-    let heading = commands
-        .spawn(SpriteComponents {
-            material: materials.add(color.into()),
-            sprite: Sprite::new(Vec2::new(15.0, 15.0)),
-            ..Default::default()
-        })
-        .current_entity()
-        .unwrap();
-
     commands
         .spawn((Ship {
-            heading,
             thrust_setting: 0.0,
         },))
         .with(
