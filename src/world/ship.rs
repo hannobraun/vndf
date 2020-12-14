@@ -12,7 +12,7 @@ pub struct ShipPlugin;
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_system(control_rotation.system())
-            .add_system(accelerate_ship.system());
+            .add_system(control_thrust.system());
     }
 }
 
@@ -36,7 +36,7 @@ fn control_rotation(
     }
 }
 
-fn accelerate_ship(
+fn control_thrust(
     mut bodies: ResMut<RigidBodySet>,
     ships: Query<(&Ship, &RigidBodyHandleComponent)>,
 ) {
