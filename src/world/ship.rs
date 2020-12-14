@@ -11,12 +11,12 @@ pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(rotate_ship.system())
+        app.add_system(control_rotation.system())
             .add_system(accelerate_ship.system());
     }
 }
 
-fn rotate_ship(
+fn control_rotation(
     mut bodies: ResMut<RigidBodySet>,
     mut players: Query<(&Player, &RigidBodyHandleComponent)>,
 ) {
