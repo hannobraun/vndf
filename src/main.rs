@@ -3,7 +3,7 @@ mod graphics;
 mod input;
 mod world;
 
-use bevy::{input::system::exit_on_esc_system, prelude::*};
+use bevy::prelude::*;
 use slog::{info, o, Drain as _, Logger};
 use world::player::Player;
 
@@ -23,6 +23,5 @@ fn main() {
         .add_plugin(camera::CameraPlugin)
         .add_plugin(input::InputPlugin)
         .add_plugin(graphics::GraphicsPlugin)
-        .add_system(exit_on_esc_system.system())
         .run();
 }

@@ -1,6 +1,10 @@
 use std::ops::Deref;
 
-use bevy::{input::mouse::MouseWheel, prelude::*, window::WindowId};
+use bevy::{
+    input::{mouse::MouseWheel, system::exit_on_esc_system},
+    prelude::*,
+    window::WindowId,
+};
 use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
@@ -14,7 +18,8 @@ pub struct InputPlugin;
 
 impl Plugin for InputPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(handle_mouse_click.system())
+        app.add_system(exit_on_esc_system.system())
+            .add_system(handle_mouse_click.system())
             .add_system(handle_mouse_wheel.system());
     }
 }
