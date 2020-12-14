@@ -5,7 +5,7 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{camera, Player, Ship};
+use crate::{camera, world::ship::Ship, Player};
 
 pub struct InputPlugin;
 

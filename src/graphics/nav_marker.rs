@@ -3,7 +3,7 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{Player, Ship};
+use crate::{world::ship::Ship, Player};
 
 use super::LAYER_UI;
 

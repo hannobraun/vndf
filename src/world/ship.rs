@@ -8,7 +8,7 @@ use bevy_rapier2d::{
     },
 };
 
-use crate::{Player, Ship};
+use crate::Player;
 
 pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 
@@ -20,6 +20,10 @@ impl Plugin for ShipPlugin {
             .add_system(control_rotation.system())
             .add_system(control_thrust.system());
     }
+}
+
+pub struct Ship {
+    pub thrust_setting: f32,
 }
 
 fn setup(

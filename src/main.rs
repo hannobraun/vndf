@@ -38,10 +38,6 @@ impl Plugin for WorldPlugin {
     }
 }
 
-pub struct Ship {
-    thrust_setting: f32,
-}
-
 pub struct Player {
     direction_setting: Vec2,
 }

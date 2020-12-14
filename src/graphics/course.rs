@@ -6,7 +6,7 @@ use bevy_rapier2d::{
 };
 use na::Rotation2;
 
-use crate::Ship;
+use crate::world::ship::Ship;
 
 use super::LAYER_UI;
 
