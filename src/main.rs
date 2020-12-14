@@ -70,7 +70,6 @@ fn setup(
     spawn_ship(Vec2::new(0.0, 0.0), &mut commands).with(Player {
         direction_setting: Vec2::unit_x(),
     });
-    spawn_ship(Vec2::new(0.0, 200.0), &mut commands).with(Enemy);
 
     info!(log, "Set up world.");
 }
