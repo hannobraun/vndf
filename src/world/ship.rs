@@ -2,17 +2,44 @@ use bevy::prelude::*;
 use bevy_rapier2d::{
     na::{self, Isometry, UnitComplex},
     physics::RigidBodyHandleComponent,
-    rapier::dynamics::RigidBodySet,
+    rapier::{
+        dynamics::{RigidBodyBuilder, RigidBodySet},
+        geometry::ColliderBuilder,
+    },
 };
 
-use crate::{Player, Ship};
+use crate::{Player, Ship, SHIP_SIZE};
 
 pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(control_rotation.system())
+        app.add_system(setup.system())
+            .add_system(control_rotation.system())
             .add_system(control_thrust.system());
+    }
+}
+
+fn setup(
+    mut commands: Commands,
+    players: Query<With<Player, Without<Ship, Entity>>>,
+) {
+    for player in players.iter() {
+        commands
+            .insert_one(
+                player,
+                Ship {
+                    thrust_setting: 0.0,
+                },
+            )
+            .insert_one(
+                player,
+                RigidBodyBuilder::new_dynamic().linvel(10.0, 10.0),
+            )
+            .insert_one(
+                player,
+                ColliderBuilder::cuboid(SHIP_SIZE[0] / 2.0, SHIP_SIZE[1] / 2.0),
+            );
     }
 }
 
