@@ -25,7 +25,6 @@ impl Plugin for GraphicsPlugin {
         //       (connecting the otherwise separate lines outside of the
         //       screen). Sounds workable, but unless I'm seized by motivation,
         //       I'd rather just wait for easier drawing in Bevy.
-        // TASK: Add system that sets z coordinate of ships explicitly.
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_plugin(course::CoursePlugin)
             .add_plugin(nav_marker::NavMarkerPlugin)

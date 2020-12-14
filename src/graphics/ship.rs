@@ -11,6 +11,7 @@ pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
+        // TASK: Add system that sets z coordinate of ships explicitly.
         app.add_system(setup.system())
             .add_system(update_heading.system());
     }
