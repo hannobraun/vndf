@@ -3,7 +3,7 @@ use bevy_rapier2d::{
     physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::Player;
+use crate::world::player::Player;
 
 pub struct CameraPlugin;
 

@@ -6,6 +6,7 @@ mod world;
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_rapier2d::{na, physics::RapierConfiguration};
 use slog::{info, o, Drain as _, Logger};
+use world::player::Player;
 
 fn main() {
     let decorator = slog_term::TermDecorator::new().build();
@@ -36,10 +37,6 @@ impl Plugin for WorldPlugin {
             .add_startup_system(setup.system())
             .add_plugin(world::rock::RockPlugin);
     }
-}
-
-pub struct Player {
-    direction_setting: Vec2,
 }
 
 fn setup(
