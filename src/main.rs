@@ -64,27 +64,19 @@ fn setup(
 ) {
     rapier.gravity = na::Vector2::zeros();
 
-    spawn_ship(Vec2::new(0.0, 0.0), &mut commands).with(Player {
+    spawn_ship(&mut commands).with(Player {
         direction_setting: Vec2::unit_x(),
     });
 
     info!(log, "Set up world.");
 }
 
-fn spawn_ship<'c>(
-    position: Vec2,
-    commands: &'c mut Commands,
-) -> &'c mut Commands {
+fn spawn_ship<'c>(commands: &'c mut Commands) -> &'c mut Commands {
     commands
         .spawn((Ship {
             thrust_setting: 0.0,
         },))
-        .with(
-            RigidBodyBuilder::new_dynamic()
-                .translation(position.x(), position.y())
-                .linvel(10.0, 10.0)
-                .angvel(0.5),
-        )
+        .with(RigidBodyBuilder::new_dynamic().linvel(10.0, 10.0))
         .with(ColliderBuilder::cuboid(
             SHIP_SIZE[0] / 2.0,
             SHIP_SIZE[1] / 2.0,
