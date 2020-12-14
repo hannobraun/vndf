@@ -34,8 +34,7 @@ struct WorldPlugin;
 impl Plugin for WorldPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_plugin(world::WorldPlugin)
-            .add_startup_system(setup.system())
-            .add_plugin(world::rock::RockPlugin);
+            .add_startup_system(setup.system());
     }
 }
 
