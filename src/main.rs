@@ -19,9 +19,9 @@ fn main() {
     App::build()
         .add_resource(log)
         .add_plugins(DefaultPlugins)
-        .add_plugin(world::WorldPlugin)
         .add_plugin(camera::CameraPlugin)
-        .add_plugin(input::InputPlugin)
         .add_plugin(graphics::GraphicsPlugin)
+        .add_plugin(input::InputPlugin)
+        .add_plugin(world::WorldPlugin)
         .run();
 }
