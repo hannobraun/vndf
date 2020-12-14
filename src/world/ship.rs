@@ -16,6 +16,8 @@ impl Plugin for ShipPlugin {
     }
 }
 
+// TASK: Improve realism. Ships should require torque to rotate, not just change
+//       rotation magically.
 fn control_rotation(
     mut bodies: ResMut<RigidBodySet>,
     mut players: Query<(&Player, &RigidBodyHandleComponent)>,
