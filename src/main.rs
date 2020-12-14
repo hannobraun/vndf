@@ -39,16 +39,8 @@ impl Plugin for WorldPlugin {
     }
 }
 
-fn setup(
-    mut commands: Commands,
-    mut rapier: ResMut<RapierConfiguration>,
-    log: Res<Logger>,
-) {
+fn setup(mut rapier: ResMut<RapierConfiguration>, log: Res<Logger>) {
     rapier.gravity = na::Vector2::zeros();
-
-    commands.spawn((Player {
-        direction_setting: Vec2::unit_x(),
-    },));
 
     info!(log, "Set up world.");
 }
