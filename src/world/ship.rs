@@ -8,7 +8,9 @@ use bevy_rapier2d::{
     },
 };
 
-use crate::{Player, Ship, SHIP_SIZE};
+use crate::{Player, Ship};
+
+pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 
 pub struct ShipPlugin;
 

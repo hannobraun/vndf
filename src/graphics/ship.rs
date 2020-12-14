@@ -3,7 +3,9 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{Ship, COLOR_PLAYER, LAYER_MARKER, SHIP_SIZE};
+use crate::{world::ship::SHIP_SIZE, Ship};
+
+use super::{COLOR_PLAYER, LAYER_MARKER};
 
 pub struct ShipPlugin;
 

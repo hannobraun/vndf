@@ -38,13 +38,6 @@ impl Plugin for WorldPlugin {
     }
 }
 
-const COLOR_PLAYER: Color = Color::rgb_linear(0.0, 0.0, 1.0);
-
-const LAYER_MARKER: f32 = 0.5;
-const LAYER_UI: f32 = 1.0;
-
-const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
-
 pub struct Ship {
     thrust_setting: f32,
 }

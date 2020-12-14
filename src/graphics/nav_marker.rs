@@ -3,7 +3,9 @@ use bevy_rapier2d::{
     na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{Player, Ship, LAYER_UI};
+use crate::{Player, Ship};
+
+use super::LAYER_UI;
 
 struct NavMarker {
     entity: Entity,

@@ -6,7 +6,9 @@ use bevy_rapier2d::{
 };
 use na::Rotation2;
 
-use crate::{Ship, LAYER_UI};
+use crate::Ship;
+
+use super::LAYER_UI;
 
 pub struct CoursePlugin;
 
