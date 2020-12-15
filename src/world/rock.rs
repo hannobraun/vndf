@@ -28,13 +28,11 @@ impl Rock {
 // TASK: Create rocks of varying sizes.
 fn setup(mut commands: Commands) {
     let positions = [
-        Vec2::new(500.0, -300.0),
-        Vec2::new(-50.0, -350.0),
-        Vec2::new(-400.0, 200.0),
+        (300.0, Vec2::new(500.0, -300.0)),
+        (300.0, Vec2::new(-50.0, -350.0)),
+        (300.0, Vec2::new(-400.0, 200.0)),
     ];
-    for &position in positions.iter() {
-        let size = 300.0;
-
+    for &(size, position) in positions.iter() {
         commands
             .spawn((Rock { size },))
             .with(
