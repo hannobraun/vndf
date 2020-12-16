@@ -5,14 +5,14 @@ use bevy_rapier2d::{
 
 use crate::world::ship::{Ship, SHIP_SIZE};
 
-use super::{COLOR_PLAYER, LAYER_MARKER};
+use super::{COLOR_PLAYER, LAYER_MARKER, LAYER_WORLD};
 
 pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        // TASK: Add system that sets z coordinate of ships explicitly.
         app.add_system(setup.system())
+            .add_system(set_layer.system())
             .add_system(update_heading.system());
     }
 }
@@ -46,6 +46,12 @@ fn setup(
                 },
             )
             .insert_one(ship, Heading { entity: heading });
+    }
+}
+
+fn set_layer(mut ships: Query<With<Ship, &mut Transform>>) {
+    for mut transform in ships.iter_mut() {
+        *transform.translation.z_mut() = LAYER_WORLD;
     }
 }
 
