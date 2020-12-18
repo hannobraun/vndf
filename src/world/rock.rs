@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use bevy_rapier2d::rapier::{
     dynamics::RigidBodyBuilder, geometry::ColliderBuilder,
 };
+use rand::{thread_rng, Rng as _};
 
 pub struct RockPlugin;
 
@@ -26,10 +27,24 @@ impl Rock {
 //       it would be nice to make rocks round.
 // TASK: Create rocks procedurally.
 fn setup(mut commands: Commands) {
+    let mut rng = thread_rng();
+
+    let min_size = 50.0;
+    let max_size = 300.0;
+
     let positions = [
-        (200.0, Vec2::new(500.0, -300.0)),
-        (300.0, Vec2::new(-50.0, -350.0)),
-        (50.0, Vec2::new(-400.0, 200.0)),
+        (
+            min_size + (max_size - min_size) * rng.gen::<f32>(),
+            Vec2::new(500.0, -300.0),
+        ),
+        (
+            min_size + (max_size - min_size) * rng.gen::<f32>(),
+            Vec2::new(-50.0, -350.0),
+        ),
+        (
+            min_size + (max_size - min_size) * rng.gen::<f32>(),
+            Vec2::new(-400.0, 200.0),
+        ),
     ];
     for &(size, position) in positions.iter() {
         commands
