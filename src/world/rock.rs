@@ -25,34 +25,30 @@ impl Rock {
 // TASK: Make rocks round. At this point, I only know how to easily display
 //       rectangular sprites, but once we get accessible 2D drawing primitives,
 //       it would be nice to make rocks round.
-// TASK: Create rocks procedurally.
+// TASK: Improve procedural rock generation.
 fn setup(mut commands: Commands) {
     let mut rng = thread_rng();
 
     let min_size = 50.0;
     let max_size = 300.0;
 
-    let positions = [
-        (
-            min_size + (max_size - min_size) * rng.gen::<f32>(),
-            Vec2::new(500.0, -300.0),
-        ),
-        (
-            min_size + (max_size - min_size) * rng.gen::<f32>(),
-            Vec2::new(-50.0, -350.0),
-        ),
-        (
-            min_size + (max_size - min_size) * rng.gen::<f32>(),
-            Vec2::new(-400.0, 200.0),
-        ),
-    ];
-    for &(size, position) in positions.iter() {
-        commands
-            .spawn((Rock { size },))
-            .with(
-                RigidBodyBuilder::new_dynamic()
-                    .translation(position.x(), position.y()),
-            )
-            .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+    for x in -5..=5 {
+        for y in -5..=5 {
+            // Leave out ship spawn point.
+            if x == 0 && y == 0 {
+                continue;
+            }
+
+            let size = min_size + (max_size - min_size) * rng.gen::<f32>();
+            let position = Vec2::new(x as f32 * 500.0, y as f32 * 500.0);
+
+            commands
+                .spawn((Rock { size },))
+                .with(
+                    RigidBodyBuilder::new_dynamic()
+                        .translation(position.x(), position.y()),
+                )
+                .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+        }
     }
 }
