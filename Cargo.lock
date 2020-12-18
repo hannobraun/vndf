@@ -3792,6 +3792,7 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "bevy_rapier2d",
+ "rand",
  "slog",
  "slog-async",
  "slog-term",
