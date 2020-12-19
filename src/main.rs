@@ -1,6 +1,7 @@
 mod camera;
 mod graphics;
 mod input;
+mod ui;
 mod world;
 
 use bevy::{
@@ -26,11 +27,12 @@ fn main() {
         .add_resource(window_descriptor())
         .add_plugins(DefaultPlugins)
         .add_plugin(FrameTimeDiagnosticsPlugin::default())
-        // TASK: Print diagnostics to screen.
+        // TASK: Remove
         .add_plugin(PrintDiagnosticsPlugin::default())
         .add_plugin(camera::CameraPlugin)
         .add_plugin(graphics::GraphicsPlugin)
         .add_plugin(input::InputPlugin)
+        .add_plugin(ui::UiPlugin)
         .add_plugin(world::WorldPlugin)
         .run();
 }
