@@ -4,10 +4,7 @@ mod input;
 mod ui;
 mod world;
 
-use bevy::{
-    diagnostic::{FrameTimeDiagnosticsPlugin, PrintDiagnosticsPlugin},
-    prelude::*,
-};
+use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
 use slog::{info, o, Drain as _, Logger};
 use world::player::Player;
 
@@ -27,8 +24,6 @@ fn main() {
         .add_resource(window_descriptor())
         .add_plugins(DefaultPlugins)
         .add_plugin(FrameTimeDiagnosticsPlugin::default())
-        // TASK: Remove
-        .add_plugin(PrintDiagnosticsPlugin::default())
         .add_plugin(camera::CameraPlugin)
         .add_plugin(graphics::GraphicsPlugin)
         .add_plugin(input::InputPlugin)
