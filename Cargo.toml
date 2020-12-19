@@ -11,3 +11,6 @@ rand          = "*"
 slog          = "*"
 slog-async    = "*"
 slog-term     = "*"
+
+[profile.dev.package."*"]
+opt-level = 3
