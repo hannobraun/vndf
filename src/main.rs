@@ -3,7 +3,10 @@ mod graphics;
 mod input;
 mod world;
 
-use bevy::prelude::*;
+use bevy::{
+    diagnostic::{FrameTimeDiagnosticsPlugin, PrintDiagnosticsPlugin},
+    prelude::*,
+};
 use slog::{info, o, Drain as _, Logger};
 use world::player::Player;
 
@@ -22,6 +25,9 @@ fn main() {
         // https://github.com/bevyengine/bevy/issues/278
         .add_resource(window_descriptor())
         .add_plugins(DefaultPlugins)
+        .add_plugin(FrameTimeDiagnosticsPlugin::default())
+        // TASK: Print diagnostics to screen.
+        .add_plugin(PrintDiagnosticsPlugin::default())
         .add_plugin(camera::CameraPlugin)
         .add_plugin(graphics::GraphicsPlugin)
         .add_plugin(input::InputPlugin)
