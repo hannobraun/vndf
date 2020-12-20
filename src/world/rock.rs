@@ -25,7 +25,7 @@ impl Rock {
 // TASK: Make rocks round. At this point, I only know how to easily display
 //       rectangular sprites, but once we get accessible 2D drawing primitives,
 //       it would be nice to make rocks round.
-// TASK: Improve procedural rock generation.
+// TASK: Convert into regular system that is called every frame.
 fn setup(mut commands: Commands) {
     RockSpawner.spawn_rocks(
         Rect {
@@ -41,6 +41,18 @@ fn setup(mut commands: Commands) {
 struct RockSpawner;
 
 impl RockSpawner {
+    // TASK: Only spawn rocks above ship position.
+    // TASK: Only pass position (center of spawn area) here, and build spawn
+    //       area from that.
+    // TASK: Accept a closure that is called when a rock should be spawned
+    //       instead of doing ECS stuff here.
+    // TASK: Store information about spawned rocks, so this methods can be
+    //       called with overlapping spawn areas, without causing the same rocks
+    //       to be spawned multiple times.
+    // TASK: Improve rock generation algorithm:
+    //       - Spawn at random positions, not on a grid.
+    //       - Vary min and max size, according to position.
+    //       - Vary rock density, according to position.
     fn spawn_rocks(&mut self, area: Rect<f32>, commands: &mut Commands) {
         let mut rng = thread_rng();
 
