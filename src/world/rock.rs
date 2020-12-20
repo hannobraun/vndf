@@ -32,22 +32,32 @@ fn setup(mut commands: Commands) {
     let min_size = 50.0;
     let max_size = 300.0;
 
-    for x in -5..=5 {
-        for y in -5..=5 {
-            // Leave out ship spawn point.
-            if x == 0 && y == 0 {
-                continue;
-            }
+    let min_x = -2500.0;
+    let max_x = 2500.0;
+    let min_y = -2500.0;
+    let max_y = 2500.0;
 
+    let mut x = min_x;
+    let mut y = min_y;
+
+    loop {
+        // Leave out ship spawn point.
+        if x != 0.0 || y != 0.0 {
             let size = min_size + (max_size - min_size) * rng.gen::<f32>();
-
-            let x = x as f32 * 500.0;
-            let y = y as f32 * 500.0;
 
             commands
                 .spawn((Rock { size },))
                 .with(RigidBodyBuilder::new_dynamic().translation(x, y))
                 .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+        }
+
+        x += 500.0;
+        if x > max_x {
+            y += 500.0;
+            x = min_x;
+        }
+        if y > max_y {
+            break;
         }
     }
 }
