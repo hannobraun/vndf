@@ -34,7 +34,12 @@ fn setup(mut commands: Commands) {
             top: -2500.0,
             bottom: 2500.0,
         },
-        &mut commands,
+        |x, y, size| {
+            commands
+                .spawn((Rock { size },))
+                .with(RigidBodyBuilder::new_dynamic().translation(x, y))
+                .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+        },
     )
 }
 
@@ -44,8 +49,6 @@ impl RockSpawner {
     // TASK: Only spawn rocks above ship position.
     // TASK: Only pass position (center of spawn area) here, and build spawn
     //       area from that.
-    // TASK: Accept a closure that is called when a rock should be spawned
-    //       instead of doing ECS stuff here.
     // TASK: Store information about spawned rocks, so this methods can be
     //       called with overlapping spawn areas, without causing the same rocks
     //       to be spawned multiple times.
@@ -53,7 +56,11 @@ impl RockSpawner {
     //       - Spawn at random positions, not on a grid.
     //       - Vary min and max size, according to position.
     //       - Vary rock density, according to position.
-    fn spawn_rocks(&mut self, area: Rect<f32>, commands: &mut Commands) {
+    fn spawn_rocks(
+        &mut self,
+        area: Rect<f32>,
+        mut spawn: impl FnMut(f32, f32, f32),
+    ) {
         let mut rng = thread_rng();
 
         let min_size = 50.0;
@@ -67,10 +74,7 @@ impl RockSpawner {
             if x != 0.0 || y != 0.0 {
                 let size = min_size + (max_size - min_size) * rng.gen::<f32>();
 
-                commands
-                    .spawn((Rock { size },))
-                    .with(RigidBodyBuilder::new_dynamic().translation(x, y))
-                    .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+                spawn(x, y, size);
             }
 
             x += 500.0;
