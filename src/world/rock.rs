@@ -40,14 +40,13 @@ fn setup(mut commands: Commands) {
             }
 
             let size = min_size + (max_size - min_size) * rng.gen::<f32>();
-            let position = Vec2::new(x as f32 * 500.0, y as f32 * 500.0);
+
+            let x = x as f32 * 500.0;
+            let y = y as f32 * 500.0;
 
             commands
                 .spawn((Rock { size },))
-                .with(
-                    RigidBodyBuilder::new_dynamic()
-                        .translation(position.x(), position.y()),
-                )
+                .with(RigidBodyBuilder::new_dynamic().translation(x, y))
                 .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
         }
     }
