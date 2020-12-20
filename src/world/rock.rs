@@ -27,37 +27,48 @@ impl Rock {
 //       it would be nice to make rocks round.
 // TASK: Improve procedural rock generation.
 fn setup(mut commands: Commands) {
-    let mut rng = thread_rng();
+    RockSpawner.spawn_rocks(
+        Rect {
+            left: -2500.0,
+            right: 2500.0,
+            top: -2500.0,
+            bottom: 2500.0,
+        },
+        &mut commands,
+    )
+}
 
-    let min_size = 50.0;
-    let max_size = 300.0;
+struct RockSpawner;
 
-    let min_x = -2500.0;
-    let max_x = 2500.0;
-    let min_y = -2500.0;
-    let max_y = 2500.0;
+impl RockSpawner {
+    fn spawn_rocks(&mut self, area: Rect<f32>, commands: &mut Commands) {
+        let mut rng = thread_rng();
 
-    let mut x = min_x;
-    let mut y = min_y;
+        let min_size = 50.0;
+        let max_size = 300.0;
 
-    loop {
-        // Leave out ship spawn point.
-        if x != 0.0 || y != 0.0 {
-            let size = min_size + (max_size - min_size) * rng.gen::<f32>();
+        let mut x = area.left;
+        let mut y = area.top;
 
-            commands
-                .spawn((Rock { size },))
-                .with(RigidBodyBuilder::new_dynamic().translation(x, y))
-                .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
-        }
+        loop {
+            // Leave out ship spawn point.
+            if x != 0.0 || y != 0.0 {
+                let size = min_size + (max_size - min_size) * rng.gen::<f32>();
 
-        x += 500.0;
-        if x > max_x {
-            y += 500.0;
-            x = min_x;
-        }
-        if y > max_y {
-            break;
+                commands
+                    .spawn((Rock { size },))
+                    .with(RigidBodyBuilder::new_dynamic().translation(x, y))
+                    .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+            }
+
+            x += 500.0;
+            if x > area.right {
+                y += 500.0;
+                x = area.left;
+            }
+            if y > area.bottom {
+                break;
+            }
         }
     }
 }
