@@ -9,6 +9,7 @@ use slog::{info, o, Drain as _, Logger};
 use world::player::Player;
 
 fn main() {
+    // TASK: Switch to Bevy's log system.
     let decorator = slog_term::TermDecorator::new().build();
     let drain = slog_term::FullFormat::new(decorator).build().fuse();
     let drain = slog_async::Async::new(drain).build().fuse();
