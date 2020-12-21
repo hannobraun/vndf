@@ -27,8 +27,8 @@ pub struct Ship {
 }
 
 fn setup(
-    mut commands: Commands,
-    players: Query<With<Player, Without<Ship, Entity>>>,
+    commands: &mut Commands,
+    players: Query<Entity, (With<Player>, Without<Ship>)>,
 ) {
     for player in players.iter() {
         commands

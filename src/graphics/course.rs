@@ -25,12 +25,12 @@ struct Course {
 }
 
 fn create(
-    mut commands: Commands,
-    ships: Query<Without<Course, (Entity, &Ship)>>,
+    commands: &mut Commands,
+    ships: Query<(Entity, &Ship), Without<Course>>,
 ) {
     for (ship, _) in ships.iter() {
         let course = commands
-            .spawn(SpriteComponents {
+            .spawn(SpriteBundle {
                 sprite: Sprite::new(Vec2::new(LENGTH, 1.0)),
                 ..Default::default()
             })

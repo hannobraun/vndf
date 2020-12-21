@@ -13,15 +13,15 @@ impl Plugin for RockPlugin {
 pub struct RockGraphics;
 
 fn setup(
-    mut commands: Commands,
+    commands: &mut Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
-    rocks: Query<Without<RockGraphics, (Entity, &Rock)>>,
+    rocks: Query<(Entity, &Rock), Without<RockGraphics>>,
 ) {
     for (entity, rock) in rocks.iter() {
         commands
             .insert(
                 entity,
-                SpriteComponents {
+                SpriteBundle {
                     material: materials
                         .add(Color::rgb_linear(0.5, 0.5, 1.0).into()),
                     sprite: Sprite::new(Vec2::new(rock.size(), rock.size())),

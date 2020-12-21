@@ -5,9 +5,7 @@ authors = ["Hanno Braun <hb@hannobraun.de>"]
 edition = "2018"
 
 [dependencies]
-# TASK: Upgrade to Bevy 0.4. Currently we're held back by `bevy_rapier2d`, which
-#       has not been upgraded yet.
-bevy          = "0.3"
+bevy          = "*"
 bevy_rapier2d = "*"
 rand          = "*"
 slog          = "*"

@@ -22,13 +22,13 @@ pub struct Heading {
 }
 
 fn setup(
-    mut commands: Commands,
+    commands: &mut Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
-    ships: Query<With<Ship, Without<Heading, Entity>>>,
+    ships: Query<Entity, (With<Ship>, Without<Heading>)>,
 ) {
     for ship in ships.iter() {
         let heading = commands
-            .spawn(SpriteComponents {
+            .spawn(SpriteBundle {
                 material: materials.add(COLOR_PLAYER.into()),
                 sprite: Sprite::new(Vec2::new(15.0, 15.0)),
                 ..Default::default()
@@ -39,7 +39,7 @@ fn setup(
         commands
             .insert(
                 ship,
-                SpriteComponents {
+                SpriteBundle {
                     material: materials.add(COLOR_PLAYER.into()),
                     sprite: Sprite::new(SHIP_SIZE.into()),
                     ..Default::default()
@@ -49,15 +49,15 @@ fn setup(
     }
 }
 
-fn set_layer(mut ships: Query<With<Ship, &mut Transform>>) {
+fn set_layer(mut ships: Query<&mut Transform, With<Ship>>) {
     for mut transform in ships.iter_mut() {
-        *transform.translation.z_mut() = LAYER_WORLD;
+        transform.translation.z = LAYER_WORLD;
     }
 }
 
 fn update_heading(
     bodies: Res<RigidBodySet>,
-    ships: Query<With<Ship, (&RigidBodyHandleComponent, &Heading)>>,
+    ships: Query<(&RigidBodyHandleComponent, &Heading), With<Ship>>,
     mut headings: Query<&mut Transform>,
 ) {
     for (body, heading) in ships.iter() {

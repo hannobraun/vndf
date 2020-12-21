@@ -24,12 +24,12 @@ impl Focus {
 }
 
 fn create(
-    mut commands: Commands,
-    players: Query<Without<Focus, (Entity, &Player)>>,
+    commands: &mut Commands,
+    players: Query<(Entity, &Player), Without<Focus>>,
 ) {
     for (player, _) in players.iter() {
         let camera = commands
-            .spawn(Camera2dComponents::default())
+            .spawn(Camera2dBundle::default())
             .current_entity()
             .unwrap();
 

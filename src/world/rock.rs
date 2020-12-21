@@ -26,7 +26,7 @@ impl Rock {
 //       rectangular sprites, but once we get accessible 2D drawing primitives,
 //       it would be nice to make rocks round.
 // TASK: Convert into regular system that is called every frame.
-fn setup(mut commands: Commands) {
+fn setup(commands: &mut Commands) {
     RockSpawner.spawn_rocks(
         Rect {
             left: -2500.0,

@@ -22,13 +22,13 @@ impl Plugin for NavMarkerPlugin {
 }
 
 fn add_components(
-    mut commands: Commands,
+    commands: &mut Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
-    players: Query<With<Player, Without<NavMarker, Entity>>>,
+    players: Query<Entity, (With<Player>, Without<NavMarker>)>,
 ) {
     for player in players.iter() {
         let nav_marker = commands
-            .spawn(SpriteComponents {
+            .spawn(SpriteBundle {
                 material: materials
                     .add(Color::rgb_linear(1.0, 1.0, 1.0).into()),
                 ..Default::default()
@@ -52,7 +52,7 @@ fn update_position(
             let dir = player.direction_setting.normalize();
 
             let position = body.position().translation.vector
-                + na::Vector2::new(dir.x(), dir.y()) * 250.0;
+                + na::Vector2::new(dir.x, dir.y) * 250.0;
             *transform = Transform::from_translation(Vec3::new(
                 position.x, position.y, LAYER_UI,
             ));
@@ -61,7 +61,7 @@ fn update_position(
 }
 
 fn update_size(
-    players: Query<With<Player, (&Ship, &NavMarker)>>,
+    players: Query<(&Ship, &NavMarker), With<Player>>,
     mut nav_markers: Query<&mut Sprite>,
 ) {
     for (ship, nav_marker) in players.iter() {

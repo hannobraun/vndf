@@ -14,15 +14,16 @@ impl Plugin for UiPlugin {
 
 struct FrameTime;
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    commands.spawn(UiCameraComponents::default());
+fn setup(commands: &mut Commands, asset_server: Res<AssetServer>) {
+    commands.spawn(CameraUiBundle::default());
     commands
-        .spawn(TextComponents {
+        .spawn(TextBundle {
             text: Text {
                 font: asset_server.load("fonts/Tuffy_Bold.ttf"),
                 style: TextStyle {
                     font_size: 32.0,
                     color: Color::WHITE,
+                    ..Default::default()
                 },
                 ..Default::default()
             },
@@ -42,7 +43,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
 fn update_frame_time(
     diagnostics: Res<Diagnostics>,
-    mut elements: Query<With<FrameTime, &mut Text>>,
+    mut elements: Query<&mut Text, With<FrameTime>>,
 ) {
     for mut text in elements.iter_mut() {
         if let Some(frame_time) =

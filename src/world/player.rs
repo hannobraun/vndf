@@ -12,7 +12,7 @@ pub struct Player {
     pub direction_setting: Vec2,
 }
 
-fn setup(mut commands: Commands) {
+fn setup(commands: &mut Commands) {
     commands.spawn((Player {
         direction_setting: Vec2::unit_x(),
     },));
