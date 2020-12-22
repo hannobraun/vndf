@@ -5,21 +5,10 @@ mod ui;
 mod world;
 
 use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
-use slog::{info, o, Drain as _, Logger};
 use world::player::Player;
 
 fn main() {
-    // TASK: Switch to Bevy's log system.
-    let decorator = slog_term::TermDecorator::new().build();
-    let drain = slog_term::FullFormat::new(decorator).build().fuse();
-    let drain = slog_async::Async::new(drain).build().fuse();
-
-    let log = Logger::root(drain, o!());
-
-    info!(log, "Initialized logging infrastructure.");
-
     App::build()
-        .add_resource(log)
         // Needs to be placed before the default plugins:
         // https://github.com/bevyengine/bevy/issues/278
         .add_resource(window_descriptor())

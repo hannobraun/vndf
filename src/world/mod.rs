@@ -7,7 +7,6 @@ use bevy_rapier2d::{
     na,
     physics::{RapierConfiguration, RapierPhysicsPlugin},
 };
-use slog::{info, Logger};
 
 pub struct WorldPlugin;
 
@@ -21,8 +20,8 @@ impl Plugin for WorldPlugin {
     }
 }
 
-fn setup(mut rapier: ResMut<RapierConfiguration>, log: Res<Logger>) {
+fn setup(mut rapier: ResMut<RapierConfiguration>) {
     rapier.gravity = na::Vector2::zeros();
 
-    info!(log, "Set up world.");
+    info!("Set up world.");
 }
