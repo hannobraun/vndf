@@ -41,6 +41,7 @@ fn create(
     }
 }
 
+// TASK: Scale length of course according to velocity.
 fn update(
     bodies: Res<RigidBodySet>,
     ships: Query<(&Ship, &RigidBodyHandleComponent, &Course)>,
