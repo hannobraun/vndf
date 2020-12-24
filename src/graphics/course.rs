@@ -18,8 +18,6 @@ impl Plugin for CoursePlugin {
     }
 }
 
-const LENGTH: f32 = 1000.0;
-
 struct Course {
     entity: Entity,
 }
@@ -38,7 +36,6 @@ fn create(
     }
 }
 
-// TASK: Scale length of course according to velocity.
 fn update(
     bodies: Res<RigidBodySet>,
     ships: Query<(&Ship, &RigidBodyHandleComponent, &Course)>,
@@ -54,17 +51,20 @@ fn update(
             Rotation2::rotation_between(&Vector2::new(1.0, 0.0), body.linvel())
                 .angle();
 
+        let speed = body.linvel().magnitude();
+        let length = speed * 30.0; // show course for next 30 seconds
+
         let translation = Transform::from_translation(Vec3::new(
             translation.x,
             translation.y,
             LAYER_UI,
         ));
         let offset =
-            Transform::from_translation(Vec3::new(LENGTH / 2.0, 0.0, 0.0));
+            Transform::from_translation(Vec3::new(length / 2.0, 0.0, 0.0));
         let rotation =
             Transform::from_rotation(Quat::from_rotation_z(rotation));
 
-        *sprite = Sprite::new(Vec2::new(LENGTH, 1.0));
+        *sprite = Sprite::new(Vec2::new(length, 1.0));
         *transform = translation.mul_transform(rotation).mul_transform(offset);
     }
 }
