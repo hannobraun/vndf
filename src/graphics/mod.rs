@@ -15,7 +15,7 @@ pub struct GraphicsPlugin;
 
 impl Plugin for GraphicsPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        // TASK: Draw background grid. Currently (Bevy 0.3) this is not
+        // TASK: Draw background grid. Currently (Bevy 0.4) this is not
         //       straight-forward. Bevy itself doesn't have support for easy 2D
         //       drawing. There's `bevy_prototype_lyon`, but that isn't quite
         //       what I'd like either.
