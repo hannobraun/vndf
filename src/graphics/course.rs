@@ -30,10 +30,7 @@ fn create(
 ) {
     for (ship, _) in ships.iter() {
         let course = commands
-            .spawn(SpriteBundle {
-                sprite: Sprite::new(Vec2::new(LENGTH, 1.0)),
-                ..Default::default()
-            })
+            .spawn(SpriteBundle::default())
             .current_entity()
             .unwrap();
 
@@ -45,10 +42,11 @@ fn create(
 fn update(
     bodies: Res<RigidBodySet>,
     ships: Query<(&Ship, &RigidBodyHandleComponent, &Course)>,
-    mut courses: Query<&mut Transform>,
+    mut courses: Query<(&mut Sprite, &mut Transform)>,
 ) {
     for (_, body, course) in ships.iter() {
-        let mut transform = courses.get_mut(course.entity).unwrap();
+        let (mut sprite, mut transform) =
+            courses.get_mut(course.entity).unwrap();
         let body = bodies.get(body.handle()).unwrap();
 
         let translation = body.position().translation;
@@ -66,6 +64,7 @@ fn update(
         let rotation =
             Transform::from_rotation(Quat::from_rotation_z(rotation));
 
+        *sprite = Sprite::new(Vec2::new(LENGTH, 1.0));
         *transform = translation.mul_transform(rotation).mul_transform(offset);
     }
 }
