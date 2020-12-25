@@ -7,6 +7,14 @@ mod world;
 use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
 use world::player::Player;
 
+// TASK: Convert all free system functions into associated functions on their
+//       plugins.
+// TASK: Split responsibilities better: System functions should concern
+//       themselves with the ECS, and getting data out of and into it. Game
+//       logic itself should be handled by methods on the component types.
+// TASK: Add new module `plugins`. Move plugins there. Leave pure game logic
+//       code in their respective module.
+
 fn main() {
     App::build()
         // Needs to be placed before the default plugins:
