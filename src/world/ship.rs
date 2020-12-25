@@ -23,7 +23,7 @@ impl Plugin for ShipPlugin {
 }
 
 pub struct Ship {
-    pub thrust_setting: f32,
+    thrust_setting: f32,
 }
 
 impl Ship {
