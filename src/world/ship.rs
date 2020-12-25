@@ -26,6 +26,14 @@ pub struct Ship {
     pub thrust_setting: f32,
 }
 
+impl Ship {
+    /// Change the thrust setting by the given amount
+    pub fn change_thrust_setting(&mut self, change: f32) {
+        self.thrust_setting += change;
+        self.thrust_setting = f32::min(f32::max(self.thrust_setting, 0.0), 1.0);
+    }
+}
+
 fn setup(
     commands: &mut Commands,
     players: Query<Entity, (With<Player>, Without<Ship>)>,
