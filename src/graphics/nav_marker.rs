@@ -68,7 +68,7 @@ fn update_size(
         if let Ok(mut sprite) = nav_markers.get_mut(nav_marker.entity) {
             let min_size = 5.0;
             let max_size = 25.0;
-            let size = min_size + (max_size - min_size) * ship.thrust_setting;
+            let size = min_size + (max_size - min_size) * ship.thrust_setting();
             *sprite = Sprite::new(Vec2::new(size, size));
         }
     }

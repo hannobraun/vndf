@@ -27,6 +27,10 @@ pub struct Ship {
 }
 
 impl Ship {
+    pub fn thrust_setting(&self) -> f32 {
+        self.thrust_setting
+    }
+
     /// Change the thrust setting by the given amount
     pub fn change_thrust_setting(&mut self, change: f32) {
         self.thrust_setting += change;
