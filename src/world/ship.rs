@@ -16,7 +16,7 @@ pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(setup.system())
+        app.add_system(add_components.system())
             .add_system(control_rotation.system())
             .add_system(control_thrust.system());
     }
@@ -38,7 +38,7 @@ impl Ship {
     }
 }
 
-fn setup(
+fn add_components(
     commands: &mut Commands,
     players: Query<Entity, (With<Player>, Without<Ship>)>,
 ) {
