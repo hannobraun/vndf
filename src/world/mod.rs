@@ -13,15 +13,17 @@ pub struct WorldPlugin;
 impl Plugin for WorldPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_plugin(RapierPhysicsPlugin)
-            .add_startup_system(setup.system())
+            .add_startup_system(Self::setup.system())
             .add_plugin(player::PlayerPlugin)
             .add_plugin(rock::RockPlugin)
             .add_plugin(ship::ShipPlugin);
     }
 }
 
-fn setup(mut rapier: ResMut<RapierConfiguration>) {
-    rapier.gravity = na::Vector2::zeros();
+impl WorldPlugin {
+    fn setup(mut rapier: ResMut<RapierConfiguration>) {
+        rapier.gravity = na::Vector2::zeros();
 
-    info!("Set up world.");
+        info!("Set up world.");
+    }
 }
