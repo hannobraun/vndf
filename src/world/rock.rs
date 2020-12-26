@@ -45,7 +45,7 @@ impl Rock {
     }
 }
 
-struct RockSpawner;
+pub struct RockSpawner;
 
 impl RockSpawner {
     // TASK: Only spawn rocks above ship position.
