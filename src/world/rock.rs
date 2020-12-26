@@ -27,7 +27,7 @@ impl RockPlugin {
             },
             |x, y, size| {
                 commands
-                    .spawn((Rock { size },))
+                    .spawn((Rock::new(size),))
                     .with(RigidBodyBuilder::new_dynamic().translation(x, y))
                     .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
             },
@@ -40,6 +40,10 @@ pub struct Rock {
 }
 
 impl Rock {
+    pub fn new(size: f32) -> Self {
+        Self { size }
+    }
+
     pub fn size(&self) -> f32 {
         self.size
     }
