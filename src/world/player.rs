@@ -10,12 +10,18 @@ impl Plugin for PlayerPlugin {
 
 impl PlayerPlugin {
     fn setup(commands: &mut Commands) {
-        commands.spawn((Player {
-            direction_setting: Vec2::unit_x(),
-        },));
+        commands.spawn((Player::new(),));
     }
 }
 
 pub struct Player {
     pub direction_setting: Vec2,
+}
+
+impl Player {
+    pub fn new() -> Self {
+        Self {
+            direction_setting: Vec2::unit_x(),
+        }
+    }
 }
