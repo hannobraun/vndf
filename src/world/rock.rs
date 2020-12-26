@@ -58,7 +58,7 @@ impl RockSpawner {
     //       - Spawn at random positions, not on a grid.
     //       - Vary min and max size, according to position.
     //       - Vary rock density, according to position.
-    fn spawn_rocks(
+    pub fn spawn_rocks(
         &mut self,
         area: Rect<f32>,
         mut spawn: impl FnMut(f32, f32, f32),
