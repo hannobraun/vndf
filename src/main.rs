@@ -1,6 +1,7 @@
 mod camera;
 mod graphics;
 mod input;
+mod plugins;
 mod ui;
 mod world;
 
@@ -26,7 +27,7 @@ fn main() {
         .add_plugin(graphics::GraphicsPlugin)
         .add_plugin(input::InputPlugin)
         .add_plugin(ui::UiPlugin)
-        .add_plugin(world::WorldPlugin)
+        .add_plugin(plugins::world::WorldPlugin)
         .run();
 }
 
