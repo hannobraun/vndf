@@ -3,8 +3,7 @@ use bevy_rapier2d::{na::Vector2, rapier::dynamics::RigidBody};
 pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 
 pub struct Ship {
-    // TASK: Make private
-    pub thrust_setting: f32,
+    thrust_setting: f32,
 }
 
 impl Ship {
