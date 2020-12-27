@@ -30,12 +30,7 @@ impl ShipPlugin {
     ) {
         for player in players.iter() {
             commands
-                .insert_one(
-                    player,
-                    Ship {
-                        thrust_setting: 0.0,
-                    },
-                )
+                .insert_one(player, Ship::new())
                 .insert_one(
                     player,
                     RigidBodyBuilder::new_dynamic().linvel(10.0, 10.0),

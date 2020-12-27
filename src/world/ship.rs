@@ -8,6 +8,12 @@ pub struct Ship {
 }
 
 impl Ship {
+    pub fn new() -> Self {
+        Self {
+            thrust_setting: 0.0,
+        }
+    }
+
     pub fn thrust_setting(&self) -> f32 {
         self.thrust_setting
     }
