@@ -88,7 +88,8 @@ impl ShipPlugin {
 }
 
 pub struct Ship {
-    thrust_setting: f32,
+    // TASK: Make private
+    pub thrust_setting: f32,
 }
 
 impl Ship {
