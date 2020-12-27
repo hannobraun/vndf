@@ -49,9 +49,9 @@ impl ShipPlugin {
     //       change rotation magically.
     fn control_rotation(
         mut bodies: ResMut<RigidBodySet>,
-        mut players: Query<(&Ship, &RigidBodyHandleComponent)>,
+        mut ships: Query<(&Ship, &RigidBodyHandleComponent)>,
     ) {
-        for (ship, body) in players.iter_mut() {
+        for (ship, body) in ships.iter_mut() {
             let body = bodies.get_mut(body.handle()).unwrap();
 
             let nav_marker_angle =
