@@ -35,7 +35,7 @@ fn handle_mouse_click(
     input: Res<Input<MouseButton>>,
     windows: Res<Windows>,
     bodies: Res<RigidBodySet>,
-    mut players: Query<(&mut Ship, &camera::Focus, &RigidBodyHandleComponent)>,
+    mut ships: Query<(&mut Ship, &camera::Focus, &RigidBodyHandleComponent)>,
     transforms: Query<&Transform>,
 ) {
     for event in events.drain() {
@@ -47,7 +47,7 @@ fn handle_mouse_click(
 
     if input.just_pressed(MouseButton::Left) {
         if let Some(state) = state.deref() {
-            for (mut ship, focus, body) in players.iter_mut() {
+            for (mut ship, focus, body) in ships.iter_mut() {
                 let window = windows
                     .get(state.window_id)
                     .expect("Could not find window");
