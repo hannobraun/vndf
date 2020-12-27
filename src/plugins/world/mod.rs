@@ -1,5 +1,6 @@
 mod player;
 mod rock;
+mod ship;
 
 use bevy::prelude::*;
 use bevy_rapier2d::{
@@ -15,7 +16,7 @@ impl Plugin for WorldPlugin {
             .add_startup_system(Self::setup.system())
             .add_plugin(player::PlayerPlugin)
             .add_plugin(rock::RockPlugin)
-            .add_plugin(crate::world::ship::ShipPlugin);
+            .add_plugin(ship::ShipPlugin);
     }
 }
 
