@@ -42,14 +42,14 @@ fn add_components(
 
 fn update_position(
     bodies: Res<RigidBodySet>,
-    players: Query<(&Player, &RigidBodyHandleComponent, &NavMarker)>,
+    players: Query<(&Ship, &RigidBodyHandleComponent, &NavMarker)>,
     mut nav_markers: Query<&mut Transform>,
 ) {
-    for (player, body, nav_marker) in players.iter() {
+    for (ship, body, nav_marker) in players.iter() {
         let body = bodies.get(body.handle()).unwrap();
 
         if let Ok(mut transform) = nav_markers.get_mut(nav_marker.entity) {
-            let dir = player.direction_setting.normalize();
+            let dir = ship.direction_setting.normalize();
 
             let position = body.position().translation.vector
                 + na::Vector2::new(dir.x, dir.y) * 250.0;

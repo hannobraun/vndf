@@ -49,13 +49,13 @@ impl ShipPlugin {
     //       change rotation magically.
     fn control_rotation(
         mut bodies: ResMut<RigidBodySet>,
-        mut players: Query<(&Player, &RigidBodyHandleComponent)>,
+        mut players: Query<(&Ship, &RigidBodyHandleComponent)>,
     ) {
-        for (player, body) in players.iter_mut() {
+        for (ship, body) in players.iter_mut() {
             let body = bodies.get_mut(body.handle()).unwrap();
 
             let nav_marker_angle =
-                Vec2::unit_x().angle_between(player.direction_setting);
+                Vec2::unit_x().angle_between(ship.direction_setting);
 
             body.set_position(
                 Isometry::from_parts(

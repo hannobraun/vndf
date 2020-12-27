@@ -1,14 +1,17 @@
+use bevy::math::Vec2;
 use bevy_rapier2d::{na::Vector2, rapier::dynamics::RigidBody};
 
 pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 
 pub struct Ship {
+    pub direction_setting: Vec2,
     thrust_setting: f32,
 }
 
 impl Ship {
     pub fn new() -> Self {
         Self {
+            direction_setting: Vec2::unit_x(),
             thrust_setting: 0.0,
         }
     }

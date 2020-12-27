@@ -35,11 +35,7 @@ fn handle_mouse_click(
     input: Res<Input<MouseButton>>,
     windows: Res<Windows>,
     bodies: Res<RigidBodySet>,
-    mut players: Query<(
-        &mut Player,
-        &camera::Focus,
-        &RigidBodyHandleComponent,
-    )>,
+    mut players: Query<(&mut Ship, &camera::Focus, &RigidBodyHandleComponent)>,
     transforms: Query<&Transform>,
 ) {
     for event in events.drain() {
@@ -51,7 +47,7 @@ fn handle_mouse_click(
 
     if input.just_pressed(MouseButton::Left) {
         if let Some(state) = state.deref() {
-            for (mut player, focus, body) in players.iter_mut() {
+            for (mut ship, focus, body) in players.iter_mut() {
                 let window = windows
                     .get(state.window_id)
                     .expect("Could not find window");
@@ -69,7 +65,7 @@ fn handle_mouse_click(
                 let direction = na::Vector2::new(position.x, position.y)
                     - body.position().translation.vector;
 
-                player.direction_setting = Vec2::new(direction.x, direction.y);
+                ship.direction_setting = Vec2::new(direction.x, direction.y);
             }
         }
     }
