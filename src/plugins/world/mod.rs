@@ -1,4 +1,5 @@
 mod player;
+mod rock;
 
 use bevy::prelude::*;
 use bevy_rapier2d::{
@@ -13,7 +14,7 @@ impl Plugin for WorldPlugin {
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(Self::setup.system())
             .add_plugin(player::PlayerPlugin)
-            .add_plugin(crate::world::rock::RockPlugin)
+            .add_plugin(rock::RockPlugin)
             .add_plugin(crate::world::ship::ShipPlugin);
     }
 }
