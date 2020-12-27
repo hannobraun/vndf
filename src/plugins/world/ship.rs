@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na::{self, Isometry, UnitComplex},
+    na::{Isometry, UnitComplex},
     physics::RigidBodyHandleComponent,
     rapier::{
         dynamics::{RigidBodyBuilder, RigidBodySet},
@@ -78,12 +78,7 @@ impl ShipPlugin {
     ) {
         for (ship, body) in ships.iter() {
             let body = bodies.get_mut(body.handle()).unwrap();
-
-            let direction =
-                body.position().rotation * na::Vector2::new(1.0, 0.0);
-
-            let thrust = 1_000_000.0 * direction;
-            body.apply_force(ship.thrust_setting * thrust, true);
+            ship.apply_thrust(body);
         }
     }
 }
