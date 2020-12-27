@@ -42,10 +42,10 @@ fn add_components(
 
 fn update_position(
     bodies: Res<RigidBodySet>,
-    players: Query<(&Ship, &RigidBodyHandleComponent, &NavMarker)>,
+    ships: Query<(&Ship, &RigidBodyHandleComponent, &NavMarker)>,
     mut nav_markers: Query<&mut Transform>,
 ) {
-    for (ship, body, nav_marker) in players.iter() {
+    for (ship, body, nav_marker) in ships.iter() {
         let body = bodies.get(body.handle()).unwrap();
 
         if let Ok(mut transform) = nav_markers.get_mut(nav_marker.entity) {
