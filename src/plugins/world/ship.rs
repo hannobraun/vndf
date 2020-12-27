@@ -54,6 +54,8 @@ impl ShipPlugin {
         for (ship, body) in ships.iter_mut() {
             let body = bodies.get_mut(body.handle()).unwrap();
 
+            // TASK: Move code below this point to method on `Ship`.
+
             let nav_marker_angle =
                 Vec2::unit_x().angle_between(ship.direction_setting);
 
