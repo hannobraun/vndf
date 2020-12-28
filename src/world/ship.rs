@@ -1,5 +1,8 @@
 use bevy::math::Vec2;
-use bevy_rapier2d::{na::Vector2, rapier::dynamics::RigidBody};
+use bevy_rapier2d::{
+    na::{Isometry, UnitComplex, Vector2},
+    rapier::dynamics::RigidBody,
+};
 
 pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 
@@ -31,5 +34,20 @@ impl Ship {
 
         let thrust = 1_000_000.0 * direction;
         body.apply_force(self.thrust_setting * thrust, true);
+    }
+
+    // TASK: Improve realism. Ships should require torque to rotate, not just
+    //       change rotation magically.
+    pub fn control_rotation(&self, body: &mut RigidBody) {
+        let nav_marker_angle =
+            Vec2::unit_x().angle_between(self.direction_setting);
+
+        body.set_position(
+            Isometry::from_parts(
+                body.position().translation,
+                UnitComplex::from_angle(nav_marker_angle),
+            ),
+            true,
+        );
     }
 }
