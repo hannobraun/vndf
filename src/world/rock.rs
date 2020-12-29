@@ -18,8 +18,6 @@ impl Rock {
 pub struct RockSpawner;
 
 impl RockSpawner {
-    // TASK: Only pass position (center of spawn area) here, and build spawn
-    //       area from that.
     // TASK: Store information about spawned rocks, so this methods can be
     //       called with overlapping spawn areas, without causing the same rocks
     //       to be spawned multiple times.
@@ -29,9 +27,16 @@ impl RockSpawner {
     //       - Vary rock density, according to position.
     pub fn spawn_rocks(
         &mut self,
-        area: Rect<f32>,
+        center: Vec2,
         mut spawn: impl FnMut(f32, f32, f32),
     ) {
+        let area = Rect {
+            left: center.x - 2500.0,
+            right: center.x + 2500.0,
+            top: center.y - 2500.0,
+            bottom: center.y + 2500.0,
+        };
+
         let mut rng = thread_rng();
 
         let min_size = 50.0;

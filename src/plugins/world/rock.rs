@@ -19,19 +19,11 @@ impl RockPlugin {
     //       primitives, it would be nice to make rocks round.
     // TASK: Convert into regular system that is called every frame.
     fn setup(commands: &mut Commands) {
-        RockSpawner.spawn_rocks(
-            Rect {
-                left: -2500.0,
-                right: 2500.0,
-                top: -2500.0,
-                bottom: 2500.0,
-            },
-            |x, y, size| {
-                commands
-                    .spawn((Rock::new(size),))
-                    .with(RigidBodyBuilder::new_dynamic().translation(x, y))
-                    .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
-            },
-        )
+        RockSpawner.spawn_rocks(Vec2::new(0.0, 0.0), |x, y, size| {
+            commands
+                .spawn((Rock::new(size),))
+                .with(RigidBodyBuilder::new_dynamic().translation(x, y))
+                .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+        })
     }
 }
