@@ -42,8 +42,7 @@ impl RockSpawner {
         let mut y = area.top;
 
         loop {
-            // Leave out ship spawn point.
-            if x != 0.0 || y != 0.0 {
+            if y >= 0.0 {
                 let size = min_size + (max_size - min_size) * rng.gen::<f32>();
 
                 spawn(x, y, size);
