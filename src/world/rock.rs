@@ -18,7 +18,6 @@ impl Rock {
 pub struct RockSpawner;
 
 impl RockSpawner {
-    // TASK: Only spawn rocks above ship position.
     // TASK: Only pass position (center of spawn area) here, and build spawn
     //       area from that.
     // TASK: Store information about spawned rocks, so this methods can be
