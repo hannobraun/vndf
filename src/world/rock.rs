@@ -44,7 +44,6 @@ impl RockSpawner {
         loop {
             if y >= 0.0 {
                 let size = min_size + (max_size - min_size) * rng.gen::<f32>();
-
                 spawn(x, y, size);
             }
 
