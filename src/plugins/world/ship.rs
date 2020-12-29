@@ -4,6 +4,7 @@ use bevy_rapier2d::{
     rapier::{
         dynamics::{RigidBodyBuilder, RigidBodySet},
         geometry::ColliderBuilder,
+        math::Isometry,
     },
 };
 
@@ -32,7 +33,9 @@ impl ShipPlugin {
                 .insert_one(player, Ship::new())
                 .insert_one(
                     player,
-                    RigidBodyBuilder::new_dynamic().linvel(10.0, 10.0),
+                    RigidBodyBuilder::new_dynamic()
+                        .position(Isometry::translation(0.0, -200.0))
+                        .linvel(10.0, 10.0),
                 )
                 .insert_one(
                     player,
