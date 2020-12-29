@@ -35,7 +35,7 @@ impl ShipPlugin {
                     player,
                     RigidBodyBuilder::new_dynamic()
                         .position(Isometry::translation(0.0, -200.0))
-                        .linvel(10.0, 10.0),
+                        .linvel(10.0, 0.0),
                 )
                 .insert_one(
                     player,
