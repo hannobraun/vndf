@@ -18,6 +18,7 @@ impl RockPlugin {
     // TASK: Make rocks round. At this point, I only know how to easily display
     //       rectangular sprites, but once we get accessible 2D drawing
     //       primitives, it would be nice to make rocks round.
+    // TASK: Spawn rocks around the current ship position, not just the origin.
     fn spawn_rocks(
         commands: &mut Commands,
         mut rock_spawner: ResMut<RockSpawner>,
