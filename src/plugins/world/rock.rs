@@ -10,7 +10,7 @@ pub struct RockPlugin;
 impl Plugin for RockPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_resource(RockSpawner::new())
-            .add_startup_system(Self::setup.system());
+            .add_system(Self::setup.system());
     }
 }
 
@@ -18,7 +18,6 @@ impl RockPlugin {
     // TASK: Make rocks round. At this point, I only know how to easily display
     //       rectangular sprites, but once we get accessible 2D drawing
     //       primitives, it would be nice to make rocks round.
-    // TASK: Convert into regular system that is called every frame.
     fn setup(commands: &mut Commands, mut rock_spawner: ResMut<RockSpawner>) {
         rock_spawner.spawn_rocks(Vec2::new(0.0, 0.0), |x, y, size| {
             commands
