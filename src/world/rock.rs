@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use bevy::prelude::*;
 use rand::{thread_rng, Rng as _};
 
@@ -15,16 +17,18 @@ impl Rock {
     }
 }
 
-pub struct RockSpawner;
+pub struct RockSpawner {
+    rocks: HashSet<u32>,
+}
 
 impl RockSpawner {
     pub fn new() -> Self {
-        RockSpawner
+        RockSpawner {
+            rocks: HashSet::new(),
+        }
     }
 
-    // TASK: Store information about spawned rocks, so this methods can be
-    //       called with overlapping spawn areas, without causing the same rocks
-    //       to be spawned multiple times.
+    // TASK: Spawn new rocks at each position that is passed.
     // TASK: Improve rock generation algorithm:
     //       - Spawn at random positions, not on a grid.
     //       - Vary min and max size, according to position.
@@ -49,10 +53,18 @@ impl RockSpawner {
         let mut x = area.left;
         let mut y = area.top;
 
+        let mut i = 0;
+
         loop {
             if y >= 0.0 {
-                let size = min_size + (max_size - min_size) * rng.gen::<f32>();
-                spawn(x, y, size);
+                if !self.rocks.contains(&i) {
+                    let size =
+                        min_size + (max_size - min_size) * rng.gen::<f32>();
+                    spawn(x, y, size);
+                    self.rocks.insert(i);
+                }
+
+                i += 1;
             }
 
             x += 500.0;
