@@ -18,6 +18,10 @@ impl Rock {
 pub struct RockSpawner;
 
 impl RockSpawner {
+    pub fn new() -> Self {
+        RockSpawner
+    }
+
     // TASK: Store information about spawned rocks, so this methods can be
     //       called with overlapping spawn areas, without causing the same rocks
     //       to be spawned multiple times.

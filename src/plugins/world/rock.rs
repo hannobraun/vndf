@@ -9,7 +9,7 @@ pub struct RockPlugin;
 
 impl Plugin for RockPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_resource(RockSpawner)
+        app.add_resource(RockSpawner::new())
             .add_startup_system(Self::setup.system());
     }
 }
