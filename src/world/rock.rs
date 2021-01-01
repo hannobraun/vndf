@@ -39,11 +39,13 @@ impl RockSpawner {
         center: Vec2,
         mut spawn: impl FnMut(f32, f32, f32),
     ) {
+        const BLOCK_SIZE: f32 = 2500.0;
+
         let area = Rect {
-            left: center.x - 2500.0,
-            right: center.x + 2500.0,
-            top: center.y - 2500.0,
-            bottom: center.y + 2500.0,
+            left: center.x - BLOCK_SIZE,
+            right: center.x + BLOCK_SIZE,
+            top: center.y - BLOCK_SIZE,
+            bottom: center.y + BLOCK_SIZE,
         };
 
         let mut rng = thread_rng();
