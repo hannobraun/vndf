@@ -30,7 +30,6 @@ impl RockSpawner {
         }
     }
 
-    // TASK: Spawn new rocks at each position that is passed.
     // TASK: Improve rock generation algorithm:
     //       - Spawn at random positions, not on a grid.
     //       - Vary min and max size, according to position.
