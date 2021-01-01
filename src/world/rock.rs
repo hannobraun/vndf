@@ -79,7 +79,7 @@ impl RockSpawner {
 
                     debug!(
                         "Spawning rock \
-                        (center: ({}, {}); pos: ({}, {}, number: {})",
+                        (center: ({}, {}); pos: ({}, {}, total: {})",
                         center.x,
                         center.y,
                         pos.0,
