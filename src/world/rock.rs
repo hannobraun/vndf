@@ -69,6 +69,16 @@ impl RockSpawner {
                         min_size + (max_size - min_size) * rng.gen::<f32>();
                     spawn(x, y, size);
                     self.rocks.insert(pos);
+
+                    debug!(
+                        "Spawning rock \
+                        (center: ({}, {}); pos: ({}, {}, number: {})",
+                        center.x,
+                        center.y,
+                        pos.0,
+                        pos.1,
+                        self.rocks.len(),
+                    );
                 }
             }
 
