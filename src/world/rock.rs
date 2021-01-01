@@ -1,6 +1,7 @@
 use std::collections::HashSet;
 
 use bevy::prelude::*;
+use decorum::R32;
 use rand::{thread_rng, Rng as _};
 
 pub struct Rock {
@@ -18,7 +19,7 @@ impl Rock {
 }
 
 pub struct RockSpawner {
-    rocks: HashSet<u32>,
+    rocks: HashSet<(R32, R32)>,
 }
 
 impl RockSpawner {
@@ -53,18 +54,16 @@ impl RockSpawner {
         let mut x = area.left;
         let mut y = area.top;
 
-        let mut i = 0;
-
         loop {
             if y >= 0.0 {
-                if !self.rocks.contains(&i) {
+                let pos = (R32::from_inner(x), R32::from_inner(y));
+
+                if !self.rocks.contains(&pos) {
                     let size =
                         min_size + (max_size - min_size) * rng.gen::<f32>();
                     spawn(x, y, size);
-                    self.rocks.insert(i);
+                    self.rocks.insert(pos);
                 }
-
-                i += 1;
             }
 
             x += 500.0;
