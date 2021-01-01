@@ -30,6 +30,8 @@ impl RockSpawner {
         }
     }
 
+    // TASK: Rocks are visibly spawned on screen when travelling in negative x
+    //       direction. Fix that.
     // TASK: Improve rock generation algorithm:
     //       - Spawn at random positions, not on a grid.
     //       - Vary min and max size, according to position.

@@ -29,6 +29,7 @@ struct MousePosition {
     window_id: WindowId,
 }
 
+// TASK: Keep updating direction setting as long as mouse button is held down.
 fn handle_mouse_click(
     mut state: Local<Option<MousePosition>>,
     mut events: ResMut<Events<CursorMoved>>,
