@@ -31,9 +31,7 @@ impl RockPlugin {
         bodies: Res<RigidBodySet>,
         ships: Query<&RigidBodyHandleComponent, With<Ship>>,
     ) {
-        let mut ships = ships.iter();
-
-        if let Some(player_ship) = ships.next() {
+        for player_ship in ships.iter() {
             let body = bodies.get(player_ship.handle()).unwrap();
             let spawn_position = body.position().translation.vector;
 
@@ -44,8 +42,5 @@ impl RockPlugin {
                     .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
             });
         }
-
-        // We assume there is exactly one player ship.
-        assert!(ships.next().is_none());
     }
 }
