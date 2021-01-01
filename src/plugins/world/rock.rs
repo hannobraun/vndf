@@ -1,10 +1,16 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na::Vector2,
-    rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder},
+    physics::RigidBodyHandleComponent,
+    rapier::{
+        dynamics::{RigidBodyBuilder, RigidBodySet},
+        geometry::ColliderBuilder,
+    },
 };
 
-use crate::world::rock::{Rock, RockSpawner};
+use crate::world::{
+    rock::{Rock, RockSpawner},
+    ship::Ship,
+};
 
 pub struct RockPlugin;
 
@@ -19,16 +25,27 @@ impl RockPlugin {
     // TASK: Make rocks round. At this point, I only know how to easily display
     //       rectangular sprites, but once we get accessible 2D drawing
     //       primitives, it would be nice to make rocks round.
-    // TASK: Spawn rocks around the current ship position, not just the origin.
     fn spawn_rocks(
         commands: &mut Commands,
         mut rock_spawner: ResMut<RockSpawner>,
+        bodies: Res<RigidBodySet>,
+        ships: Query<&RigidBodyHandleComponent, With<Ship>>,
     ) {
-        rock_spawner.spawn_rocks(Vector2::new(0.0, 0.0), |x, y, size| {
-            commands
-                .spawn((Rock::new(size),))
-                .with(RigidBodyBuilder::new_dynamic().translation(x, y))
-                .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
-        });
+        let mut ships = ships.iter();
+
+        if let Some(player_ship) = ships.next() {
+            let body = bodies.get(player_ship.handle()).unwrap();
+            let spawn_position = body.position().translation.vector;
+
+            rock_spawner.spawn_rocks(spawn_position, |x, y, size| {
+                commands
+                    .spawn((Rock::new(size),))
+                    .with(RigidBodyBuilder::new_dynamic().translation(x, y))
+                    .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+            });
+        }
+
+        // We assume there is exactly one player ship.
+        assert!(ships.next().is_none());
     }
 }
