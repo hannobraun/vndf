@@ -28,6 +28,6 @@ impl RockPlugin {
                 .spawn((Rock::new(size),))
                 .with(RigidBodyBuilder::new_dynamic().translation(x, y))
                 .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
-        })
+        });
     }
 }
