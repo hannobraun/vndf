@@ -43,7 +43,7 @@ impl RockSpawner {
         const BLOCK_SIZE: f32 = 5000.0;
 
         // Snap center to a grid defined by the block size.
-        let center = pos.map(|v| (v / BLOCK_SIZE).floor());
+        let center = pos.map(|v| ((v / BLOCK_SIZE).floor() + 0.5) * BLOCK_SIZE);
         trace!(
             "Spawning rocks (pos: ({}, {}); center: ({}, {}))",
             pos.x,
