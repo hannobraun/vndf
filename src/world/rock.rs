@@ -1,6 +1,7 @@
 use std::collections::HashSet;
 
 use bevy::prelude::*;
+use bevy_rapier2d::na::Vector2;
 use decorum::R32;
 use rand::{thread_rng, Rng as _};
 
@@ -36,7 +37,7 @@ impl RockSpawner {
     //       - Vary rock density, according to position.
     pub fn spawn_rocks(
         &mut self,
-        center: Vec2,
+        center: Vector2<f32>,
         mut spawn: impl FnMut(f32, f32, f32),
     ) {
         const BLOCK_SIZE: f32 = 2500.0;

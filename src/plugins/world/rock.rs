@@ -1,6 +1,7 @@
 use bevy::prelude::*;
-use bevy_rapier2d::rapier::{
-    dynamics::RigidBodyBuilder, geometry::ColliderBuilder,
+use bevy_rapier2d::{
+    na::Vector2,
+    rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder},
 };
 
 use crate::world::rock::{Rock, RockSpawner};
@@ -23,7 +24,7 @@ impl RockPlugin {
         commands: &mut Commands,
         mut rock_spawner: ResMut<RockSpawner>,
     ) {
-        rock_spawner.spawn_rocks(Vec2::new(0.0, 0.0), |x, y, size| {
+        rock_spawner.spawn_rocks(Vector2::new(0.0, 0.0), |x, y, size| {
             commands
                 .spawn((Rock::new(size),))
                 .with(RigidBodyBuilder::new_dynamic().translation(x, y))
