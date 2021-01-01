@@ -76,4 +76,13 @@ impl RockSpawner {
             }
         }
     }
+
+    // TASK: Add method that cleans up rocks that are far away from the player.
+    //       This should be possible using the following approach:
+    //       - Convert `rocks` into `HashMap`.
+    //       - Return `Entity` from the closure in `spawn_rocks`, store it in
+    //         `rocks`.
+    //       - When cleaning up, iterate over `HashMap`. Check actual position
+    //         of each rock. If it's too far away, remove it from ECS and
+    //         `rocks`.
 }
