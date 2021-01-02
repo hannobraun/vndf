@@ -24,7 +24,7 @@ pub struct RockSpawner {
 }
 
 impl RockSpawner {
-    const BLOCK_SIZE: f32 = 5000.0;
+    const BLOCK_SIZE: f32 = 1000.0;
 
     pub fn new() -> Self {
         RockSpawner {
