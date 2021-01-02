@@ -46,13 +46,6 @@ impl RockSpawner {
         // Snap center to a grid defined by the block size.
         let center = pos
             .map(|v| ((v / Self::BLOCK_SIZE).floor() + 0.5) * Self::BLOCK_SIZE);
-        trace!(
-            "Spawning rocks (pos: ({}, {}); center: ({}, {}))",
-            pos.x,
-            pos.y,
-            center.x,
-            center.y,
-        );
 
         let area = Rect {
             left: center.x - Self::BLOCK_SIZE / 2.0,
