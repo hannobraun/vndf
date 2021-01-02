@@ -32,8 +32,6 @@ impl RockSpawner {
         }
     }
 
-    // TASK: Rocks are visibly spawned when reaching the edge of a spawn block.
-    //       Make it so that rocks are always spawned off-screen.
     // TASK: Improve rock generation algorithm:
     //       - Spawn at random positions, not on a grid.
     //       - Vary min and max size, according to position.
@@ -47,7 +45,21 @@ impl RockSpawner {
         let center = pos
             .map(|v| ((v / Self::BLOCK_SIZE).floor() + 0.5) * Self::BLOCK_SIZE);
 
-        self.spawn_block(center, &mut spawn);
+        let offsets = [
+            Vector2::new(-Self::BLOCK_SIZE, -Self::BLOCK_SIZE),
+            Vector2::new(-Self::BLOCK_SIZE, 0.0),
+            Vector2::new(-Self::BLOCK_SIZE, Self::BLOCK_SIZE),
+            Vector2::new(0.0, -Self::BLOCK_SIZE),
+            Vector2::new(0.0, 0.0),
+            Vector2::new(0.0, Self::BLOCK_SIZE),
+            Vector2::new(Self::BLOCK_SIZE, -Self::BLOCK_SIZE),
+            Vector2::new(Self::BLOCK_SIZE, 0.0),
+            Vector2::new(Self::BLOCK_SIZE, Self::BLOCK_SIZE),
+        ];
+
+        for &offset in &offsets {
+            self.spawn_block(center + offset, &mut spawn);
+        }
     }
 
     fn spawn_block(
