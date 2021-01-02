@@ -41,12 +41,20 @@ impl RockSpawner {
     pub fn spawn(
         &mut self,
         pos: Vector2<f32>,
-        mut spawn: impl FnMut(f32, f32, f32),
+        spawn: impl FnMut(f32, f32, f32),
     ) {
         // Snap center to a grid defined by the block size.
         let center = pos
             .map(|v| ((v / Self::BLOCK_SIZE).floor() + 0.5) * Self::BLOCK_SIZE);
 
+        self.spawn_block(center, spawn);
+    }
+
+    fn spawn_block(
+        &mut self,
+        center: Vector2<f32>,
+        mut spawn: impl FnMut(f32, f32, f32),
+    ) {
         let area = Rect {
             left: center.x - Self::BLOCK_SIZE / 2.0,
             right: center.x + Self::BLOCK_SIZE / 2.0,
