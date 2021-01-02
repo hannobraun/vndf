@@ -24,6 +24,8 @@ pub struct RockSpawner {
 }
 
 impl RockSpawner {
+    const BLOCK_SIZE: f32 = 5000.0;
+
     pub fn new() -> Self {
         RockSpawner {
             rocks: HashSet::new(),
@@ -41,10 +43,9 @@ impl RockSpawner {
         pos: Vector2<f32>,
         mut spawn: impl FnMut(f32, f32, f32),
     ) {
-        const BLOCK_SIZE: f32 = 5000.0;
-
         // Snap center to a grid defined by the block size.
-        let center = pos.map(|v| ((v / BLOCK_SIZE).floor() + 0.5) * BLOCK_SIZE);
+        let center = pos
+            .map(|v| ((v / Self::BLOCK_SIZE).floor() + 0.5) * Self::BLOCK_SIZE);
         trace!(
             "Spawning rocks (pos: ({}, {}); center: ({}, {}))",
             pos.x,
@@ -54,10 +55,10 @@ impl RockSpawner {
         );
 
         let area = Rect {
-            left: center.x - BLOCK_SIZE / 2.0,
-            right: center.x + BLOCK_SIZE / 2.0,
-            top: center.y - BLOCK_SIZE / 2.0,
-            bottom: center.y + BLOCK_SIZE / 2.0,
+            left: center.x - Self::BLOCK_SIZE / 2.0,
+            right: center.x + Self::BLOCK_SIZE / 2.0,
+            top: center.y - Self::BLOCK_SIZE / 2.0,
+            bottom: center.y + Self::BLOCK_SIZE / 2.0,
         };
 
         let mut rng = thread_rng();
