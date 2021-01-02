@@ -35,7 +35,7 @@ impl RockPlugin {
             let body = bodies.get(player_ship.handle()).unwrap();
             let spawn_position = body.position().translation.vector;
 
-            rock_spawner.spawn_rocks(spawn_position, |x, y, size| {
+            rock_spawner.spawn(spawn_position, |x, y, size| {
                 commands
                     .spawn((Rock::new(size),))
                     .with(RigidBodyBuilder::new_dynamic().translation(x, y))
