@@ -75,10 +75,10 @@ impl InputPlugin {
 
     fn handle_mouse_wheel(
         mut events: ResMut<Events<MouseWheel>>,
-        mut players: Query<&mut Ship, With<Player>>,
+        mut ships: Query<&mut Ship, With<Player>>,
     ) {
         for event in events.drain() {
-            for mut ship in players.iter_mut() {
+            for mut ship in ships.iter_mut() {
                 ship.change_thrust_setting(event.y / 10.0);
             }
         }
