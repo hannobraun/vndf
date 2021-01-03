@@ -58,7 +58,6 @@ impl InputPlugin {
                     ) / 2.0;
 
                     let camera = transforms.get(focus.camera()).unwrap();
-
                     let body = bodies.get(body.handle()).unwrap();
 
                     let position = state.world_position(window_size, camera);
