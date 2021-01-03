@@ -79,7 +79,7 @@ impl InputPlugin {
     }
 }
 
-struct MousePosition {
+pub struct MousePosition {
     position: Vec2,
     window_id: WindowId,
 }
