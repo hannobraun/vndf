@@ -57,9 +57,9 @@ impl InputPlugin {
                         window.height() as f32,
                     ) / 2.0;
 
-                    let position = state.position - size;
-
                     let camera = transforms.get(focus.camera()).unwrap();
+
+                    let position = state.position - size;
                     let position = camera.compute_matrix()
                         * position.extend(0.0).extend(1.0);
 
