@@ -59,14 +59,14 @@ impl InputPlugin {
 
                     let camera = transforms.get(focus.camera()).unwrap();
 
+                    let body = bodies.get(body.handle()).unwrap();
+
                     let position = state.position - size;
                     let position = camera.compute_matrix()
                         * position.extend(0.0).extend(1.0);
 
-                    let body = bodies.get(body.handle()).unwrap();
                     let direction = Vector2::new(position.x, position.y)
                         - body.position().translation.vector;
-
                     ship.direction_setting =
                         Vec2::new(direction.x, direction.y);
                 }
