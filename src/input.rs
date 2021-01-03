@@ -61,10 +61,7 @@ impl InputPlugin {
 
                     let body = bodies.get(body.handle()).unwrap();
 
-                    let position = state.position - size;
-                    let position = camera.compute_matrix()
-                        * position.extend(0.0).extend(1.0);
-
+                    let position = state.world_position(size, camera);
                     let direction = Vector2::new(position.x, position.y)
                         - body.position().translation.vector;
                     ship.direction_setting =
@@ -89,4 +86,18 @@ impl InputPlugin {
 struct MousePosition {
     position: Vec2,
     window_id: WindowId,
+}
+
+impl MousePosition {
+    pub fn world_position(
+        &self,
+        screen_size: Vec2,
+        camera: &Transform,
+    ) -> Vec2 {
+        let position = self.position - screen_size;
+        let position =
+            camera.compute_matrix() * position.extend(0.0).extend(1.0);
+
+        Vec2::new(position.x, position.y)
+    }
 }
