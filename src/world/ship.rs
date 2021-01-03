@@ -19,6 +19,12 @@ impl Ship {
         }
     }
 
+    pub fn update_direction_setting(&mut self, body: &RigidBody, target: Vec2) {
+        let target = Vector2::new(target.x, target.y);
+        let direction = target - body.position().translation.vector;
+        self.direction_setting = Vec2::new(direction.x, direction.y);
+    }
+
     pub fn thrust_setting(&self) -> f32 {
         self.thrust_setting
     }

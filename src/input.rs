@@ -6,8 +6,7 @@ use bevy::{
     window::WindowId,
 };
 use bevy_rapier2d::{
-    na::Vector2, physics::RigidBodyHandleComponent,
-    rapier::dynamics::RigidBodySet,
+    physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
 use crate::{
@@ -61,10 +60,7 @@ impl InputPlugin {
                     let body = bodies.get(body.handle()).unwrap();
 
                     let position = state.world_position(window_size, camera);
-                    let direction = Vector2::new(position.x, position.y)
-                        - body.position().translation.vector;
-                    ship.direction_setting =
-                        Vec2::new(direction.x, direction.y);
+                    ship.update_direction_setting(body, position);
                 }
             }
         }
