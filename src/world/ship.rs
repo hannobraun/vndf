@@ -7,7 +7,7 @@ use bevy_rapier2d::{
 pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 
 pub struct Ship {
-    pub direction_setting: Vec2,
+    direction_setting: Vec2,
     thrust_setting: f32,
 }
 
