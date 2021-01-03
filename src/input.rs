@@ -49,7 +49,7 @@ impl InputPlugin {
             if let Some(mouse_position) = mouse_position.deref() {
                 for (mut ship, focus, body) in ships.iter_mut() {
                     let window = windows
-                        .get(mouse_position.window_id)
+                        .get(mouse_position.window_id())
                         .expect("Could not find window");
                     let window_size = Vec2::new(
                         window.width() as f32,
@@ -95,5 +95,9 @@ impl MousePosition {
             camera.compute_matrix() * position.extend(0.0).extend(1.0);
 
         Vec2::new(position.x, position.y)
+    }
+
+    pub fn window_id(&self) -> WindowId {
+        self.window_id
     }
 }
