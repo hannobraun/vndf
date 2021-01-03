@@ -25,7 +25,7 @@ fn main() {
         .add_plugin(FrameTimeDiagnosticsPlugin::default())
         .add_plugin(camera::CameraPlugin)
         .add_plugin(graphics::GraphicsPlugin)
-        .add_plugin(input::InputPlugin)
+        .add_plugin(plugins::input::InputPlugin)
         .add_plugin(ui::UiPlugin)
         .add_plugin(plugins::world::WorldPlugin)
         .run();
