@@ -49,7 +49,7 @@ fn update_position(
         let body = bodies.get(body.handle()).unwrap();
 
         if let Ok(mut transform) = nav_markers.get_mut(nav_marker.entity) {
-            let dir = ship.direction_setting.normalize();
+            let dir = ship.direction_setting().normalize();
 
             let position = body.position().translation.vector
                 + na::Vector2::new(dir.x, dir.y) * 250.0;

@@ -19,6 +19,10 @@ impl Ship {
         }
     }
 
+    pub fn direction_setting(&self) -> Vec2 {
+        self.direction_setting
+    }
+
     pub fn update_direction_setting(&mut self, body: &RigidBody, target: Vec2) {
         let target = Vector2::new(target.x, target.y);
         let direction = target - body.position().translation.vector;
