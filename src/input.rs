@@ -52,7 +52,7 @@ impl InputPlugin {
                     let window = windows
                         .get(state.window_id)
                         .expect("Could not find window");
-                    let size = Vec2::new(
+                    let window_size = Vec2::new(
                         window.width() as f32,
                         window.height() as f32,
                     ) / 2.0;
@@ -61,7 +61,7 @@ impl InputPlugin {
 
                     let body = bodies.get(body.handle()).unwrap();
 
-                    let position = state.world_position(size, camera);
+                    let position = state.world_position(window_size, camera);
                     let direction = Vector2::new(position.x, position.y)
                         - body.position().translation.vector;
                     ship.direction_setting =
