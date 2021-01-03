@@ -59,9 +59,9 @@ impl InputPlugin {
                     let camera = transforms.get(focus.camera()).unwrap();
                     let body = bodies.get(body.handle()).unwrap();
 
-                    let position =
+                    let mouse_position_world =
                         mouse_position.world_position(window_size, camera);
-                    ship.update_direction_setting(body, position);
+                    ship.update_direction_setting(body, mouse_position_world);
                 }
             }
         }
