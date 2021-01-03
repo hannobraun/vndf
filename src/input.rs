@@ -39,10 +39,7 @@ impl InputPlugin {
         transforms: Query<&Transform>,
     ) {
         for event in events.drain() {
-            *mouse_position = Some(MousePosition {
-                position: event.position,
-                window_id: event.id,
-            });
+            *mouse_position = Some(MousePosition::from_event(event));
         }
 
         if input.pressed(MouseButton::Left) {
@@ -85,6 +82,13 @@ pub struct MousePosition {
 }
 
 impl MousePosition {
+    pub fn from_event(event: CursorMoved) -> Self {
+        Self {
+            position: event.position,
+            window_id: event.id,
+        }
+    }
+
     pub fn world_position(
         &self,
         screen_size: Vec2,
