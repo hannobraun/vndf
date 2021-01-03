@@ -13,8 +13,8 @@ use world::player::Player;
 // TASK: Split responsibilities better: System functions should concern
 //       themselves with the ECS, and getting data out of and into it. Game
 //       logic itself should be handled by methods on the component types.
-// TASK: Add new module `plugins`. Move plugins there. Leave pure game logic
-//       code in their respective module.
+// TASK: Move plugins to `plugins` there. Leave pure game logic code in its
+//       respective module.
 
 fn main() {
     App::build()
