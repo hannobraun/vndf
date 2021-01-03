@@ -26,7 +26,7 @@ impl Plugin for InputPlugin {
 
 impl InputPlugin {
     fn handle_mouse_click(
-        mut state: Local<Option<MousePosition>>,
+        mut mouse_position: Local<Option<MousePosition>>,
         mut events: ResMut<Events<CursorMoved>>,
         input: Res<Input<MouseButton>>,
         windows: Res<Windows>,
@@ -39,14 +39,14 @@ impl InputPlugin {
         transforms: Query<&Transform>,
     ) {
         for event in events.drain() {
-            *state = Some(MousePosition {
+            *mouse_position = Some(MousePosition {
                 position: event.position,
                 window_id: event.id,
             });
         }
 
         if input.pressed(MouseButton::Left) {
-            if let Some(state) = state.deref() {
+            if let Some(state) = mouse_position.deref() {
                 for (mut ship, focus, body) in ships.iter_mut() {
                     let window = windows
                         .get(state.window_id)
