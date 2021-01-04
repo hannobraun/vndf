@@ -45,16 +45,22 @@ impl UiPlugin {
         mut elements: Query<&mut Text, With<FrameTime>>,
     ) {
         for mut text in elements.iter_mut() {
-            if let Some(frame_time) =
-                diagnostics.get(FrameTimeDiagnosticsPlugin::FRAME_TIME)
-            {
-                if let Some(frame_time) = frame_time.average() {
-                    let frame_time_ms = frame_time * 1000.0;
-                    text.value = format!("Frame Time: {:.0} ms", frame_time_ms);
-                }
-            }
+            FrameTime::format(&diagnostics, &mut text.value);
         }
     }
 }
 
 struct FrameTime;
+
+impl FrameTime {
+    pub fn format(diagnostics: &Diagnostics, s: &mut String) {
+        if let Some(frame_time) =
+            diagnostics.get(FrameTimeDiagnosticsPlugin::FRAME_TIME)
+        {
+            if let Some(frame_time) = frame_time.average() {
+                let frame_time_ms = frame_time * 1000.0;
+                *s = format!("Frame Time: {:.0} ms", frame_time_ms);
+            }
+        }
+    }
+}
