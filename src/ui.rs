@@ -60,10 +60,9 @@ impl FrameTime {
             diagnostics.get(FrameTimeDiagnosticsPlugin::FRAME_TIME)
         {
             if let Some(frame_time_s) = frame_time.average() {
-                let frame_time_ms = frame_time_s * 1000.0;
-
                 s.clear();
-                let _ = write!(s, "Frame Time: {:.0} ms", frame_time_ms);
+                let _ =
+                    write!(s, "Frame Time: {:.0} ms", frame_time_s * 1000.0);
             }
         }
     }
