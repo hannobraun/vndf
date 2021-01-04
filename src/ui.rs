@@ -1,3 +1,5 @@
+use std::fmt::Write as _;
+
 use bevy::{
     diagnostic::{Diagnostics, FrameTimeDiagnosticsPlugin},
     prelude::*,
@@ -59,7 +61,9 @@ impl FrameTime {
         {
             if let Some(frame_time) = frame_time.average() {
                 let frame_time_ms = frame_time * 1000.0;
-                *s = format!("Frame Time: {:.0} ms", frame_time_ms);
+
+                s.clear();
+                let _ = write!(s, "Frame Time: {:.0} ms", frame_time_ms);
             }
         }
     }
