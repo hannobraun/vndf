@@ -52,7 +52,7 @@ impl UiPlugin {
     }
 }
 
-struct FrameTime;
+pub struct FrameTime;
 
 impl FrameTime {
     pub fn format(diagnostics: &Diagnostics, s: &mut String) {
