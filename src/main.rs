@@ -26,7 +26,7 @@ fn main() {
         .add_plugin(camera::CameraPlugin)
         .add_plugin(graphics::GraphicsPlugin)
         .add_plugin(plugins::input::InputPlugin)
-        .add_plugin(ui::UiPlugin)
+        .add_plugin(plugins::ui::UiPlugin)
         .add_plugin(plugins::world::WorldPlugin)
         .run();
 }
