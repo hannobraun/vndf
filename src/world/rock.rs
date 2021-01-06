@@ -123,4 +123,7 @@ impl RockSpawner {
     //       - When cleaning up, iterate over `HashMap`. Check actual position
     //         of each rock. If it's too far away, remove it from ECS and
     //         `rocks`.
+    // TASK: Add function or method that returns rock density for any given
+    //       position. This can later be extended to return a struct that
+    //       returns other key parameters, like minimum and maximum size.
 }
