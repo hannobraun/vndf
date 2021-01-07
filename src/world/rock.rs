@@ -83,22 +83,22 @@ impl RockSpawner {
 
         loop {
             if position.y >= 0.0 {
-                let pos =
+                let position_real =
                     (R32::from_inner(position.x), R32::from_inner(position.y));
 
-                if !self.rocks.contains(&pos) {
+                if !self.rocks.contains(&position_real) {
                     let size =
                         min_size + (max_size - min_size) * rng.gen::<f32>();
                     spawn(position, size);
-                    self.rocks.insert(pos);
+                    self.rocks.insert(position_real);
 
                     debug!(
                         "Spawning rock \
                         (center: ({}, {}); pos: ({}, {}, total: {})",
                         center.x,
                         center.y,
-                        pos.0,
-                        pos.1,
+                        position_real.0,
+                        position_real.1,
                         self.rocks.len(),
                     );
                 }
