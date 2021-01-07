@@ -39,7 +39,7 @@ impl RockSpawner {
     pub fn spawn(
         &mut self,
         pos: Vector2<f32>,
-        mut spawn: impl FnMut(f32, f32, f32),
+        mut spawn: impl FnMut(Vector2<f32>, f32),
     ) {
         // Snap center to a grid defined by the block size.
         let center = pos
@@ -65,7 +65,7 @@ impl RockSpawner {
     fn spawn_block(
         &mut self,
         center: Vector2<f32>,
-        spawn: &mut impl FnMut(f32, f32, f32),
+        spawn: &mut impl FnMut(Vector2<f32>, f32),
     ) {
         let area = Rect {
             left: center.x - Self::BLOCK_SIZE / 2.0,
@@ -89,7 +89,7 @@ impl RockSpawner {
                 if !self.rocks.contains(&pos) {
                     let size =
                         min_size + (max_size - min_size) * rng.gen::<f32>();
-                    spawn(x, y, size);
+                    spawn(Vector2::new(x, y), size);
                     self.rocks.insert(pos);
 
                     debug!(
