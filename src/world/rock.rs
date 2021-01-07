@@ -79,17 +79,17 @@ impl RockSpawner {
         let min_size = 50.0;
         let max_size = 300.0;
 
-        let mut x = area.left;
-        let mut y = area.top;
+        let mut position = Vector2::new(area.left, area.top);
 
         loop {
-            if y >= 0.0 {
-                let pos = (R32::from_inner(x), R32::from_inner(y));
+            if position.y >= 0.0 {
+                let pos =
+                    (R32::from_inner(position.x), R32::from_inner(position.y));
 
                 if !self.rocks.contains(&pos) {
                     let size =
                         min_size + (max_size - min_size) * rng.gen::<f32>();
-                    spawn(Vector2::new(x, y), size);
+                    spawn(position, size);
                     self.rocks.insert(pos);
 
                     debug!(
@@ -104,12 +104,12 @@ impl RockSpawner {
                 }
             }
 
-            x += 500.0;
-            if x > area.right {
-                y += 500.0;
-                x = area.left;
+            position.x += 500.0;
+            if position.x > area.right {
+                position.y += 500.0;
+                position.x = area.left;
             }
-            if y > area.bottom {
+            if position.y > area.bottom {
                 break;
             }
         }
