@@ -49,7 +49,7 @@ impl CoursePlugin {
     }
 }
 
-struct Course {
+pub struct Course {
     entity: Entity,
 }
 
