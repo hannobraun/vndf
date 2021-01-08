@@ -36,10 +36,10 @@ impl CoursePlugin {
 
     fn update(
         bodies: Res<RigidBodySet>,
-        ships: Query<(&Ship, &RigidBodyHandleComponent, &Course)>,
+        ships: Query<(&RigidBodyHandleComponent, &Course), With<Ship>>,
         mut courses: Query<(&mut Sprite, &mut Transform)>,
     ) {
-        for (_, body, course) in ships.iter() {
+        for (body, course) in ships.iter() {
             let (mut sprite, mut transform) =
                 courses.get_mut(course.entity).unwrap();
             let body = bodies.get(body.handle()).unwrap();
