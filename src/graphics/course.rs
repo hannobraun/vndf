@@ -50,7 +50,8 @@ impl CoursePlugin {
 }
 
 pub struct Course {
-    entity: Entity,
+    // TASK: Make private.
+    pub entity: Entity,
 }
 
 impl Course {
