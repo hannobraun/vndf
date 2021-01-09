@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na,
+    na::Vector2,
     physics::RigidBodyHandleComponent,
     rapier::dynamics::{RigidBody, RigidBodySet},
 };
@@ -24,7 +24,7 @@ impl NavMarker {
         let dir = ship.direction_setting().normalize();
 
         let position = body.position().translation.vector
-            + na::Vector2::new(dir.x, dir.y) * 250.0;
+            + Vector2::new(dir.x, dir.y) * 250.0;
         *transform = Transform::from_translation(Vec3::new(
             position.x, position.y, LAYER_UI,
         ));
