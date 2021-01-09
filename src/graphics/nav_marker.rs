@@ -68,10 +68,9 @@ impl NavMarkerPlugin {
     ) {
         for (ship, body, nav_marker) in ships.iter() {
             let body = bodies.get(body.handle()).unwrap();
+            let mut transform = nav_markers.get_mut(nav_marker.entity).unwrap();
 
-            if let Ok(mut transform) = nav_markers.get_mut(nav_marker.entity) {
-                nav_marker.update_position(ship, body, &mut transform);
-            }
+            nav_marker.update_position(ship, body, &mut transform);
         }
     }
 
