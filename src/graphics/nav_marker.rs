@@ -7,7 +7,7 @@ use crate::world::{player::Player, ship::Ship};
 
 use super::LAYER_UI;
 
-struct NavMarker {
+pub struct NavMarker {
     entity: Entity,
 }
 
