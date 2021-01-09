@@ -8,7 +8,8 @@ use crate::world::{player::Player, ship::Ship};
 use super::LAYER_UI;
 
 pub struct NavMarker {
-    entity: Entity,
+    // TASK: Make private
+    pub entity: Entity,
 }
 
 pub struct NavMarkerPlugin;
