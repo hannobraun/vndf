@@ -29,6 +29,13 @@ impl NavMarker {
             position.x, position.y, LAYER_UI,
         ));
     }
+
+    pub fn update_size(&self, ship: &Ship, sprite: &mut Sprite) {
+        let min_size = 5.0;
+        let max_size = 25.0;
+        let size = min_size + (max_size - min_size) * ship.thrust_setting();
+        *sprite = Sprite::new(Vec2::new(size, size));
+    }
 }
 
 pub struct NavMarkerPlugin;
@@ -80,11 +87,7 @@ impl NavMarkerPlugin {
     ) {
         for (ship, nav_marker) in players.iter() {
             if let Ok(mut sprite) = nav_markers.get_mut(nav_marker.entity) {
-                let min_size = 5.0;
-                let max_size = 25.0;
-                let size =
-                    min_size + (max_size - min_size) * ship.thrust_setting();
-                *sprite = Sprite::new(Vec2::new(size, size));
+                nav_marker.update_size(ship, &mut sprite);
             }
         }
     }
