@@ -1,6 +1,8 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
+    na,
+    physics::RigidBodyHandleComponent,
+    rapier::dynamics::{RigidBody, RigidBodySet},
 };
 
 use crate::world::{player::Player, ship::Ship};
@@ -10,6 +12,23 @@ use super::LAYER_UI;
 pub struct NavMarker {
     // TASK: Make private
     pub entity: Entity,
+}
+
+impl NavMarker {
+    pub fn update_position(
+        &self,
+        ship: &Ship,
+        body: &RigidBody,
+        transform: &mut Transform,
+    ) {
+        let dir = ship.direction_setting().normalize();
+
+        let position = body.position().translation.vector
+            + na::Vector2::new(dir.x, dir.y) * 250.0;
+        *transform = Transform::from_translation(Vec3::new(
+            position.x, position.y, LAYER_UI,
+        ));
+    }
 }
 
 pub struct NavMarkerPlugin;
@@ -51,13 +70,7 @@ impl NavMarkerPlugin {
             let body = bodies.get(body.handle()).unwrap();
 
             if let Ok(mut transform) = nav_markers.get_mut(nav_marker.entity) {
-                let dir = ship.direction_setting().normalize();
-
-                let position = body.position().translation.vector
-                    + na::Vector2::new(dir.x, dir.y) * 250.0;
-                *transform = Transform::from_translation(Vec3::new(
-                    position.x, position.y, LAYER_UI,
-                ));
+                nav_marker.update_position(ship, body, &mut transform);
             }
         }
     }
