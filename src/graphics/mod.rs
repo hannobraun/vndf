@@ -28,7 +28,7 @@ impl Plugin for GraphicsPlugin {
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_plugin(crate::plugins::graphics::course::CoursePlugin)
             .add_plugin(crate::plugins::graphics::nav_marker::NavMarkerPlugin)
-            .add_plugin(rock::RockPlugin)
+            .add_plugin(crate::plugins::graphics::rock::RockPlugin)
             .add_plugin(ship::ShipPlugin);
     }
 }
