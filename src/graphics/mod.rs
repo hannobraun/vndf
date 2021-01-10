@@ -27,7 +27,7 @@ impl Plugin for GraphicsPlugin {
         //       I'd rather just wait for easier drawing in Bevy.
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_plugin(crate::plugins::graphics::course::CoursePlugin)
-            .add_plugin(nav_marker::NavMarkerPlugin)
+            .add_plugin(crate::plugins::graphics::nav_marker::NavMarkerPlugin)
             .add_plugin(rock::RockPlugin)
             .add_plugin(ship::ShipPlugin);
     }
