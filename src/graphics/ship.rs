@@ -11,7 +11,7 @@ pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(setup.system())
+        app.add_system(add_components.system())
             .add_system(set_layer.system())
             .add_system(update_heading.system());
     }
@@ -21,7 +21,7 @@ pub struct Heading {
     entity: Entity,
 }
 
-fn setup(
+fn add_components(
     commands: &mut Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
     ships: Query<Entity, (With<Ship>, Without<Heading>)>,
