@@ -48,7 +48,7 @@ impl ShipPlugin {
 
     fn set_layer(mut ships: Query<&mut Transform, With<Ship>>) {
         for mut transform in ships.iter_mut() {
-            transform.translation.z = LAYER_WORLD;
+            set_layer(&mut transform);
         }
     }
 
@@ -76,4 +76,8 @@ impl ShipPlugin {
 pub struct Heading {
     // TASK: Make private
     pub entity: Entity,
+}
+
+pub fn set_layer(transform: &mut Transform) {
+    transform.translation.z = LAYER_WORLD;
 }
