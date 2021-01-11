@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na,
+    na::Vector2,
     physics::RigidBodyHandleComponent,
     rapier::dynamics::{RigidBody, RigidBodySet},
 };
@@ -75,7 +75,7 @@ pub struct Heading {
 
 impl Heading {
     pub fn update(body: &RigidBody, heading: &mut Transform) {
-        let offset = body.position().rotation * na::Vector2::new(200.0, 0.0);
+        let offset = body.position().rotation * Vector2::new(200.0, 0.0);
         let position = body.position().translation.vector + offset;
         *heading = Transform::from_translation(Vec3::new(
             position.x,
