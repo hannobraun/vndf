@@ -1,6 +1,8 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na, physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
+    na,
+    physics::RigidBodyHandleComponent,
+    rapier::dynamics::{RigidBody, RigidBodySet},
 };
 
 use crate::world::ship::{Ship, SHIP_SIZE};
@@ -61,14 +63,7 @@ impl ShipPlugin {
             let body = bodies.get(body.handle()).unwrap();
             let mut heading = headings.get_mut(heading.entity).unwrap();
 
-            let offset =
-                body.position().rotation * na::Vector2::new(200.0, 0.0);
-            let position = body.position().translation.vector + offset;
-            *heading = Transform::from_translation(Vec3::new(
-                position.x,
-                position.y,
-                LAYER_MARKER,
-            ));
+            Heading::update(body, &mut heading);
         }
     }
 }
@@ -76,6 +71,18 @@ impl ShipPlugin {
 pub struct Heading {
     // TASK: Make private
     pub entity: Entity,
+}
+
+impl Heading {
+    pub fn update(body: &RigidBody, heading: &mut Transform) {
+        let offset = body.position().rotation * na::Vector2::new(200.0, 0.0);
+        let position = body.position().translation.vector + offset;
+        *heading = Transform::from_translation(Vec3::new(
+            position.x,
+            position.y,
+            LAYER_MARKER,
+        ));
+    }
 }
 
 pub fn set_layer(transform: &mut Transform) {
