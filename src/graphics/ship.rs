@@ -74,5 +74,6 @@ impl ShipPlugin {
 }
 
 pub struct Heading {
-    entity: Entity,
+    // TASK: Make private
+    pub entity: Entity,
 }
