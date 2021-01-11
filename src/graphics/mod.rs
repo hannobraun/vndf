@@ -29,6 +29,6 @@ impl Plugin for GraphicsPlugin {
             .add_plugin(crate::plugins::graphics::course::CoursePlugin)
             .add_plugin(crate::plugins::graphics::nav_marker::NavMarkerPlugin)
             .add_plugin(crate::plugins::graphics::rock::RockPlugin)
-            .add_plugin(ship::ShipPlugin);
+            .add_plugin(crate::plugins::graphics::ship::ShipPlugin);
     }
 }
