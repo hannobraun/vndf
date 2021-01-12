@@ -34,7 +34,7 @@ impl NavMarkerPlugin {
                 .current_entity()
                 .unwrap();
 
-            commands.insert_one(player, NavMarker { entity: nav_marker });
+            commands.insert_one(player, NavMarker::new(nav_marker));
         }
     }
 

@@ -11,6 +11,10 @@ pub struct NavMarker {
 }
 
 impl NavMarker {
+    pub fn new(entity: Entity) -> Self {
+        Self { entity }
+    }
+
     pub fn update_position(
         &self,
         ship: &Ship,
