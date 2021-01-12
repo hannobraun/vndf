@@ -6,8 +6,7 @@ use crate::world::ship::Ship;
 use super::LAYER_UI;
 
 pub struct NavMarker {
-    // TASK: Make private
-    pub entity: Entity,
+    entity: Entity,
 }
 
 impl NavMarker {
