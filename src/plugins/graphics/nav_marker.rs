@@ -58,7 +58,7 @@ impl NavMarkerPlugin {
     ) {
         for (ship, nav_marker) in players.iter() {
             let mut sprite = nav_markers.get_mut(nav_marker.entity()).unwrap();
-            nav_marker.update_size(ship, &mut sprite);
+            NavMarker::update_size(ship, &mut sprite);
         }
     }
 }

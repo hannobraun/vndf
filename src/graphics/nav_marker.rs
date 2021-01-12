@@ -32,7 +32,7 @@ impl NavMarker {
         ));
     }
 
-    pub fn update_size(&self, ship: &Ship, sprite: &mut Sprite) {
+    pub fn update_size(ship: &Ship, sprite: &mut Sprite) {
         let min_size = 5.0;
         let max_size = 25.0;
         let size = min_size + (max_size - min_size) * ship.thrust_setting();
