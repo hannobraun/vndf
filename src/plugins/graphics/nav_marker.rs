@@ -48,7 +48,7 @@ impl NavMarkerPlugin {
             let mut transform =
                 nav_markers.get_mut(nav_marker.entity()).unwrap();
 
-            nav_marker.update_position(ship, body, &mut transform);
+            NavMarker::update_position(ship, body, &mut transform);
         }
     }
 

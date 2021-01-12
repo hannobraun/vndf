@@ -19,7 +19,6 @@ impl NavMarker {
     }
 
     pub fn update_position(
-        &self,
         ship: &Ship,
         body: &RigidBody,
         transform: &mut Transform,
