@@ -15,6 +15,10 @@ impl NavMarker {
         Self { entity }
     }
 
+    pub fn entity(&self) -> Entity {
+        self.entity
+    }
+
     pub fn update_position(
         &self,
         ship: &Ship,

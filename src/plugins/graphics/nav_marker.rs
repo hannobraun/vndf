@@ -45,7 +45,8 @@ impl NavMarkerPlugin {
     ) {
         for (ship, body, nav_marker) in ships.iter() {
             let body = bodies.get(body.handle()).unwrap();
-            let mut transform = nav_markers.get_mut(nav_marker.entity).unwrap();
+            let mut transform =
+                nav_markers.get_mut(nav_marker.entity()).unwrap();
 
             nav_marker.update_position(ship, body, &mut transform);
         }
@@ -56,7 +57,7 @@ impl NavMarkerPlugin {
         mut nav_markers: Query<&mut Sprite>,
     ) {
         for (ship, nav_marker) in players.iter() {
-            let mut sprite = nav_markers.get_mut(nav_marker.entity).unwrap();
+            let mut sprite = nav_markers.get_mut(nav_marker.entity()).unwrap();
             nav_marker.update_size(ship, &mut sprite);
         }
     }
