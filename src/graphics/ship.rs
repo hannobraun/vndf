@@ -4,8 +4,7 @@ use bevy_rapier2d::{na::Vector2, rapier::dynamics::RigidBody};
 use super::{LAYER_MARKER, LAYER_WORLD};
 
 pub struct Heading {
-    // TASK: Make private
-    pub entity: Entity,
+    entity: Entity,
 }
 
 impl Heading {
