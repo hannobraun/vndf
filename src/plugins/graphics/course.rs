@@ -39,7 +39,7 @@ impl CoursePlugin {
                 courses.get_mut(course.entity).unwrap();
             let body = bodies.get(body.handle()).unwrap();
 
-            course.update(body, &mut sprite, &mut transform);
+            Course::update(body, &mut sprite, &mut transform);
         }
     }
 }

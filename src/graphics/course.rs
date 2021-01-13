@@ -14,7 +14,6 @@ pub struct Course {
 
 impl Course {
     pub fn update(
-        &self,
         body: &RigidBody,
         sprite: &mut Sprite,
         transform: &mut Transform,
