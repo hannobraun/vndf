@@ -63,7 +63,7 @@ impl ShipPlugin {
     ) {
         for (body, heading) in ships.iter() {
             let body = bodies.get(body.handle()).unwrap();
-            let mut heading = headings.get_mut(heading.entity).unwrap();
+            let mut heading = headings.get_mut(heading.entity()).unwrap();
 
             Heading::update(body, &mut heading);
         }

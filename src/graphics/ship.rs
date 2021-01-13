@@ -9,6 +9,10 @@ pub struct Heading {
 }
 
 impl Heading {
+    pub fn entity(&self) -> Entity {
+        self.entity
+    }
+
     pub fn update(body: &RigidBody, heading: &mut Transform) {
         let offset = body.position().rotation * Vector2::new(200.0, 0.0);
         let position = body.position().translation.vector + offset;
