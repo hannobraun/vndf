@@ -46,7 +46,7 @@ impl ShipPlugin {
                         ..Default::default()
                     },
                 )
-                .insert_one(ship, Heading { entity: heading });
+                .insert_one(ship, Heading::new(heading));
         }
     }
 
