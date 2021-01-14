@@ -60,11 +60,11 @@ impl InputPlugin {
                         mouse_position.world_position(window_size, camera);
                     ship.update_direction_setting(body, mouse_position_world);
                 }
-            }
-        }
 
-        if input.pressed(MouseButton::Right) {
-            println!("Right mouse click");
+                if input.pressed(MouseButton::Right) {
+                    println!("Right mouse click");
+                }
+            }
         }
     }
 
