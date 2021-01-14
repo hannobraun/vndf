@@ -62,6 +62,10 @@ impl InputPlugin {
                 }
             }
         }
+
+        if input.pressed(MouseButton::Right) {
+            println!("Right mouse click");
+        }
     }
 
     fn handle_mouse_wheel(
