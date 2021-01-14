@@ -61,6 +61,7 @@ impl InputPlugin {
                 }
 
                 if input.pressed(MouseButton::Right) {
+                    // TASK: Set target to mouse position.
                     println!("Right mouse click");
                 }
             }
