@@ -44,20 +44,19 @@ impl InputPlugin {
 
         for (mut ship, focus, body) in ships.iter_mut() {
             if let Some(mouse_position) = mouse_position.deref() {
+                let window = windows
+                    .get(mouse_position.window_id())
+                    .expect("Could not find window");
+                let window_size =
+                    Vec2::new(window.width() as f32, window.height() as f32)
+                        / 2.0;
+
+                let camera = transforms.get(focus.camera()).unwrap();
+                let mouse_position_world =
+                    mouse_position.world_position(window_size, camera);
+
                 if input.pressed(MouseButton::Left) {
-                    let window = windows
-                        .get(mouse_position.window_id())
-                        .expect("Could not find window");
-                    let window_size = Vec2::new(
-                        window.width() as f32,
-                        window.height() as f32,
-                    ) / 2.0;
-
-                    let camera = transforms.get(focus.camera()).unwrap();
                     let body = bodies.get(body.handle()).unwrap();
-
-                    let mouse_position_world =
-                        mouse_position.world_position(window_size, camera);
                     ship.update_direction_setting(body, mouse_position_world);
                 }
 
