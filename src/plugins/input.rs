@@ -43,8 +43,8 @@ impl InputPlugin {
         }
 
         for (mut ship, focus, body) in ships.iter_mut() {
-            if input.pressed(MouseButton::Left) {
-                if let Some(mouse_position) = mouse_position.deref() {
+            if let Some(mouse_position) = mouse_position.deref() {
+                if input.pressed(MouseButton::Left) {
                     let window = windows
                         .get(mouse_position.window_id())
                         .expect("Could not find window");
