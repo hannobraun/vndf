@@ -20,15 +20,24 @@ impl Plugin for InputPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_resource(MousePosition::none())
             .add_system(exit_on_esc_system.system())
+            .add_system(Self::handle_cursor_movement.system())
             .add_system(Self::handle_direction_setting.system())
             .add_system(Self::handle_thrust_setting_change.system());
     }
 }
 
 impl InputPlugin {
-    fn handle_direction_setting(
+    fn handle_cursor_movement(
         mut mouse_position: ResMut<Option<MousePosition>>,
         mut events: ResMut<Events<CursorMoved>>,
+    ) {
+        for event in events.drain() {
+            *mouse_position = Some(MousePosition::from_event(event));
+        }
+    }
+
+    fn handle_direction_setting(
+        mouse_position: Res<Option<MousePosition>>,
         input: Res<Input<MouseButton>>,
         windows: Res<Windows>,
         bodies: Res<RigidBodySet>,
@@ -39,10 +48,6 @@ impl InputPlugin {
         )>,
         transforms: Query<&Transform>,
     ) {
-        for event in events.drain() {
-            *mouse_position = Some(MousePosition::from_event(event));
-        }
-
         for (mut ship, focus, body) in ships.iter_mut() {
             if let Some(mouse_position) = mouse_position.deref() {
                 let window = windows
