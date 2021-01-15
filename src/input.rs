@@ -6,6 +6,10 @@ pub struct MousePosition {
 }
 
 impl MousePosition {
+    pub fn none() -> Option<Self> {
+        None
+    }
+
     pub fn from_event(event: CursorMoved) -> Self {
         Self {
             position: event.position,

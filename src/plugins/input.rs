@@ -18,7 +18,8 @@ pub struct InputPlugin;
 
 impl Plugin for InputPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(exit_on_esc_system.system())
+        app.add_resource(MousePosition::none())
+            .add_system(exit_on_esc_system.system())
             .add_system(Self::handle_direction_setting.system())
             .add_system(Self::handle_thrust_setting_change.system());
     }
@@ -26,7 +27,7 @@ impl Plugin for InputPlugin {
 
 impl InputPlugin {
     fn handle_direction_setting(
-        mut mouse_position: Local<Option<MousePosition>>,
+        mut mouse_position: ResMut<Option<MousePosition>>,
         mut events: ResMut<Events<CursorMoved>>,
         input: Res<Input<MouseButton>>,
         windows: Res<Windows>,
