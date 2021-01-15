@@ -48,13 +48,10 @@ impl InputPlugin {
                 let window = windows
                     .get(mouse_position.window_id())
                     .expect("Could not find window");
-                let window_size =
-                    Vec2::new(window.width() as f32, window.height() as f32)
-                        / 2.0;
-
                 let camera = transforms.get(focus.camera()).unwrap();
+
                 let mouse_position_world =
-                    mouse_position.world_position(window_size, camera);
+                    mouse_position.world_position(window, camera);
 
                 if input.pressed(MouseButton::Left) {
                     let body = bodies.get(body.handle()).unwrap();
