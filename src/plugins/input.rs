@@ -20,7 +20,7 @@ impl Plugin for InputPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_system(exit_on_esc_system.system())
             .add_system(Self::handle_mouse_click.system())
-            .add_system(Self::handle_mouse_wheel.system());
+            .add_system(Self::handle_thrust_setting_change.system());
     }
 }
 
@@ -68,7 +68,7 @@ impl InputPlugin {
         }
     }
 
-    fn handle_mouse_wheel(
+    fn handle_thrust_setting_change(
         mut events: ResMut<Events<MouseWheel>>,
         mut ships: Query<&mut Ship, With<Player>>,
     ) {
