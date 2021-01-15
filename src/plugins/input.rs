@@ -60,6 +60,7 @@ impl InputPlugin {
                     ship.update_direction_setting(body, mouse_position_world);
                 }
 
+                // TASK: Move into a separate system.
                 if input.pressed(MouseButton::Right) {
                     // TASK: Set target to mouse position.
                     println!("Right mouse click");
