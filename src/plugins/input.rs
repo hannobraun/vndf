@@ -22,6 +22,7 @@ impl Plugin for InputPlugin {
             .add_system(exit_on_esc_system.system())
             .add_system(Self::handle_cursor_movement.system())
             .add_system(Self::handle_direction_setting.system())
+            .add_system(Self::handle_targeting.system())
             .add_system(Self::handle_thrust_setting_change.system());
     }
 }
@@ -62,13 +63,14 @@ impl InputPlugin {
                     let body = bodies.get(body.handle()).unwrap();
                     ship.update_direction_setting(body, mouse_position_world);
                 }
-
-                // TASK: Move into a separate system.
-                if input.pressed(MouseButton::Right) {
-                    // TASK: Set target to mouse position.
-                    println!("Right mouse click");
-                }
             }
+        }
+    }
+
+    fn handle_targeting(input: Res<Input<MouseButton>>) {
+        if input.pressed(MouseButton::Right) {
+            // TASK: Set target to mouse position.
+            println!("Right mouse click");
         }
     }
 
