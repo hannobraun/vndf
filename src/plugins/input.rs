@@ -11,7 +11,7 @@ use bevy_rapier2d::{
 use crate::{
     camera,
     input::MousePosition,
-    world::{player::Player, ship::Ship},
+    world::{player::Player, ship::Ship, target::Target},
 };
 
 pub struct InputPlugin;
@@ -71,10 +71,10 @@ impl InputPlugin {
         mouse_position: Res<Option<MousePosition>>,
         input: Res<Input<MouseButton>>,
         windows: Res<Windows>,
-        mut ships: Query<&camera::Focus>,
+        mut ships: Query<(&camera::Focus, &mut Target)>,
         transforms: Query<&Transform>,
     ) {
-        for focus in ships.iter_mut() {
+        for (focus, target) in ships.iter_mut() {
             if let Some(mouse_position) = mouse_position.deref() {
                 let window = windows
                     .get(mouse_position.window_id())
@@ -87,6 +87,7 @@ impl InputPlugin {
                 if input.pressed(MouseButton::Right) {
                     // TASK: Set target to mouse position.
                     println!("Right mouse click at {:?}", mouse_position_world);
+                    println!("Target: {:?}", target);
                 }
             }
         }
