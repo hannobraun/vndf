@@ -67,10 +67,28 @@ impl InputPlugin {
         }
     }
 
-    fn handle_targeting(input: Res<Input<MouseButton>>) {
-        if input.pressed(MouseButton::Right) {
-            // TASK: Set target to mouse position.
-            println!("Right mouse click");
+    fn handle_targeting(
+        mouse_position: Res<Option<MousePosition>>,
+        input: Res<Input<MouseButton>>,
+        windows: Res<Windows>,
+        mut ships: Query<&camera::Focus>,
+        transforms: Query<&Transform>,
+    ) {
+        for focus in ships.iter_mut() {
+            if let Some(mouse_position) = mouse_position.deref() {
+                let window = windows
+                    .get(mouse_position.window_id())
+                    .expect("Could not find window");
+                let camera = transforms.get(focus.camera()).unwrap();
+
+                let mouse_position_world =
+                    mouse_position.world_position(window, camera);
+
+                if input.pressed(MouseButton::Right) {
+                    // TASK: Set target to mouse position.
+                    println!("Right mouse click at {:?}", mouse_position_world);
+                }
+            }
         }
     }
 
