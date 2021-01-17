@@ -24,7 +24,7 @@ impl NavMarkerPlugin {
         mut materials: ResMut<Assets<ColorMaterial>>,
         ships: Query<Entity, (With<Ship>, Without<NavMarker>)>,
     ) {
-        for player in ships.iter() {
+        for ship in ships.iter() {
             let nav_marker = commands
                 .spawn(SpriteBundle {
                     material: materials
@@ -34,7 +34,7 @@ impl NavMarkerPlugin {
                 .current_entity()
                 .unwrap();
 
-            commands.insert_one(player, NavMarker::new(nav_marker));
+            commands.insert_one(ship, NavMarker::new(nav_marker));
         }
     }
 
