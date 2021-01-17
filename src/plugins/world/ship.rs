@@ -14,14 +14,14 @@ pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_startup_system(Self::add_components.system())
+        app.add_startup_system(Self::setup.system())
             .add_system(Self::control_rotation.system())
             .add_system(Self::control_thrust.system());
     }
 }
 
 impl ShipPlugin {
-    fn add_components(commands: &mut Commands) {
+    fn setup(commands: &mut Commands) {
         commands
             .spawn((Ship::new(),))
             .with(
