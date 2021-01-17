@@ -27,13 +27,13 @@ fn create(
     commands: &mut Commands,
     ships: Query<Entity, (With<Ship>, Without<Focus>)>,
 ) {
-    for player in ships.iter() {
+    for ship in ships.iter() {
         let camera = commands
             .spawn(Camera2dBundle::default())
             .current_entity()
             .unwrap();
 
-        commands.insert_one(player, Focus { camera });
+        commands.insert_one(ship, Focus { camera });
     }
 }
 
