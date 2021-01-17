@@ -25,9 +25,9 @@ impl Focus {
 
 fn create(
     commands: &mut Commands,
-    players: Query<Entity, (With<Ship>, Without<Focus>)>,
+    ships: Query<Entity, (With<Ship>, Without<Focus>)>,
 ) {
-    for player in players.iter() {
+    for player in ships.iter() {
         let camera = commands
             .spawn(Camera2dBundle::default())
             .current_entity()
