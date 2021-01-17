@@ -11,7 +11,7 @@ use bevy_rapier2d::{
 use crate::{
     camera,
     input::MousePosition,
-    world::{player::Player, ship::Ship, target::Target},
+    world::{ship::Ship, target::Target},
 };
 
 pub struct InputPlugin;
@@ -95,7 +95,7 @@ impl InputPlugin {
 
     fn handle_thrust_setting_change(
         mut events: ResMut<Events<MouseWheel>>,
-        mut ships: Query<&mut Ship, With<Player>>,
+        mut ships: Query<&mut Ship, With<Ship>>,
     ) {
         for event in events.drain() {
             for mut ship in ships.iter_mut() {
