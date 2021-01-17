@@ -1,4 +1,3 @@
-mod player;
 mod rock;
 mod ship;
 mod target;
@@ -15,7 +14,6 @@ impl Plugin for WorldPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(Self::setup.system())
-            .add_plugin(player::PlayerPlugin)
             .add_plugin(rock::RockPlugin)
             .add_plugin(ship::ShipPlugin)
             .add_plugin(target::TargetPlugin);

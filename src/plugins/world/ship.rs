@@ -8,43 +8,31 @@ use bevy_rapier2d::{
     },
 };
 
-use crate::world::{
-    player::Player,
-    ship::{Ship, SHIP_SIZE},
-};
+use crate::world::ship::{Ship, SHIP_SIZE};
 
 pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(Self::add_components.system())
+        app.add_startup_system(Self::add_components.system())
             .add_system(Self::control_rotation.system())
             .add_system(Self::control_thrust.system());
     }
 }
 
 impl ShipPlugin {
-    fn add_components(
-        commands: &mut Commands,
-        players: Query<Entity, (With<Player>, Without<Ship>)>,
-    ) {
-        for player in players.iter() {
-            commands
-                .insert_one(player, Ship::new())
-                .insert_one(
-                    player,
-                    RigidBodyBuilder::new_dynamic()
-                        .position(Isometry::translation(0.0, -200.0))
-                        .linvel(10.0, 0.0),
-                )
-                .insert_one(
-                    player,
-                    ColliderBuilder::cuboid(
-                        SHIP_SIZE[0] / 2.0,
-                        SHIP_SIZE[1] / 2.0,
-                    ),
-                );
-        }
+    fn add_components(commands: &mut Commands) {
+        commands
+            .spawn((Ship::new(),))
+            .with(
+                RigidBodyBuilder::new_dynamic()
+                    .position(Isometry::translation(0.0, -200.0))
+                    .linvel(10.0, 0.0),
+            )
+            .with(ColliderBuilder::cuboid(
+                SHIP_SIZE[0] / 2.0,
+                SHIP_SIZE[1] / 2.0,
+            ));
     }
 
     fn control_rotation(
