@@ -3,10 +3,7 @@ use bevy_rapier2d::{
     physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::{
-    graphics::nav_marker::NavMarker,
-    world::{player::Player, ship::Ship},
-};
+use crate::{graphics::nav_marker::NavMarker, world::ship::Ship};
 
 pub struct NavMarkerPlugin;
 
@@ -53,7 +50,7 @@ impl NavMarkerPlugin {
     }
 
     fn update_size(
-        players: Query<(&Ship, &NavMarker), With<Player>>,
+        players: Query<(&Ship, &NavMarker)>,
         mut nav_markers: Query<&mut Sprite>,
     ) {
         for (ship, nav_marker) in players.iter() {
