@@ -3,7 +3,7 @@ use bevy_rapier2d::{
     physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
 };
 
-use crate::world::player::Player;
+use crate::world::ship::Ship;
 
 pub struct CameraPlugin;
 
@@ -25,7 +25,7 @@ impl Focus {
 
 fn create(
     commands: &mut Commands,
-    players: Query<Entity, (With<Player>, Without<Focus>)>,
+    players: Query<Entity, (With<Ship>, Without<Focus>)>,
 ) {
     for player in players.iter() {
         let camera = commands
