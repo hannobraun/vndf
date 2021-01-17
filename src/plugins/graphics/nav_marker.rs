@@ -22,7 +22,7 @@ impl NavMarkerPlugin {
     fn add_components(
         commands: &mut Commands,
         mut materials: ResMut<Assets<ColorMaterial>>,
-        players: Query<Entity, (With<Player>, Without<NavMarker>)>,
+        players: Query<Entity, (With<Ship>, Without<NavMarker>)>,
     ) {
         for player in players.iter() {
             let nav_marker = commands
