@@ -8,9 +8,9 @@ use bevy_rapier2d::{
     },
 };
 
-use crate::{
-    world::ship::{Ship, SHIP_SIZE},
-    Player,
+use crate::world::{
+    player::Player,
+    ship::{Ship, SHIP_SIZE},
 };
 
 pub struct ShipPlugin;

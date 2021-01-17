@@ -6,7 +6,6 @@ mod ui;
 mod world;
 
 use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
-use world::player::Player;
 
 // TASK: Convert all free system functions into associated functions on their
 //       plugins.
