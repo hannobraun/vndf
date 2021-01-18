@@ -74,7 +74,7 @@ impl InputPlugin {
         mut ships: Query<(&camera::Focus, &mut Target)>,
         transforms: Query<&Transform>,
     ) {
-        for (focus, target) in ships.iter_mut() {
+        for (focus, mut target) in ships.iter_mut() {
             if let Some(mouse_position) = mouse_position.deref() {
                 let window = windows
                     .get(mouse_position.window_id())
@@ -85,8 +85,9 @@ impl InputPlugin {
                     mouse_position.world_position(window, camera);
 
                 if input.pressed(MouseButton::Right) {
-                    // TASK: Set target to mouse position.
-                    println!("Right mouse click at {:?}", mouse_position_world);
+                    target.set(mouse_position_world);
+
+                    // TASK: Remove debug output.
                     println!("Target: {:?}", target);
                 }
             }
