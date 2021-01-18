@@ -16,7 +16,7 @@ impl TargetPlugin {
         ships: Query<Entity, (With<Ship>, Without<Target>)>,
     ) {
         for ship in ships.iter() {
-            commands.insert_one(ship, Target);
+            commands.insert_one(ship, Target::new());
         }
     }
 }
