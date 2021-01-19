@@ -13,6 +13,10 @@ pub struct Course {
 }
 
 impl Course {
+    pub fn new(entity: Entity) -> Self {
+        Self { entity }
+    }
+
     pub fn entity(&self) -> Entity {
         self.entity
     }

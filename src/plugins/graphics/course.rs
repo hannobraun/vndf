@@ -25,7 +25,7 @@ impl CoursePlugin {
                 .current_entity()
                 .unwrap();
 
-            commands.insert_one(ship, Course { entity: course });
+            commands.insert_one(ship, Course::new(course));
         }
     }
 
