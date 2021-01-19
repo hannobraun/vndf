@@ -8,8 +8,7 @@ use na::Rotation2;
 use super::LAYER_UI;
 
 pub struct Course {
-    // TASK: Make private.
-    pub entity: Entity,
+    entity: Entity,
 }
 
 impl Course {
