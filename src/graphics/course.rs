@@ -13,6 +13,10 @@ pub struct Course {
 }
 
 impl Course {
+    pub fn entity(&self) -> Entity {
+        self.entity
+    }
+
     pub fn update(
         body: &RigidBody,
         sprite: &mut Sprite,

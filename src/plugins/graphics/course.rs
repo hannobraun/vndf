@@ -36,7 +36,7 @@ impl CoursePlugin {
     ) {
         for (body, course) in ships.iter() {
             let (mut sprite, mut transform) =
-                courses.get_mut(course.entity).unwrap();
+                courses.get_mut(course.entity()).unwrap();
             let body = bodies.get(body.handle()).unwrap();
 
             Course::update(body, &mut sprite, &mut transform);
