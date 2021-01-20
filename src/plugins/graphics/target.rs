@@ -14,6 +14,7 @@ impl TargetPlugin {
     fn add_components(mut targets: Query<&mut Target>) {
         for mut target in targets.iter_mut() {
             if target.has_changed() {
+                // TASK: Display target, if selected.
                 println!("Target: {:?}", target.position());
             }
         }
