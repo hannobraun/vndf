@@ -24,4 +24,13 @@ impl Target {
         self.position = Some(position);
         self.changed = true;
     }
+
+    pub fn has_changed(&self) -> bool {
+        self.changed
+    }
+
+    pub fn position(&mut self) -> Option<Vec2> {
+        self.changed = false;
+        self.position
+    }
 }

@@ -2,6 +2,7 @@ mod course;
 mod nav_marker;
 mod rock;
 mod ship;
+mod target;
 
 use bevy::prelude::*;
 
@@ -23,6 +24,7 @@ impl Plugin for GraphicsPlugin {
             .add_plugin(course::CoursePlugin)
             .add_plugin(nav_marker::NavMarkerPlugin)
             .add_plugin(rock::RockPlugin)
-            .add_plugin(ship::ShipPlugin);
+            .add_plugin(ship::ShipPlugin)
+            .add_plugin(target::TargetPlugin);
     }
 }
