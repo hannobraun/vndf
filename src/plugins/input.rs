@@ -86,9 +86,6 @@ impl InputPlugin {
 
                 if input.pressed(MouseButton::Right) {
                     target.set(mouse_position_world);
-
-                    // TASK: Remove debug output.
-                    println!("Target: {:?}", target);
                 }
             }
         }
