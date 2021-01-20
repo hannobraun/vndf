@@ -1,7 +1,7 @@
-pub mod course;
-pub mod nav_marker;
-pub mod rock;
-pub mod ship;
+mod course;
+mod nav_marker;
+mod rock;
+mod ship;
 
 use bevy::prelude::*;
 
