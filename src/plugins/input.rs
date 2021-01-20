@@ -22,7 +22,7 @@ impl Plugin for InputPlugin {
             .add_system(exit_on_esc_system.system())
             .add_system(Self::handle_cursor_movement.system())
             .add_system(Self::handle_direction_setting.system())
-            .add_system(Self::handle_targeting.system())
+            .add_system(Self::set_target.system())
             .add_system(Self::handle_thrust_setting_change.system());
     }
 }
@@ -67,7 +67,7 @@ impl InputPlugin {
         }
     }
 
-    fn handle_targeting(
+    fn set_target(
         mouse_position: Res<Option<MousePosition>>,
         input: Res<Input<MouseButton>>,
         windows: Res<Windows>,
