@@ -17,7 +17,7 @@ impl TargetPlugin {
         targets: Query<Entity, (With<Target>, Without<TargetGraphics>)>,
     ) {
         for target in targets.iter() {
-            commands.insert_one(target, TargetGraphics);
+            commands.insert_one(target, TargetGraphics::new());
         }
     }
 
