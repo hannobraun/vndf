@@ -2,6 +2,7 @@ pub mod course;
 pub mod nav_marker;
 pub mod rock;
 pub mod ship;
+pub mod target;
 
 use bevy::prelude::*;
 
