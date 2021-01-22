@@ -36,15 +36,14 @@ impl TargetPlugin {
 
     fn update_graphics(
         mut ships: Query<(&mut Target, &mut TargetGraphics)>,
-        mut transforms: Query<&mut Transform>,
+        mut targets: Query<&mut Transform>,
     ) {
         for (mut target, target_graphics) in ships.iter_mut() {
             if target.has_changed() {
                 match target.position() {
                     Some(position) => {
-                        let mut transform = transforms
-                            .get_mut(target_graphics.entity())
-                            .unwrap();
+                        let mut transform =
+                            targets.get_mut(target_graphics.entity()).unwrap();
                         *transform = Transform::from_translation(
                             position.extend(LAYER_UI),
                         );
