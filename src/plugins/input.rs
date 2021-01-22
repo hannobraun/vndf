@@ -92,10 +92,11 @@ impl InputPlugin {
         }
     }
 
-    fn clear_target(input: Res<Input<KeyCode>>) {
-        if input.pressed(KeyCode::Space) {
-            // TASK: Clear target.
-            println!("Space pressed");
+    fn clear_target(input: Res<Input<KeyCode>>, mut ships: Query<&mut Target>) {
+        for mut target in ships.iter_mut() {
+            if input.pressed(KeyCode::Space) {
+                target.clear();
+            }
         }
     }
 

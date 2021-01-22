@@ -25,6 +25,11 @@ impl Target {
         self.has_changed = true;
     }
 
+    pub fn clear(&mut self) {
+        self.position = None;
+        self.has_changed = true;
+    }
+
     pub fn has_changed(&self) -> bool {
         self.has_changed
     }

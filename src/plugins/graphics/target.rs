@@ -34,7 +34,6 @@ impl TargetPlugin {
         }
     }
 
-    // TASK: Hide target, if deselected (check out `Visible` component).
     fn update_graphics(
         mut targets: Query<(&mut Target, &mut TargetGraphics)>,
         mut transforms: Query<&mut Transform>,
@@ -46,6 +45,9 @@ impl TargetPlugin {
                         transforms.get_mut(graphics.entity()).unwrap();
                     *transform =
                         Transform::from_translation(position.extend(LAYER_UI));
+                } else {
+                    // TASK: Hide target (check out `Visible` component).
+                    println!("Target clear");
                 }
             }
         }
