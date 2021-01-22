@@ -40,14 +40,18 @@ impl TargetPlugin {
     ) {
         for (mut target, graphics) in targets.iter_mut() {
             if target.has_changed() {
-                if let Some(position) = target.position() {
-                    let mut transform =
-                        transforms.get_mut(graphics.entity()).unwrap();
-                    *transform =
-                        Transform::from_translation(position.extend(LAYER_UI));
-                } else {
-                    // TASK: Hide target (check out `Visible` component).
-                    println!("Target clear");
+                match target.position() {
+                    Some(position) => {
+                        let mut transform =
+                            transforms.get_mut(graphics.entity()).unwrap();
+                        *transform = Transform::from_translation(
+                            position.extend(LAYER_UI),
+                        );
+                    }
+                    None => {
+                        // TASK: Hide target (check out `Visible` component).
+                        println!("Target clear");
+                    }
                 }
             }
         }
