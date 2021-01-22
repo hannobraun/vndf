@@ -38,12 +38,13 @@ impl TargetPlugin {
         mut ships: Query<(&mut Target, &mut TargetGraphics)>,
         mut transforms: Query<&mut Transform>,
     ) {
-        for (mut target, graphics) in ships.iter_mut() {
+        for (mut target, target_graphics) in ships.iter_mut() {
             if target.has_changed() {
                 match target.position() {
                     Some(position) => {
-                        let mut transform =
-                            transforms.get_mut(graphics.entity()).unwrap();
+                        let mut transform = transforms
+                            .get_mut(target_graphics.entity())
+                            .unwrap();
                         *transform = Transform::from_translation(
                             position.extend(LAYER_UI),
                         );
