@@ -1,6 +1,9 @@
 use bevy::prelude::*;
 
-use crate::{graphics::target::TargetGraphics, world::target::Target};
+use crate::{
+    graphics::{target::TargetGraphics, LAYER_UI},
+    world::target::Target,
+};
 
 pub struct TargetPlugin;
 
@@ -22,7 +25,7 @@ impl TargetPlugin {
                 .spawn(SpriteBundle {
                     material: materials
                         .add(Color::rgb_linear(1.0, 0.0, 0.0).into()),
-                    sprite: Sprite::new(Vec2::new(15.0, 15.0)),
+                    sprite: Sprite::new(Vec2::new(10.0, 10.0)),
                     ..Default::default()
                 })
                 .current_entity()
@@ -31,15 +34,19 @@ impl TargetPlugin {
         }
     }
 
-    fn update_graphics(mut targets: Query<(&mut Target, &mut TargetGraphics)>) {
+    // TASK: Hide target, if deselected (check out `Visible` component).
+    fn update_graphics(
+        mut targets: Query<(&mut Target, &mut TargetGraphics)>,
+        mut transforms: Query<&mut Transform>,
+    ) {
         for (mut target, graphics) in targets.iter_mut() {
             if target.has_changed() {
-                // TASK: Display target, if selected.
-                println!(
-                    "Target: {:?} (graphics: {:?})",
-                    target.position(),
-                    graphics.entity()
-                );
+                if let Some(position) = target.position() {
+                    let mut transform =
+                        transforms.get_mut(graphics.entity()).unwrap();
+                    *transform =
+                        Transform::from_translation(position.extend(LAYER_UI));
+                }
             }
         }
     }
