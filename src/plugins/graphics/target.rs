@@ -35,10 +35,10 @@ impl TargetPlugin {
     }
 
     fn update_graphics(
-        mut targets: Query<(&mut Target, &mut TargetGraphics)>,
+        mut ships: Query<(&mut Target, &mut TargetGraphics)>,
         mut transforms: Query<&mut Transform>,
     ) {
-        for (mut target, graphics) in targets.iter_mut() {
+        for (mut target, graphics) in ships.iter_mut() {
             if target.has_changed() {
                 match target.position() {
                     Some(position) => {
