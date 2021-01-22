@@ -36,21 +36,21 @@ impl TargetPlugin {
 
     fn update_graphics(
         mut ships: Query<(&mut Target, &mut TargetGraphics)>,
-        mut targets: Query<&mut Transform>,
+        mut targets: Query<(&mut Transform, &mut Visible)>,
     ) {
         for (mut target, target_graphics) in ships.iter_mut() {
             if target.has_changed() {
-                let mut transform =
+                let (mut transform, mut visible) =
                     targets.get_mut(target_graphics.entity()).unwrap();
                 match target.position() {
                     Some(position) => {
                         *transform = Transform::from_translation(
                             position.extend(LAYER_UI),
                         );
+                        visible.is_visible = true;
                     }
                     None => {
-                        // TASK: Hide target (check out `Visible` component).
-                        println!("Target clear");
+                        visible.is_visible = false;
                     }
                 }
             }
