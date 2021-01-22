@@ -40,10 +40,10 @@ impl TargetPlugin {
     ) {
         for (mut target, target_graphics) in ships.iter_mut() {
             if target.has_changed() {
+                let mut transform =
+                    targets.get_mut(target_graphics.entity()).unwrap();
                 match target.position() {
                     Some(position) => {
-                        let mut transform =
-                            targets.get_mut(target_graphics.entity()).unwrap();
                         *transform = Transform::from_translation(
                             position.extend(LAYER_UI),
                         );
