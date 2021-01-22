@@ -14,10 +14,20 @@ impl Plugin for TargetPlugin {
 impl TargetPlugin {
     fn add_components(
         commands: &mut Commands,
+        mut materials: ResMut<Assets<ColorMaterial>>,
         targets: Query<Entity, (With<Target>, Without<TargetGraphics>)>,
     ) {
         for target in targets.iter() {
-            commands.insert_one(target, TargetGraphics::new());
+            let entity = commands
+                .spawn(SpriteBundle {
+                    material: materials
+                        .add(Color::rgb_linear(1.0, 0.0, 0.0).into()),
+                    sprite: Sprite::new(Vec2::new(15.0, 15.0)),
+                    ..Default::default()
+                })
+                .current_entity()
+                .unwrap();
+            commands.insert_one(target, TargetGraphics::new(entity));
         }
     }
 
@@ -28,7 +38,7 @@ impl TargetPlugin {
                 println!(
                     "Target: {:?} (graphics: {:?})",
                     target.position(),
-                    graphics
+                    graphics.entity()
                 );
             }
         }
