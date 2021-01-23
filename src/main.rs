@@ -7,8 +7,6 @@ mod world;
 
 use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
 
-// TASK: Convert all free system functions into associated functions on their
-//       plugins.
 // TASK: Split responsibilities better: System functions should concern
 //       themselves with the ECS, and getting data out of and into it. Game
 //       logic itself should be handled by methods on the component types.
