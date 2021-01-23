@@ -17,7 +17,7 @@ fn main() {
         .add_resource(window_descriptor())
         .add_plugins(DefaultPlugins)
         .add_plugin(FrameTimeDiagnosticsPlugin::default())
-        .add_plugin(camera::CameraPlugin)
+        .add_plugin(plugins::camera::CameraPlugin)
         .add_plugin(plugins::graphics::GraphicsPlugin)
         .add_plugin(plugins::input::InputPlugin)
         .add_plugin(plugins::ui::UiPlugin)
