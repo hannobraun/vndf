@@ -7,9 +7,6 @@ mod world;
 
 use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
 
-// TASK: Split responsibilities better: System functions should concern
-//       themselves with the ECS, and getting data out of and into it. Game
-//       logic itself should be handled by methods on the component types.
 // TASK: Move plugins to `plugins` there. Leave pure game logic code in its
 //       respective module.
 
