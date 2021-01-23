@@ -9,7 +9,42 @@ pub struct CameraPlugin;
 
 impl Plugin for CameraPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(create.system()).add_system(update.system());
+        app.add_system(Self::create.system())
+            .add_system(Self::update.system());
+    }
+}
+
+impl CameraPlugin {
+    fn create(
+        commands: &mut Commands,
+        ships: Query<Entity, (With<Ship>, Without<Focus>)>,
+    ) {
+        for ship in ships.iter() {
+            let camera = commands
+                .spawn(Camera2dBundle::default())
+                .current_entity()
+                .unwrap();
+
+            commands.insert_one(ship, Focus { camera });
+        }
+    }
+
+    fn update(
+        bodies: Res<RigidBodySet>,
+        foci: Query<(&Focus, &RigidBodyHandleComponent)>,
+        mut transforms: Query<(&mut Transform,)>,
+    ) {
+        for (focus, body) in foci.iter() {
+            let body = bodies
+                .get(body.handle())
+                .expect("Could not find body for ship");
+
+            let mut camera = transforms.get_mut(focus.camera).unwrap().0;
+            let position = body.position().translation.vector;
+            *camera = Transform::from_translation(Vec3::new(
+                position.x, position.y, 1.0,
+            ));
+        }
     }
 }
 
@@ -20,36 +55,5 @@ pub struct Focus {
 impl Focus {
     pub fn camera(&self) -> Entity {
         self.camera
-    }
-}
-
-fn create(
-    commands: &mut Commands,
-    ships: Query<Entity, (With<Ship>, Without<Focus>)>,
-) {
-    for ship in ships.iter() {
-        let camera = commands
-            .spawn(Camera2dBundle::default())
-            .current_entity()
-            .unwrap();
-
-        commands.insert_one(ship, Focus { camera });
-    }
-}
-
-fn update(
-    bodies: Res<RigidBodySet>,
-    foci: Query<(&Focus, &RigidBodyHandleComponent)>,
-    mut transforms: Query<(&mut Transform,)>,
-) {
-    for (focus, body) in foci.iter() {
-        let body = bodies
-            .get(body.handle())
-            .expect("Could not find body for ship");
-
-        let mut camera = transforms.get_mut(focus.camera).unwrap().0;
-        let position = body.position().translation.vector;
-        *camera =
-            Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
     }
 }
