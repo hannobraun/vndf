@@ -26,7 +26,7 @@ impl CameraPlugin {
                 .current_entity()
                 .unwrap();
 
-            commands.insert_one(ship, Focus { camera });
+            commands.insert_one(ship, Focus::new(camera));
         }
     }
 
@@ -51,6 +51,10 @@ pub struct Focus {
 }
 
 impl Focus {
+    pub fn new(camera: Entity) -> Self {
+        Self { camera }
+    }
+
     pub fn camera(&self) -> Entity {
         self.camera
     }
