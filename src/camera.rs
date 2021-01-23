@@ -39,7 +39,7 @@ impl CameraPlugin {
             let body = bodies
                 .get(body.handle())
                 .expect("Could not find body for ship");
-            let mut camera = transforms.get_mut(focus.camera).unwrap().0;
+            let mut camera = transforms.get_mut(focus.camera()).unwrap().0;
 
             Focus::update_camera(body, &mut camera);
         }
