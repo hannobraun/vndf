@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
+    physics::RigidBodyHandleComponent,
+    rapier::dynamics::{RigidBody, RigidBodySet},
 };
 
 use crate::world::ship::Ship;
@@ -38,12 +39,9 @@ impl CameraPlugin {
             let body = bodies
                 .get(body.handle())
                 .expect("Could not find body for ship");
-
             let mut camera = transforms.get_mut(focus.camera).unwrap().0;
-            let position = body.position().translation.vector;
-            *camera = Transform::from_translation(Vec3::new(
-                position.x, position.y, 1.0,
-            ));
+
+            Focus::update_camera(body, &mut camera);
         }
     }
 }
@@ -55,5 +53,11 @@ pub struct Focus {
 impl Focus {
     pub fn camera(&self) -> Entity {
         self.camera
+    }
+
+    pub fn update_camera(body: &RigidBody, camera: &mut Transform) {
+        let position = body.position().translation.vector;
+        *camera =
+            Transform::from_translation(Vec3::new(position.x, position.y, 1.0));
     }
 }
