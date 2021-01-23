@@ -7,9 +7,6 @@ mod world;
 
 use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
 
-// TASK: Move plugins to `plugins` there. Leave pure game logic code in its
-//       respective module.
-
 fn main() {
     App::build()
         // Needs to be placed before the default plugins:
