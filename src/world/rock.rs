@@ -82,7 +82,7 @@ impl RockSpawner {
         let mut position = Vector2::new(area.left, area.top);
 
         loop {
-            if self.density(position).density > 0.0 {
+            if self.parameters(position).density > 0.0 {
                 let position_real =
                     (R32::from_inner(position.x), R32::from_inner(position.y));
 
@@ -116,7 +116,7 @@ impl RockSpawner {
     }
 
     // TASK: Return other key parameters, like minimum and maximum size.
-    fn density(&self, position: Vector2<f32>) -> SpawnParameters {
+    fn parameters(&self, position: Vector2<f32>) -> SpawnParameters {
         let density = if position.y >= 0.0 { 1.0 } else { 0.0 };
 
         SpawnParameters { density }
