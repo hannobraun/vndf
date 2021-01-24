@@ -62,6 +62,28 @@ impl RockSpawner {
         }
     }
 
+    pub fn clean_up(
+        &mut self,
+        ship_position: Vector2<f32>,
+        rock_position: &impl Fn(Entity) -> Option<Vector2<f32>>,
+        remove: &mut impl FnMut(Entity),
+    ) {
+        self.rocks
+            .retain(|_, &mut entity| match rock_position(entity) {
+                Some(rock_position) => {
+                    let distance = (ship_position - rock_position).magnitude();
+                    let remove_rock = distance >= Self::BLOCK_SIZE * 3.0;
+
+                    if remove_rock {
+                        remove(entity)
+                    }
+
+                    !remove_rock
+                }
+                None => true,
+            });
+    }
+
     fn spawn_block(
         &mut self,
         center: Vector2<f32>,
@@ -121,11 +143,6 @@ impl RockSpawner {
 
         SpawnParameters { density }
     }
-
-    // TASK: Add method that cleans up rocks that are far away from the player.
-    //       This should be possible by iterating over the `HashMap`, checking
-    //       the actual position of each rock, and if it's too far away, remove
-    //       it from ECS and `rocks`.
 }
 
 struct SpawnParameters {
