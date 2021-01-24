@@ -36,7 +36,7 @@ impl RockPlugin {
             let spawn_position = body.position().translation.vector;
 
             rock_spawner.spawn(spawn_position, |position, size| {
-                commands
+                let entity = commands
                     .spawn((Rock::new(size),))
                     .with(
                         RigidBodyBuilder::new_dynamic()
@@ -44,7 +44,11 @@ impl RockPlugin {
                     )
                     .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0))
                     .current_entity()
-                    .unwrap()
+                    .unwrap();
+
+                trace!("ID of spawned rock: {:?}", entity);
+
+                entity
             });
         }
     }
