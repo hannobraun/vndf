@@ -42,7 +42,9 @@ impl RockPlugin {
                         RigidBodyBuilder::new_dynamic()
                             .translation(position.x, position.y),
                     )
-                    .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0));
+                    .with(ColliderBuilder::cuboid(size / 2.0, size / 2.0))
+                    .current_entity()
+                    .unwrap()
             });
         }
     }
