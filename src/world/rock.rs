@@ -82,7 +82,7 @@ impl RockSpawner {
         let mut position = Vector2::new(area.left, area.top);
 
         loop {
-            if self.density(position) > 0.0 {
+            if self.density(position).density > 0.0 {
                 let position_real =
                     (R32::from_inner(position.x), R32::from_inner(position.y));
 
@@ -115,14 +115,11 @@ impl RockSpawner {
         }
     }
 
-    // TASK: Extend this method to return a struct that returns other key
-    //       parameters, like minimum and maximum size.
-    fn density(&self, position: Vector2<f32>) -> f32 {
-        if position.y >= 0.0 {
-            1.0
-        } else {
-            0.0
-        }
+    // TASK: Return other key parameters, like minimum and maximum size.
+    fn density(&self, position: Vector2<f32>) -> SpawnParameters {
+        let density = if position.y >= 0.0 { 1.0 } else { 0.0 };
+
+        SpawnParameters { density }
     }
 
     // TASK: Add method that cleans up rocks that are far away from the player.
@@ -133,4 +130,8 @@ impl RockSpawner {
     //       - When cleaning up, iterate over `HashMap`. Check actual position
     //         of each rock. If it's too far away, remove it from ECS and
     //         `rocks`.
+}
+
+struct SpawnParameters {
+    density: f32,
 }
