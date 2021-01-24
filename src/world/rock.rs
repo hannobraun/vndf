@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::HashMap;
 
 use bevy::prelude::*;
 use bevy_rapier2d::na::Vector2;
@@ -20,7 +20,7 @@ impl Rock {
 }
 
 pub struct RockSpawner {
-    rocks: HashSet<(R32, R32)>,
+    rocks: HashMap<(R32, R32), Entity>,
 }
 
 impl RockSpawner {
@@ -28,7 +28,7 @@ impl RockSpawner {
 
     pub fn new() -> Self {
         RockSpawner {
-            rocks: HashSet::new(),
+            rocks: HashMap::new(),
         }
     }
 
@@ -86,11 +86,11 @@ impl RockSpawner {
                 let position_real =
                     (R32::from_inner(position.x), R32::from_inner(position.y));
 
-                if !self.rocks.contains(&position_real) {
+                if !self.rocks.contains_key(&position_real) {
                     let size =
                         min_size + (max_size - min_size) * rng.gen::<f32>();
-                    spawn(position, size);
-                    self.rocks.insert(position_real);
+                    let entity = spawn(position, size);
+                    self.rocks.insert(position_real, entity);
 
                     debug!(
                         "Spawning rock \
