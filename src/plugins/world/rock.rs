@@ -103,8 +103,5 @@ impl RockPlugin {
                 commands.despawn(rock);
             },
         );
-
-        // TASK: Verify that the rock is fully cleaned up. The graphics entity
-        //       also needs to be removed, probably.
     }
 }
