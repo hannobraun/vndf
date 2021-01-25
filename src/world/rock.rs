@@ -104,7 +104,9 @@ impl RockSpawner {
         let mut position = Vector2::new(area.left, area.top);
 
         loop {
-            if self.parameters(position).density > 0.0 {
+            let parameters = self.parameters(position);
+
+            if parameters.density > 0.0 {
                 let position_real =
                     (R32::from_inner(position.x), R32::from_inner(position.y));
 
