@@ -140,10 +140,18 @@ impl RockSpawner {
     fn parameters(&self, position: Vector2<f32>) -> SpawnParameters {
         let density = if position.y >= 0.0 { 1.0 } else { 0.0 };
 
+        const MIN_MIN_SIZE: f32 = 10.0;
+        const MAX_MIN_SIZE: f32 = 250.0;
+
+        let f = position.x % 5000.0 / 5000.0;
+
+        let min_size = MIN_MIN_SIZE + (MAX_MIN_SIZE - MIN_MIN_SIZE) * f;
+        let max_size = min_size * 2.0;
+
         SpawnParameters {
             density,
-            min_size: 50.0,
-            max_size: 300.0,
+            min_size,
+            max_size,
         }
     }
 }
