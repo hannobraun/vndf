@@ -98,9 +98,6 @@ impl RockSpawner {
 
         let mut rng = thread_rng();
 
-        let min_size = 50.0;
-        let max_size = 300.0;
-
         let mut position = Vector2::new(area.left, area.top);
 
         loop {
@@ -111,8 +108,9 @@ impl RockSpawner {
                     (R32::from_inner(position.x), R32::from_inner(position.y));
 
                 if !self.rocks.contains_key(&position_real) {
-                    let size =
-                        min_size + (max_size - min_size) * rng.gen::<f32>();
+                    let size = parameters.min_size
+                        + (parameters.max_size - parameters.min_size)
+                            * rng.gen::<f32>();
                     let entity = spawn(position, size);
                     self.rocks.insert(position_real, entity);
 
@@ -139,14 +137,19 @@ impl RockSpawner {
         }
     }
 
-    // TASK: Return other key parameters, like minimum and maximum size.
     fn parameters(&self, position: Vector2<f32>) -> SpawnParameters {
         let density = if position.y >= 0.0 { 1.0 } else { 0.0 };
 
-        SpawnParameters { density }
+        SpawnParameters {
+            density,
+            min_size: 50.0,
+            max_size: 300.0,
+        }
     }
 }
 
 struct SpawnParameters {
     density: f32,
+    min_size: f32,
+    max_size: f32,
 }
