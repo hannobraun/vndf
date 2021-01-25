@@ -34,7 +34,7 @@ impl RockSpawner {
 
     // TASK: Improve rock generation algorithm:
     //       - Spawn at random positions, not on a grid.
-    //       - Vary min and max size, according to position.
+    //       - Vary min and max size in a more interesting way.
     //       - Vary rock density, according to position.
     pub fn spawn(
         &mut self,
