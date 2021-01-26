@@ -1,4 +1,4 @@
-use bevy::math::Vec2;
+use bevy::prelude::*;
 use bevy_rapier2d::{
     na::{Isometry, UnitComplex, Vector2},
     rapier::dynamics::RigidBody,
