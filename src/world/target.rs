@@ -30,6 +30,10 @@ impl Target {
         self.has_changed = true;
     }
 
+    pub fn is_set(&self) -> bool {
+        self.position.is_some()
+    }
+
     pub fn has_changed(&self) -> bool {
         self.has_changed
     }

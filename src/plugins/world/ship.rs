@@ -8,7 +8,10 @@ use bevy_rapier2d::{
     },
 };
 
-use crate::world::ship::{Ship, SHIP_SIZE};
+use crate::world::{
+    ship::{Ship, SHIP_SIZE},
+    target::Target,
+};
 
 pub struct ShipPlugin;
 
@@ -57,11 +60,18 @@ impl ShipPlugin {
         }
     }
 
-    fn update_weapon(time: Res<Time>, mut timer: ResMut<WeaponTimer>) {
-        // TASK: Only enable, if target is set.
-        if timer.0.tick(time.delta_seconds()).just_finished() {
-            // TASK: Launch a projectile towards the target.
-            println!("Firing weapon");
+    fn update_weapon(
+        time: Res<Time>,
+        mut timer: ResMut<WeaponTimer>,
+        ships: Query<&Target>,
+    ) {
+        for target in ships.iter() {
+            if target.is_set() {
+                if timer.0.tick(time.delta_seconds()).just_finished() {
+                    // TASK: Launch a projectile towards the target.
+                    println!("Firing weapon");
+                }
+            }
         }
     }
 }
