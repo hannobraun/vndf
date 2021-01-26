@@ -4,6 +4,8 @@ use bevy_rapier2d::{
     rapier::dynamics::RigidBody,
 };
 
+use crate::world::target::Target;
+
 pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 
 pub struct Ship {
@@ -59,5 +61,19 @@ impl Ship {
             ),
             true,
         );
+    }
+
+    pub fn update_weapon_timer(
+        &self,
+        target: &Target,
+        timer: &mut Timer,
+        time: &Time,
+    ) {
+        if target.is_set() {
+            if timer.tick(time.delta_seconds()).just_finished() {
+                // TASK: Launch a projectile towards the target.
+                println!("Firing weapon");
+            }
+        }
     }
 }

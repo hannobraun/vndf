@@ -63,15 +63,10 @@ impl ShipPlugin {
     fn update_weapon(
         time: Res<Time>,
         mut timer: ResMut<WeaponTimer>,
-        ships: Query<&Target>,
+        ships: Query<(&Ship, &Target)>,
     ) {
-        for target in ships.iter() {
-            if target.is_set() {
-                if timer.0.tick(time.delta_seconds()).just_finished() {
-                    // TASK: Launch a projectile towards the target.
-                    println!("Firing weapon");
-                }
-            }
+        for (ship, target) in ships.iter() {
+            ship.update_weapon_timer(&target, &mut timer.0, &time);
         }
     }
 }
