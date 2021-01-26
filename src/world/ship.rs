@@ -11,6 +11,7 @@ pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
 pub struct Ship {
     direction_setting: Vec2,
     thrust_setting: f32,
+    weapon_timer: Timer,
 }
 
 impl Ship {
@@ -18,6 +19,7 @@ impl Ship {
         Self {
             direction_setting: Vec2::unit_x(),
             thrust_setting: 0.0,
+            weapon_timer: Timer::from_seconds(0.2, true),
         }
     }
 
@@ -63,14 +65,9 @@ impl Ship {
         );
     }
 
-    pub fn update_weapon_timer(
-        &mut self,
-        target: &Target,
-        timer: &mut Timer,
-        time: &Time,
-    ) {
+    pub fn update_weapon_timer(&mut self, target: &Target, time: &Time) {
         if target.is_set() {
-            if timer.tick(time.delta_seconds()).just_finished() {
+            if self.weapon_timer.tick(time.delta_seconds()).just_finished() {
                 // TASK: Launch a projectile towards the target.
                 println!("Firing weapon");
             }

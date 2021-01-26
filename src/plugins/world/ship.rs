@@ -17,8 +17,7 @@ pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_resource(WeaponTimer::new())
-            .add_startup_system(Self::setup.system())
+        app.add_startup_system(Self::setup.system())
             .add_system(Self::control_rotation.system())
             .add_system(Self::control_thrust.system())
             .add_system(Self::update_weapon.system());
@@ -60,21 +59,9 @@ impl ShipPlugin {
         }
     }
 
-    fn update_weapon(
-        time: Res<Time>,
-        mut timer: ResMut<WeaponTimer>,
-        mut ships: Query<(&mut Ship, &Target)>,
-    ) {
+    fn update_weapon(time: Res<Time>, mut ships: Query<(&mut Ship, &Target)>) {
         for (mut ship, target) in ships.iter_mut() {
-            ship.update_weapon_timer(&target, &mut timer.0, &time);
+            ship.update_weapon_timer(&target, &time);
         }
-    }
-}
-
-struct WeaponTimer(Timer);
-
-impl WeaponTimer {
-    pub fn new() -> Self {
-        WeaponTimer(Timer::from_seconds(0.2, true))
     }
 }
