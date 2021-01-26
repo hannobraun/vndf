@@ -14,9 +14,11 @@ pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_startup_system(Self::setup.system())
+        app.add_resource(WeaponTimer::new())
+            .add_startup_system(Self::setup.system())
             .add_system(Self::control_rotation.system())
-            .add_system(Self::control_thrust.system());
+            .add_system(Self::control_thrust.system())
+            .add_system(Self::update_weapon.system());
     }
 }
 
@@ -53,5 +55,21 @@ impl ShipPlugin {
             let body = bodies.get_mut(body.handle()).unwrap();
             ship.apply_thrust(body);
         }
+    }
+
+    fn update_weapon(time: Res<Time>, mut timer: ResMut<WeaponTimer>) {
+        // TASK: Only enable, if target is set.
+        if timer.0.tick(time.delta_seconds()).just_finished() {
+            // TASK: Launch a projectile towards the target.
+            println!("Firing weapon");
+        }
+    }
+}
+
+struct WeaponTimer(Timer);
+
+impl WeaponTimer {
+    pub fn new() -> Self {
+        WeaponTimer(Timer::from_seconds(0.2, true))
     }
 }
