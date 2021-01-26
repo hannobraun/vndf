@@ -63,9 +63,9 @@ impl ShipPlugin {
     fn update_weapon(
         time: Res<Time>,
         mut timer: ResMut<WeaponTimer>,
-        ships: Query<(&Ship, &Target)>,
+        mut ships: Query<(&mut Ship, &Target)>,
     ) {
-        for (ship, target) in ships.iter() {
+        for (mut ship, target) in ships.iter_mut() {
             ship.update_weapon_timer(&target, &mut timer.0, &time);
         }
     }

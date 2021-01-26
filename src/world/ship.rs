@@ -64,7 +64,7 @@ impl Ship {
     }
 
     pub fn update_weapon_timer(
-        &self,
+        &mut self,
         target: &Target,
         timer: &mut Timer,
         time: &Time,
