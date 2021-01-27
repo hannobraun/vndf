@@ -29,6 +29,8 @@ impl ProjectilePlugin {
                     SpriteBundle {
                         material: materials.add(COLOR_PLAYER.into()),
                         sprite: Sprite::new(Vec2::new(10.0, 10.0)),
+                        // TASK: Remove transform. It should be added by the
+                        //       physics system.
                         transform: Transform::from_translation(Vec3::new(
                             100.0,
                             0.0,
@@ -40,4 +42,7 @@ impl ProjectilePlugin {
                 .insert_one(projectile, ProjectileGraphics);
         }
     }
+
+    // TASK: Add system that updates transform, setting the z coordinate to
+    //       `LAYER_WORLD`.
 }

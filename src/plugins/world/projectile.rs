@@ -11,6 +11,7 @@ impl Plugin for ProjectilePlugin {
 }
 
 impl ProjectilePlugin {
+    // TASK: Add body and collider to projectiles.
     fn setup(commands: &mut Commands) {
         commands.spawn((Projectile,));
     }
