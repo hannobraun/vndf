@@ -1,6 +1,8 @@
 use bevy::prelude::*;
 
-use crate::graphics::{COLOR_PLAYER, LAYER_WORLD};
+use crate::graphics::{
+    projectile::ProjectileGraphics, COLOR_PLAYER, LAYER_WORLD,
+};
 
 pub struct ProjectilePlugin;
 
@@ -15,15 +17,17 @@ impl ProjectilePlugin {
         commands: &mut Commands,
         mut materials: ResMut<Assets<ColorMaterial>>,
     ) {
-        commands.spawn(SpriteBundle {
-            material: materials.add(COLOR_PLAYER.into()),
-            sprite: Sprite::new(Vec2::new(10.0, 10.0)),
-            transform: Transform::from_translation(Vec3::new(
-                100.0,
-                0.0,
-                LAYER_WORLD,
-            )),
-            ..Default::default()
-        });
+        commands
+            .spawn(SpriteBundle {
+                material: materials.add(COLOR_PLAYER.into()),
+                sprite: Sprite::new(Vec2::new(10.0, 10.0)),
+                transform: Transform::from_translation(Vec3::new(
+                    100.0,
+                    0.0,
+                    LAYER_WORLD,
+                )),
+                ..Default::default()
+            })
+            .with(ProjectileGraphics);
     }
 }
