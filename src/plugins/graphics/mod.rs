@@ -1,5 +1,6 @@
 mod course;
 mod nav_marker;
+mod projectile;
 mod rock;
 mod ship;
 mod target;
@@ -23,6 +24,7 @@ impl Plugin for GraphicsPlugin {
         app.add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.15)))
             .add_plugin(course::CoursePlugin)
             .add_plugin(nav_marker::NavMarkerPlugin)
+            .add_plugin(projectile::ProjectilePlugin)
             .add_plugin(rock::RockPlugin)
             .add_plugin(ship::ShipPlugin)
             .add_plugin(target::TargetPlugin);
