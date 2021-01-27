@@ -26,6 +26,10 @@ impl TargetPlugin {
                     material: materials
                         .add(Color::rgb_linear(1.0, 0.0, 0.0).into()),
                     sprite: Sprite::new(Vec2::new(10.0, 10.0)),
+                    visible: Visible {
+                        is_visible: false,
+                        ..Default::default()
+                    },
                     ..Default::default()
                 })
                 .current_entity()
