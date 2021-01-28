@@ -9,7 +9,8 @@ pub struct ProjectilePlugin;
 
 impl Plugin for ProjectilePlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(Self::setup.system());
+        app.add_system(Self::setup.system())
+            .add_system(Self::update_layer.system());
     }
 }
 
@@ -43,6 +44,11 @@ impl ProjectilePlugin {
         }
     }
 
-    // TASK: Add system that updates transform, setting the z coordinate to
-    //       `LAYER_WORLD`.
+    fn update_layer(
+        mut projectiles: Query<&mut Transform, With<ProjectileGraphics>>,
+    ) {
+        for mut transform in projectiles.iter_mut() {
+            transform.translation.z = LAYER_WORLD;
+        }
+    }
 }
