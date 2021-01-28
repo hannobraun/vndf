@@ -1,6 +1,9 @@
 use bevy::prelude::*;
+use bevy_rapier2d::rapier::{
+    dynamics::RigidBodyBuilder, geometry::ColliderBuilder,
+};
 
-use crate::world::projectile::Projectile;
+use crate::world::projectile::{Projectile, SIZE};
 
 pub struct ProjectilePlugin;
 
@@ -11,8 +14,10 @@ impl Plugin for ProjectilePlugin {
 }
 
 impl ProjectilePlugin {
-    // TASK: Add body and collider to projectiles.
     fn setup(commands: &mut Commands) {
-        commands.spawn((Projectile,));
+        commands
+            .spawn((Projectile,))
+            .with(RigidBodyBuilder::new_dynamic().translation(100.0, 0.0))
+            .with(ColliderBuilder::cuboid(SIZE.x / 2.0, SIZE.y / 2.0));
     }
 }
