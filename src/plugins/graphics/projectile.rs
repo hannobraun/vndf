@@ -30,13 +30,6 @@ impl ProjectilePlugin {
                     SpriteBundle {
                         material: materials.add(COLOR_PLAYER.into()),
                         sprite: Sprite::new(projectile::SIZE),
-                        // TASK: Remove transform. It should be added by the
-                        //       physics system.
-                        transform: Transform::from_translation(Vec3::new(
-                            100.0,
-                            0.0,
-                            LAYER_WORLD,
-                        )),
                         ..Default::default()
                     },
                 )
