@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use crate::{
     graphics::{projectile::ProjectileGraphics, COLOR_PLAYER, LAYER_WORLD},
-    world::projectile::Projectile,
+    world::projectile::{self, Projectile},
 };
 
 pub struct ProjectilePlugin;
@@ -29,7 +29,7 @@ impl ProjectilePlugin {
                     projectile,
                     SpriteBundle {
                         material: materials.add(COLOR_PLAYER.into()),
-                        sprite: Sprite::new(Vec2::new(10.0, 10.0)),
+                        sprite: Sprite::new(projectile::SIZE),
                         // TASK: Remove transform. It should be added by the
                         //       physics system.
                         transform: Transform::from_translation(Vec3::new(
