@@ -101,7 +101,7 @@ impl RockPlugin {
                 }
             },
             &mut |rock| {
-                info!("Despawning rock: {:?}", rock);
+                debug!("Despawning rock: {:?}", rock);
                 commands.despawn(rock);
             },
         );
