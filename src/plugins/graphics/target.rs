@@ -43,19 +43,16 @@ impl TargetPlugin {
         mut targets: Query<(&mut Transform, &mut Visible)>,
     ) {
         for (mut target, target_graphics) in ships.iter_mut() {
-            if target.has_changed() {
-                let (mut transform, mut visible) =
-                    targets.get_mut(target_graphics.entity()).unwrap();
-                match target.position() {
-                    Some(position) => {
-                        *transform = Transform::from_translation(
-                            position.extend(LAYER_UI),
-                        );
-                        visible.is_visible = true;
-                    }
-                    None => {
-                        visible.is_visible = false;
-                    }
+            let (mut transform, mut visible) =
+                targets.get_mut(target_graphics.entity()).unwrap();
+            match target.position() {
+                Some(position) => {
+                    *transform =
+                        Transform::from_translation(position.extend(LAYER_UI));
+                    visible.is_visible = true;
+                }
+                None => {
+                    visible.is_visible = false;
                 }
             }
         }
