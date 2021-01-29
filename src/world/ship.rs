@@ -73,9 +73,8 @@ impl Ship {
         mut spawn_projectile: impl FnMut(Vector2<f32>),
     ) {
         if let Some(target) = target.position() {
-            let position = body.position().translation.vector;
-
             if self.weapon_timer.tick(time.delta_seconds()).just_finished() {
+                let position = body.position().translation.vector;
                 let to_target = Vector2::new(target.x, target.y) - position;
                 let spawn_position = position
                     + to_target.normalize() * SHIP_SIZE.max_element() * 1.1;
