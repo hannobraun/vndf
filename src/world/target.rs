@@ -18,10 +18,6 @@ impl Target {
         self.position = None;
     }
 
-    pub fn is_set(&self) -> bool {
-        self.position.is_some()
-    }
-
     pub fn position(&self) -> Option<Vec2> {
         self.position
     }
