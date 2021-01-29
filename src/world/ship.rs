@@ -65,11 +65,18 @@ impl Ship {
         );
     }
 
-    pub fn update_weapon_timer(&mut self, target: &Target, time: &Time) {
+    pub fn update_weapon_timer(
+        &mut self,
+        body: &RigidBody,
+        target: &Target,
+        time: &Time,
+        mut spawn_projectile: impl FnMut(Vector2<f32>),
+    ) {
         if target.is_set() {
             if self.weapon_timer.tick(time.delta_seconds()).just_finished() {
-                // TASK: Launch a projectile towards the target.
-                println!("Firing weapon");
+                // TASK: Give projectile an initial velocity.
+                // TASK: Spawn projectile outside of ship.
+                spawn_projectile(body.position().translation.vector);
             }
         }
     }

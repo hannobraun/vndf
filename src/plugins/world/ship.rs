@@ -9,6 +9,7 @@ use bevy_rapier2d::{
 };
 
 use crate::world::{
+    projectile::Projectile,
     ship::{Ship, SHIP_SIZE},
     target::Target,
 };
@@ -59,9 +60,17 @@ impl ShipPlugin {
         }
     }
 
-    fn update_weapon(time: Res<Time>, mut ships: Query<(&mut Ship, &Target)>) {
-        for (mut ship, target) in ships.iter_mut() {
-            ship.update_weapon_timer(&target, &time);
+    fn update_weapon(
+        commands: &mut Commands,
+        time: Res<Time>,
+        bodies: Res<RigidBodySet>,
+        mut ships: Query<(&mut Ship, &RigidBodyHandleComponent, &Target)>,
+    ) {
+        for (mut ship, body, target) in ships.iter_mut() {
+            let body = bodies.get(body.handle()).unwrap();
+            ship.update_weapon_timer(body, &target, &time, |position| {
+                commands.spawn(Projectile::create(position));
+            });
         }
     }
 }
