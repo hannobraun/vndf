@@ -65,7 +65,7 @@ impl Ship {
         );
     }
 
-    pub fn update_weapon_timer(
+    pub fn update_weapon(
         &mut self,
         body: &RigidBody,
         target: &Target,
