@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy_rapier2d::na::Vector2;
 
 use crate::world::projectile::Projectile;
 
@@ -12,6 +13,6 @@ impl Plugin for ProjectilePlugin {
 
 impl ProjectilePlugin {
     fn setup(commands: &mut Commands) {
-        commands.spawn(Projectile::create());
+        commands.spawn(Projectile::create(Vector2::new(100.0, 0.0)));
     }
 }
