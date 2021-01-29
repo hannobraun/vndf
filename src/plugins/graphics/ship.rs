@@ -42,7 +42,7 @@ impl ShipPlugin {
                     ship,
                     SpriteBundle {
                         material: materials.add(COLOR_PLAYER.into()),
-                        sprite: Sprite::new(SHIP_SIZE.into()),
+                        sprite: Sprite::new(SHIP_SIZE),
                         ..Default::default()
                     },
                 )
