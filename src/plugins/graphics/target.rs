@@ -42,7 +42,7 @@ impl TargetPlugin {
         mut ships: Query<(&mut Target, &mut TargetGraphics)>,
         mut targets: Query<(&mut Transform, &mut Visible)>,
     ) {
-        for (mut target, target_graphics) in ships.iter_mut() {
+        for (target, target_graphics) in ships.iter_mut() {
             let (mut transform, mut visible) =
                 targets.get_mut(target_graphics.entity()).unwrap();
             match target.position() {

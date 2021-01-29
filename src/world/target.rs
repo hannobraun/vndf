@@ -22,7 +22,7 @@ impl Target {
         self.position.is_some()
     }
 
-    pub fn position(&mut self) -> Option<Vec2> {
+    pub fn position(&self) -> Option<Vec2> {
         self.position
     }
 }
