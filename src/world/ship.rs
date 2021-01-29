@@ -6,7 +6,7 @@ use bevy_rapier2d::{
 
 use crate::world::target::Target;
 
-pub const SHIP_SIZE: [f32; 2] = [150.0, 50.0];
+pub const SHIP_SIZE: Vec2 = Vec2 { x: 150.0, y: 50.0 };
 
 pub struct Ship {
     direction_setting: Vec2,
