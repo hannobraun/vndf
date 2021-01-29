@@ -73,10 +73,12 @@ impl Ship {
         mut spawn_projectile: impl FnMut(Vector2<f32>),
     ) {
         if let Some(_target) = target.position() {
+            let position = body.position().translation.vector;
+
             if self.weapon_timer.tick(time.delta_seconds()).just_finished() {
                 // TASK: Give projectile an initial velocity.
                 // TASK: Spawn projectile outside of ship.
-                spawn_projectile(body.position().translation.vector);
+                spawn_projectile(position);
             }
         }
     }
