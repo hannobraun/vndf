@@ -35,8 +35,8 @@ impl ShipPlugin {
                     .linvel(10.0, 0.0),
             )
             .with(ColliderBuilder::cuboid(
-                SHIP_SIZE[0] / 2.0,
-                SHIP_SIZE[1] / 2.0,
+                SHIP_SIZE.x / 2.0,
+                SHIP_SIZE.y / 2.0,
             ));
     }
 
