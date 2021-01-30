@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na::{Isometry, UnitComplex, Vector2},
+    na::{Isometry, Point2, UnitComplex, Vector2},
     rapier::dynamics::RigidBody,
 };
 
@@ -70,7 +70,7 @@ impl Ship {
         body: &RigidBody,
         target: &Target,
         time: &Time,
-        mut spawn_projectile: impl FnMut(Vector2<f32>, Vector2<f32>),
+        mut spawn_projectile: impl FnMut(Point2<f32>, Vector2<f32>),
     ) {
         if let Some(target) = target.position() {
             if self.weapon_timer.tick(time.delta_seconds()).just_finished() {
@@ -80,7 +80,7 @@ impl Ship {
                     + to_target.normalize() * SHIP_SIZE.max_element() * 1.1;
 
                 // TASK: Give projectile an initial velocity.
-                spawn_projectile(spawn_position, Vector2::new(0.0, 0.0));
+                spawn_projectile(spawn_position.into(), Vector2::new(0.0, 0.0));
             }
         }
     }

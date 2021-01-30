@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na::Vector2,
+    na::{Point2, Vector2},
     rapier::{dynamics::RigidBodyBuilder, geometry::ColliderBuilder},
 };
 
@@ -10,7 +10,7 @@ pub struct Projectile;
 
 impl Projectile {
     pub fn create(
-        position: Vector2<f32>,
+        position: Point2<f32>,
         velocity: Vector2<f32>,
     ) -> (Self, RigidBodyBuilder, ColliderBuilder) {
         (
