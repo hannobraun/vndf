@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
+    na::Vector2,
     physics::RigidBodyHandleComponent,
     rapier::{
         dynamics::{RigidBodyBuilder, RigidBodySet},
@@ -69,7 +70,10 @@ impl ShipPlugin {
         for (mut ship, body, target) in ships.iter_mut() {
             let body = bodies.get(body.handle()).unwrap();
             ship.update_weapon(body, &target, &time, |position| {
-                commands.spawn(Projectile::create(position));
+                commands.spawn(Projectile::create(
+                    position,
+                    Vector2::new(0.0, 0.0),
+                ));
             });
         }
     }

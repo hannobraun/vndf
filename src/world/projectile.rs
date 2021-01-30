@@ -11,10 +11,13 @@ pub struct Projectile;
 impl Projectile {
     pub fn create(
         position: Vector2<f32>,
+        velocity: Vector2<f32>,
     ) -> (Self, RigidBodyBuilder, ColliderBuilder) {
         (
             Projectile,
-            RigidBodyBuilder::new_dynamic().translation(position.x, position.y),
+            RigidBodyBuilder::new_dynamic()
+                .translation(position.x, position.y)
+                .linvel(velocity.x, velocity.y),
             ColliderBuilder::cuboid(SIZE.x / 2.0, SIZE.y / 2.0),
         )
     }
