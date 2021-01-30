@@ -70,7 +70,7 @@ impl Ship {
         body: &RigidBody,
         target: &Target,
         time: &Time,
-        mut spawn_projectile: impl FnMut(Vector2<f32>),
+        mut spawn_projectile: impl FnMut(Vector2<f32>, Vector2<f32>),
     ) {
         if let Some(target) = target.position() {
             if self.weapon_timer.tick(time.delta_seconds()).just_finished() {
@@ -80,7 +80,7 @@ impl Ship {
                     + to_target.normalize() * SHIP_SIZE.max_element() * 1.1;
 
                 // TASK: Give projectile an initial velocity.
-                spawn_projectile(spawn_position);
+                spawn_projectile(spawn_position, Vector2::new(0.0, 0.0));
             }
         }
     }
