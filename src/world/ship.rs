@@ -80,9 +80,9 @@ impl Ship {
 
                 let spawn_position =
                     position + to_target * SHIP_SIZE.max_element() * 1.1;
+                let velocity = to_target * 250.0;
 
-                // TASK: Give projectile an initial velocity.
-                spawn_projectile(spawn_position.into(), Vector2::new(0.0, 0.0));
+                spawn_projectile(spawn_position.into(), velocity);
             }
         }
     }
