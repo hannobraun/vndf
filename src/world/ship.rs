@@ -75,9 +75,11 @@ impl Ship {
         if let Some(target) = target.position() {
             if self.weapon_timer.tick(time.delta_seconds()).just_finished() {
                 let position = body.position().translation.vector;
-                let to_target = Vector2::new(target.x, target.y) - position;
-                let spawn_position = position
-                    + to_target.normalize() * SHIP_SIZE.max_element() * 1.1;
+                let to_target =
+                    (Vector2::new(target.x, target.y) - position).normalize();
+
+                let spawn_position =
+                    position + to_target * SHIP_SIZE.max_element() * 1.1;
 
                 // TASK: Give projectile an initial velocity.
                 spawn_projectile(spawn_position.into(), Vector2::new(0.0, 0.0));
