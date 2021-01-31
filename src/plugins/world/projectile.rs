@@ -8,3 +8,4 @@ impl Plugin for ProjectilePlugin {
 
 // TASK: Destroy projectiles on impact.
 // TASK: Apply force to bodies hit by projectile on impact.
+// TASK: Clean up projectiles that are far away from player.
