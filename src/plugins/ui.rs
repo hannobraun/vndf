@@ -1,7 +1,7 @@
 use bevy::{diagnostic::Diagnostics, prelude::*};
 
 use crate::{
-    ui::{FrameTime, Rocks},
+    ui::{text_bundle, FrameTime, Rocks},
     world::rock::Rock,
 };
 
@@ -19,55 +19,11 @@ impl UiPlugin {
     fn setup(commands: &mut Commands, asset_server: Res<AssetServer>) {
         commands.spawn(CameraUiBundle::default());
 
-        // TASK: Consolidate creation of text elements.
-
         commands
-            .spawn(TextBundle {
-                text: Text {
-                    font: asset_server.load("fonts/Tuffy_Bold.ttf"),
-                    style: TextStyle {
-                        font_size: 32.0,
-                        color: Color::WHITE,
-                        ..Default::default()
-                    },
-                    ..Default::default()
-                },
-                style: Style {
-                    position_type: PositionType::Absolute,
-                    position: Rect {
-                        top: Val::Px(10.0),
-                        left: Val::Px(10.0),
-                        ..Default::default()
-                    },
-                    ..Default::default()
-                },
-                ..Default::default()
-            })
+            .spawn(text_bundle(&asset_server, 10.0))
             .with(FrameTime);
 
-        commands
-            .spawn(TextBundle {
-                text: Text {
-                    font: asset_server.load("fonts/Tuffy_Bold.ttf"),
-                    style: TextStyle {
-                        font_size: 32.0,
-                        color: Color::WHITE,
-                        ..Default::default()
-                    },
-                    ..Default::default()
-                },
-                style: Style {
-                    position_type: PositionType::Absolute,
-                    position: Rect {
-                        top: Val::Px(50.0),
-                        left: Val::Px(10.0),
-                        ..Default::default()
-                    },
-                    ..Default::default()
-                },
-                ..Default::default()
-            })
-            .with(Rocks);
+        commands.spawn(text_bundle(&asset_server, 50.0)).with(Rocks);
     }
 
     fn update_frame_time(

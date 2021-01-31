@@ -1,6 +1,9 @@
 use std::{fmt::Write as _, usize};
 
-use bevy::diagnostic::{Diagnostics, FrameTimeDiagnosticsPlugin};
+use bevy::{
+    diagnostic::{Diagnostics, FrameTimeDiagnosticsPlugin},
+    prelude::*,
+};
 
 pub struct FrameTime;
 
@@ -24,5 +27,29 @@ impl Rocks {
     pub fn format(num_rocks: usize, s: &mut String) {
         s.clear();
         let _ = write!(s, "Rocks: {}", num_rocks);
+    }
+}
+
+pub fn text_bundle(asset_server: &AssetServer, top: f32) -> TextBundle {
+    TextBundle {
+        text: Text {
+            font: asset_server.load("fonts/Tuffy_Bold.ttf"),
+            style: TextStyle {
+                font_size: 32.0,
+                color: Color::WHITE,
+                ..Default::default()
+            },
+            ..Default::default()
+        },
+        style: Style {
+            position_type: PositionType::Absolute,
+            position: Rect {
+                top: Val::Px(top),
+                left: Val::Px(10.0),
+                ..Default::default()
+            },
+            ..Default::default()
+        },
+        ..Default::default()
     }
 }
