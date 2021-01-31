@@ -22,7 +22,6 @@ impl UiPlugin {
         commands
             .spawn(text_bundle(&asset_server, 10.0))
             .with(FrameTime);
-
         commands.spawn(text_bundle(&asset_server, 50.0)).with(Rocks);
     }
 
