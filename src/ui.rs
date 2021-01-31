@@ -29,6 +29,14 @@ impl Rocks {
         let _ = write!(s, "Rocks: {}", num_rocks);
     }
 }
+pub struct Projectiles;
+
+impl Projectiles {
+    pub fn format(num_projectiles: usize, s: &mut String) {
+        s.clear();
+        let _ = write!(s, "Projectiles: {}", num_projectiles);
+    }
+}
 
 pub fn text_bundle(asset_server: &AssetServer, top: f32) -> TextBundle {
     TextBundle {
