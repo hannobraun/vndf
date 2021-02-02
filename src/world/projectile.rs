@@ -18,6 +18,7 @@ impl Projectile {
             RigidBodyBuilder::new_dynamic()
                 .translation(position.x, position.y)
                 .linvel(velocity.x, velocity.y),
+            // TASK: Make it so that projectile collisions create events.
             ColliderBuilder::cuboid(SIZE.x / 2.0, SIZE.y / 2.0).sensor(true),
         )
     }
