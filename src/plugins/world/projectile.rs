@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    physics::RigidBodyHandleComponent, rapier::dynamics::RigidBodySet,
+    physics::{self, RigidBodyHandleComponent},
+    rapier::dynamics::RigidBodySet,
 };
 
 use crate::world::{projectile::Projectile, ship::Ship};
@@ -9,7 +10,8 @@ pub struct ProjectilePlugin;
 
 impl Plugin for ProjectilePlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(Self::clean_up.system());
+        app.add_system(Self::clean_up.system())
+            .add_system(Self::handle_impact.system());
     }
 }
 
@@ -41,7 +43,12 @@ impl ProjectilePlugin {
             }
         }
     }
-}
 
-// TASK: Destroy projectiles on impact.
-// TASK: On impact, apply force to body that is hit by projectile.
+    // TASK: Destroy projectiles on impact.
+    // TASK: On impact, apply force to body that is hit by projectile.
+    fn handle_impact(events: Res<physics::EventQueue>) {
+        while let Ok(event) = events.contact_events.pop() {
+            println!("{:?}", event);
+        }
+    }
+}
