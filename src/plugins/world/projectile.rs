@@ -47,7 +47,7 @@ impl ProjectilePlugin {
     // TASK: Destroy projectiles on impact.
     // TASK: On impact, apply force to body that is hit by projectile.
     fn handle_impact(events: Res<physics::EventQueue>) {
-        while let Ok(event) = events.contact_events.pop() {
+        while let Ok(event) = events.intersection_events.pop() {
             println!("{:?}", event);
         }
     }
