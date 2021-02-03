@@ -14,6 +14,8 @@ impl Plugin for PhysicsPlugin {
 }
 
 impl PhysicsPlugin {
+    // TASK: Add all collider handles to a data structure that maps them to
+    //       the entity id.
     fn setup(
         commands: &mut Commands,
         entities: Query<
