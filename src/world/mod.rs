@@ -1,3 +1,4 @@
+pub mod physics;
 pub mod projectile;
 pub mod rock;
 pub mod ship;

@@ -1,3 +1,4 @@
+mod physics;
 mod projectile;
 mod rock;
 mod ship;
@@ -15,6 +16,7 @@ impl Plugin for WorldPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_plugin(RapierPhysicsPlugin)
             .add_startup_system(Self::setup.system())
+            .add_plugin(physics::PhysicsPlugin)
             .add_plugin(projectile::ProjectilePlugin)
             .add_plugin(rock::RockPlugin)
             .add_plugin(ship::ShipPlugin)
