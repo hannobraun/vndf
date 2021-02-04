@@ -1,8 +1,8 @@
 use bevy::{diagnostic::Diagnostics, prelude::*};
 
 use crate::{
-    ui::{text_bundle, FrameTime, Projectiles, Rocks},
-    world::{projectile::Projectile, rock::Rock},
+    ui::{text_bundle, Colliders, FrameTime, Projectiles, Rocks},
+    world::{physics::ColliderMap, projectile::Projectile, rock::Rock},
 };
 
 pub struct UiPlugin;
@@ -12,7 +12,8 @@ impl Plugin for UiPlugin {
         app.add_startup_system(Self::setup.system())
             .add_system(Self::update_frame_time.system())
             .add_system(Self::update_rocks.system())
-            .add_system(Self::update_projectiles.system());
+            .add_system(Self::update_projectiles.system())
+            .add_system(Self::update_colliders.system());
     }
 }
 
@@ -27,6 +28,9 @@ impl UiPlugin {
         commands
             .spawn(text_bundle(&asset_server, 90.0))
             .with(Projectiles);
+        commands
+            .spawn(text_bundle(&asset_server, 130.0))
+            .with(Colliders);
     }
 
     fn update_frame_time(
@@ -53,6 +57,15 @@ impl UiPlugin {
     ) {
         for mut text in elements.iter_mut() {
             Projectiles::format(projectiles.iter().count(), &mut text.value);
+        }
+    }
+
+    fn update_colliders(
+        collider_map: Res<ColliderMap>,
+        mut elements: Query<&mut Text, With<Colliders>>,
+    ) {
+        for mut text in elements.iter_mut() {
+            Colliders::format(collider_map.len(), &mut text.value);
         }
     }
 }

@@ -38,6 +38,15 @@ impl Projectiles {
     }
 }
 
+pub struct Colliders;
+
+impl Colliders {
+    pub fn format(num_colliders: usize, s: &mut String) {
+        s.clear();
+        let _ = write!(s, "Colliders: {}", num_colliders);
+    }
+}
+
 pub fn text_bundle(asset_server: &AssetServer, top: f32) -> TextBundle {
     TextBundle {
         text: Text {
