@@ -4,7 +4,7 @@ use bevy_rapier2d::{
     rapier::dynamics::RigidBodySet,
 };
 
-use crate::world::{projectile::Projectile, ship::Ship};
+use crate::world::{physics::ColliderMap, projectile::Projectile, ship::Ship};
 
 pub struct ProjectilePlugin;
 
@@ -46,9 +46,16 @@ impl ProjectilePlugin {
 
     // TASK: Destroy projectiles on impact.
     // TASK: On impact, apply force to body that is hit by projectile.
-    fn handle_impact(events: Res<physics::EventQueue>) {
+    fn handle_impact(
+        collider_map: Res<ColliderMap>,
+        events: Res<physics::EventQueue>,
+    ) {
         while let Ok(event) = events.intersection_events.pop() {
-            println!("{:?}", event);
+            println!(
+                "event: {:?}; number of colliders: {}",
+                event,
+                collider_map.len()
+            );
         }
     }
 }
