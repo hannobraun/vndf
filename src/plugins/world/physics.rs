@@ -28,4 +28,6 @@ impl PhysicsPlugin {
             collider_map.insert(collider.handle(), entity);
         }
     }
+
+    // TASK: Clean up collider handles whose entity is removed.
 }
