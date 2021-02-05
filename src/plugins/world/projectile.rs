@@ -44,13 +44,22 @@ impl ProjectilePlugin {
         }
     }
 
-    // TASK: Destroy projectiles on impact.
     // TASK: On impact, apply force to body that is hit by projectile.
     fn handle_impact(
+        commands: &mut Commands,
         collider_map: Res<ColliderMap>,
         events: Res<physics::EventQueue>,
+        projectiles: Query<Entity, With<Projectile>>,
     ) {
         while let Ok(event) = events.intersection_events.pop() {
+            for collider in &[event.collider1, event.collider2] {
+                if let Some(entity) = collider_map.get(collider) {
+                    if projectiles.get(entity).is_ok() {
+                        // If the colliding entity is a projectile, remove it.
+                        commands.despawn(entity);
+                    }
+                }
+            }
             println!(
                 "event: {:?}; number of colliders: {}",
                 event,

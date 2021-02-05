@@ -12,6 +12,10 @@ impl ColliderMap {
         Self(HashMap::new())
     }
 
+    pub fn get(&self, collider: &ColliderHandle) -> Option<Entity> {
+        self.0.get(collider).map(|&entity| entity)
+    }
+
     pub fn insert(&mut self, key: ColliderHandle, value: Entity) {
         self.0.insert(key, value);
     }
