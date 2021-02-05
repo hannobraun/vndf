@@ -60,11 +60,6 @@ impl ProjectilePlugin {
                     }
                 }
             }
-            println!(
-                "event: {:?}; number of colliders: {}",
-                event,
-                collider_map.len()
-            );
         }
     }
 }
