@@ -16,6 +16,10 @@ impl ColliderMap {
         self.0.insert(key, value);
     }
 
+    pub fn retain(&mut self, f: impl Fn(Entity) -> bool) {
+        self.0.retain(|_, &mut entity| f(entity));
+    }
+
     pub fn len(&self) -> usize {
         self.0.len()
     }

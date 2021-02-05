@@ -10,6 +10,10 @@ pub struct PhysicsPlugin;
 impl Plugin for PhysicsPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_resource(ColliderMap::new())
+            // Cleanup must come before setup, or it won't work. If setup comes
+            // first, the collider is already added to the map, but the queries
+            // for the rest of the frame won't yet contain the entity.
+            .add_system(Self::cleanup.system())
             .add_system(Self::setup.system());
     }
 }
@@ -29,5 +33,10 @@ impl PhysicsPlugin {
         }
     }
 
-    // TASK: Clean up collider handles whose entity is removed.
+    fn cleanup(
+        mut collider_map: ResMut<ColliderMap>,
+        entities: Query<Entity, With<Physics>>,
+    ) {
+        collider_map.retain(|entity| entities.get(entity).is_ok());
+    }
 }
