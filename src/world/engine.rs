@@ -21,10 +21,10 @@ impl Engine {
         self.thrust_setting = f32::min(f32::max(self.thrust_setting, 0.0), 1.0);
     }
 
-    pub fn apply_thrust(&self, body: &mut RigidBody) {
-        let direction = body.position().rotation * Vector2::new(1.0, 0.0);
+    pub fn apply_thrust(&self, ship: &mut RigidBody) {
+        let direction = ship.position().rotation * Vector2::new(1.0, 0.0);
 
         let thrust = 1_000_000.0 * direction;
-        body.apply_force(self.thrust_setting * thrust, true);
+        ship.apply_force(self.thrust_setting * thrust, true);
     }
 }
