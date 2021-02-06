@@ -14,6 +14,7 @@ use crate::{
     world::{ship::Ship, target::Target},
 };
 
+// TASK: Consider using more direct controls, based on WASD keys.
 pub struct InputPlugin;
 
 impl Plugin for InputPlugin {

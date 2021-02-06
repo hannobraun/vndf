@@ -8,6 +8,9 @@ use crate::world::target::Target;
 
 pub const SHIP_SIZE: Vec2 = Vec2 { x: 150.0, y: 50.0 };
 
+// TASK: Factor out engine from ship.
+// TASK: Factor out maneuvering thrusters from ship.
+// TASK: Factor out weapon from ship.
 pub struct Ship {
     direction_setting: Vec2,
     thrust_setting: f32,
