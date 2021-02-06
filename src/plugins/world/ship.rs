@@ -56,7 +56,7 @@ impl ShipPlugin {
     ) {
         for (ship, body) in ships.iter() {
             let body = bodies.get_mut(body.handle()).unwrap();
-            ship.apply_thrust(body);
+            ship.engine.apply_thrust(body);
         }
     }
 

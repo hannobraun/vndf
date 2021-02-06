@@ -6,23 +6,27 @@ use bevy_rapier2d::{
 
 use crate::world::target::Target;
 
+use super::engine::Engine;
+
 pub const SHIP_SIZE: Vec2 = Vec2 { x: 150.0, y: 50.0 };
 
-// TASK: Factor out engine from ship.
 // TASK: Factor out maneuvering thrusters from ship.
 // TASK: Factor out weapon from ship.
 pub struct Ship {
     direction_setting: Vec2,
-    thrust_setting: f32,
     weapon_timer: Timer,
+
+    // TASK: Convert into separate component.
+    pub engine: Engine,
 }
 
 impl Ship {
     pub fn new() -> Self {
         Self {
             direction_setting: Vec2::unit_x(),
-            thrust_setting: 0.0,
             weapon_timer: Timer::from_seconds(0.2, true),
+
+            engine: Engine::new(),
         }
     }
 
@@ -34,23 +38,6 @@ impl Ship {
         let target = Vector2::new(target.x, target.y);
         let direction = target - body.position().translation.vector;
         self.direction_setting = Vec2::new(direction.x, direction.y);
-    }
-
-    pub fn thrust_setting(&self) -> f32 {
-        self.thrust_setting
-    }
-
-    /// Change the thrust setting by the given amount
-    pub fn change_thrust_setting(&mut self, change: f32) {
-        self.thrust_setting += change;
-        self.thrust_setting = f32::min(f32::max(self.thrust_setting, 0.0), 1.0);
-    }
-
-    pub fn apply_thrust(&self, body: &mut RigidBody) {
-        let direction = body.position().rotation * Vector2::new(1.0, 0.0);
-
-        let thrust = 1_000_000.0 * direction;
-        body.apply_force(self.thrust_setting * thrust, true);
     }
 
     // TASK: Improve realism. Ships should require torque to rotate, not just

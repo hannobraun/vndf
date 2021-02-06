@@ -36,7 +36,8 @@ impl NavMarker {
         const MIN_SIZE: f32 = 5.0;
         const MAX_SIZE: f32 = 25.0;
 
-        let size = MIN_SIZE + (MAX_SIZE - MIN_SIZE) * ship.thrust_setting();
+        let size =
+            MIN_SIZE + (MAX_SIZE - MIN_SIZE) * ship.engine.thrust_setting();
         *sprite = Sprite::new(Vec2::new(size, size));
     }
 }
