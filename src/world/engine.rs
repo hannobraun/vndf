@@ -2,12 +2,14 @@ use bevy_rapier2d::{na::Vector2, rapier::dynamics::RigidBody};
 
 pub struct Engine {
     thrust_setting: f32,
+    max_thrust: f32,
 }
 
 impl Engine {
     pub fn new() -> Self {
         Self {
             thrust_setting: 0.0,
+            max_thrust: 1_000_000.0,
         }
     }
 
@@ -24,7 +26,7 @@ impl Engine {
     pub fn apply_thrust(&self, ship: &mut RigidBody) {
         let direction = ship.position().rotation * Vector2::new(1.0, 0.0);
 
-        let thrust = 1_000_000.0 * direction;
+        let thrust = self.max_thrust * direction;
         ship.apply_force(self.thrust_setting * thrust, true);
     }
 }
