@@ -21,7 +21,7 @@ impl Engine {
     }
 
     /// Change the thrust setting by the given amount
-    pub fn change_thrust_setting(&mut self, change: f32) {
+    pub fn change_thrust(&mut self, change: f32) {
         self.thrust += change;
         self.thrust = f32::min(f32::max(self.thrust, 0.0), 1.0);
     }
