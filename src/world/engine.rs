@@ -26,7 +26,7 @@ impl Engine {
     pub fn apply_thrust(&self, ship: &mut RigidBody) {
         let direction = ship.position().rotation * Vector2::new(1.0, 0.0);
 
-        let thrust = self.max_thrust * direction;
-        ship.apply_force(self.thrust_setting * thrust, true);
+        let thrust = self.max_thrust * self.thrust_setting * direction;
+        ship.apply_force(thrust, true);
     }
 }
