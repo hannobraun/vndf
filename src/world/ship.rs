@@ -16,7 +16,7 @@ pub struct Ship {
     direction_setting: Vec2,
     weapon_timer: Timer,
 
-    // TASK: Convert into separate component.
+    // TASK: Make it possible for multiple engines to exist on a ship.
     pub engine: Engine,
 }
 
