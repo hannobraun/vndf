@@ -16,7 +16,7 @@ impl Engine {
     /// The thrust, as a factor of maximum thrust
     ///
     /// Limited to the range of 0.0 to 1.0 (inclusive).
-    pub fn thrust_setting(&self) -> f32 {
+    pub fn thrust(&self) -> f32 {
         self.thrust
     }
 
