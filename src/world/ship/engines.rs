@@ -34,9 +34,9 @@ impl Engines {
     }
 
     pub fn apply_thrust(&self, ship: &mut RigidBody) {
-        // TASK: Support multiple engines.
-        assert_eq!(self.engines.len(), 1);
-        self.engines[0].apply_thrust(ship)
+        for engine in &self.engines {
+            engine.apply_thrust(ship);
+        }
     }
 }
 
