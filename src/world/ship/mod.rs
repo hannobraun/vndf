@@ -19,7 +19,7 @@ pub struct Ship {
     weapon_timer: Timer,
 
     // TASK: Make it possible for multiple engines to exist on a ship.
-    pub engine: Engine,
+    engine: Engine,
 }
 
 impl Ship {
