@@ -32,6 +32,10 @@ impl Ship {
         }
     }
 
+    pub fn engines(&self) -> &Engine {
+        &self.engine
+    }
+
     pub fn direction_setting(&self) -> Vec2 {
         self.direction_setting
     }
