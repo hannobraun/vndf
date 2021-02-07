@@ -11,12 +11,19 @@ impl Engines {
         }
     }
 
+    /// The thrust, as a factor of maximum thrust
+    ///
+    /// Limited to the range of 0.0 to 1.0 (inclusive).
     pub fn thrust(&self) -> f32 {
         // TASK: Support multiple engines.
         assert_eq!(self.engines.len(), 1);
         self.engines[0].thrust()
     }
 
+    /// Change the thrust by the given amount
+    ///
+    /// `change` will be added to thrust, and the result will be clamped to the
+    /// range of 0.0 and 1.0 (inclusive).
     pub fn change_thrust(&mut self, change: f32) {
         // TASK: Support multiple engines.
         assert_eq!(self.engines.len(), 1);
@@ -43,17 +50,10 @@ impl Engine {
         }
     }
 
-    /// The thrust, as a factor of maximum thrust
-    ///
-    /// Limited to the range of 0.0 to 1.0 (inclusive).
     pub fn thrust(&self) -> f32 {
         self.thrust
     }
 
-    /// Change the thrust by the given amount
-    ///
-    /// `change` will be added to thrust, and the result will be clamped to the
-    /// range of 0.0 and 1.0 (inclusive).
     pub fn change_thrust(&mut self, change: f32) {
         self.thrust += change;
         self.thrust = f32::min(f32::max(self.thrust, 0.0), 1.0);
