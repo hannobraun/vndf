@@ -43,23 +43,23 @@ pub struct Engine {
 }
 
 impl Engine {
-    pub fn new() -> Self {
+    fn new() -> Self {
         Self {
             thrust: 0.0,
             max_thrust: 1_000_000.0,
         }
     }
 
-    pub fn thrust(&self) -> f32 {
+    fn thrust(&self) -> f32 {
         self.thrust
     }
 
-    pub fn change_thrust(&mut self, change: f32) {
+    fn change_thrust(&mut self, change: f32) {
         self.thrust += change;
         self.thrust = f32::min(f32::max(self.thrust, 0.0), 1.0);
     }
 
-    pub fn apply_thrust(&self, ship: &mut RigidBody) {
+    fn apply_thrust(&self, ship: &mut RigidBody) {
         let direction = ship.position().rotation * Vector2::new(1.0, 0.0);
 
         let thrust = self.max_thrust * self.thrust * direction;
