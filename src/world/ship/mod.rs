@@ -1,4 +1,4 @@
-pub mod engine;
+pub mod engines;
 
 use bevy::prelude::*;
 use bevy_rapier2d::{
@@ -8,7 +8,7 @@ use bevy_rapier2d::{
 
 use crate::world::target::Target;
 
-use self::engine::Engine;
+use self::engines::Engine;
 
 pub const SHIP_SIZE: Vec2 = Vec2 { x: 150.0, y: 50.0 };
 
