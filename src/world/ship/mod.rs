@@ -18,8 +18,7 @@ pub struct Ship {
     direction_setting: Vec2,
     weapon_timer: Timer,
 
-    // TASK: Rename
-    engine: Engines,
+    engines: Engines,
 }
 
 impl Ship {
@@ -28,16 +27,16 @@ impl Ship {
             direction_setting: Vec2::unit_x(),
             weapon_timer: Timer::from_seconds(0.2, true),
 
-            engine: Engines::new(),
+            engines: Engines::new(),
         }
     }
 
     pub fn engines(&self) -> &Engines {
-        &self.engine
+        &self.engines
     }
 
     pub fn engines_mut(&mut self) -> &mut Engines {
-        &mut self.engine
+        &mut self.engines
     }
 
     pub fn direction_setting(&self) -> Vec2 {
