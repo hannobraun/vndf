@@ -34,8 +34,11 @@ impl Engines {
     }
 
     pub fn apply_thrust(&self, ship: &mut RigidBody) {
+        let direction = ship.position().rotation * Vector2::new(1.0, 0.0);
+
         for engine in &self.engines {
-            engine.apply_thrust(ship);
+            let thrust = engine.max_thrust * engine.thrust * direction;
+            ship.apply_force(thrust, true);
         }
     }
 }
@@ -51,12 +54,5 @@ impl Engine {
             thrust: 0.0,
             max_thrust: 1_000_000.0,
         }
-    }
-
-    fn apply_thrust(&self, ship: &mut RigidBody) {
-        let direction = ship.position().rotation * Vector2::new(1.0, 0.0);
-
-        let thrust = self.max_thrust * self.thrust * direction;
-        ship.apply_force(thrust, true);
     }
 }
