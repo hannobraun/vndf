@@ -1,3 +1,5 @@
+pub mod engine;
+
 use bevy::prelude::*;
 use bevy_rapier2d::{
     na::{Isometry, Point2, UnitComplex, Vector2},
@@ -6,7 +8,7 @@ use bevy_rapier2d::{
 
 use crate::world::target::Target;
 
-use super::engine::Engine;
+use self::engine::Engine;
 
 pub const SHIP_SIZE: Vec2 = Vec2 { x: 150.0, y: 50.0 };
 
