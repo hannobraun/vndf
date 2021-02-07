@@ -36,6 +36,10 @@ impl Ship {
         &self.engine
     }
 
+    pub fn engines_mut(&mut self) -> &mut Engine {
+        &mut self.engine
+    }
+
     pub fn direction_setting(&self) -> Vec2 {
         self.direction_setting
     }

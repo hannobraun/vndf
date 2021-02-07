@@ -107,7 +107,7 @@ impl InputPlugin {
     ) {
         for event in events.drain() {
             for mut ship in ships.iter_mut() {
-                ship.engine.change_thrust(event.y / 10.0);
+                ship.engines_mut().change_thrust(event.y / 10.0);
             }
         }
     }
