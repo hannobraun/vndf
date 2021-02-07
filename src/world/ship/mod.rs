@@ -8,7 +8,7 @@ use bevy_rapier2d::{
 
 use crate::world::target::Target;
 
-use self::engines::Engine;
+use self::engines::Engines;
 
 pub const SHIP_SIZE: Vec2 = Vec2 { x: 150.0, y: 50.0 };
 
@@ -18,8 +18,8 @@ pub struct Ship {
     direction_setting: Vec2,
     weapon_timer: Timer,
 
-    // TASK: Make it possible for multiple engines to exist on a ship.
-    engine: Engine,
+    // TASK: Rename
+    engine: Engines,
 }
 
 impl Ship {
@@ -28,15 +28,15 @@ impl Ship {
             direction_setting: Vec2::unit_x(),
             weapon_timer: Timer::from_seconds(0.2, true),
 
-            engine: Engine::new(),
+            engine: Engines::new(),
         }
     }
 
-    pub fn engines(&self) -> &Engine {
+    pub fn engines(&self) -> &Engines {
         &self.engine
     }
 
-    pub fn engines_mut(&mut self) -> &mut Engine {
+    pub fn engines_mut(&mut self) -> &mut Engines {
         &mut self.engine
     }
 

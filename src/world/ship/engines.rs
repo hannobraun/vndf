@@ -1,5 +1,35 @@
 use bevy_rapier2d::{na::Vector2, rapier::dynamics::RigidBody};
 
+pub struct Engines {
+    engines: Vec<Engine>,
+}
+
+impl Engines {
+    pub fn new() -> Self {
+        Self {
+            engines: vec![Engine::new()],
+        }
+    }
+
+    pub fn thrust(&self) -> f32 {
+        // TASK: Support multiple engines.
+        assert_eq!(self.engines.len(), 1);
+        self.engines[0].thrust()
+    }
+
+    pub fn change_thrust(&mut self, change: f32) {
+        // TASK: Support multiple engines.
+        assert_eq!(self.engines.len(), 1);
+        self.engines[0].change_thrust(change)
+    }
+
+    pub fn apply_thrust(&self, ship: &mut RigidBody) {
+        // TASK: Support multiple engines.
+        assert_eq!(self.engines.len(), 1);
+        self.engines[0].apply_thrust(ship)
+    }
+}
+
 pub struct Engine {
     thrust: f32,
     max_thrust: f32,
