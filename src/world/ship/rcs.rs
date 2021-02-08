@@ -4,6 +4,8 @@ use bevy_rapier2d::{
     rapier::dynamics::RigidBody,
 };
 
+// TASK: Use more realistic setting, based on multiple thrusters whose positions
+//       and orientations are offset from the ship position.
 pub struct Rcs {
     direction_setting: Vec2,
 }
