@@ -13,7 +13,6 @@ use self::{engines::Engines, rcs::Rcs};
 
 pub const SHIP_SIZE: Vec2 = Vec2 { x: 150.0, y: 50.0 };
 
-// TASK: Factor out maneuvering thrusters from ship.
 // TASK: Factor out weapon from ship.
 pub struct Ship {
     weapon_timer: Timer,
