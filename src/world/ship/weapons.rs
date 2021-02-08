@@ -9,14 +9,13 @@ use crate::world::target::Target;
 use super::SHIP_SIZE;
 
 pub struct Weapons {
-    // TASK: Rename to `timer`.
-    weapon_timer: Timer,
+    timer: Timer,
 }
 
 impl Weapons {
     pub fn new() -> Self {
         Self {
-            weapon_timer: Timer::from_seconds(0.2, true),
+            timer: Timer::from_seconds(0.2, true),
         }
     }
 
@@ -29,7 +28,7 @@ impl Weapons {
         mut spawn_projectile: impl FnMut(Point2<f32>, Vector2<f32>),
     ) {
         if let Some(target) = target.position() {
-            if self.weapon_timer.tick(time.delta_seconds()).just_finished() {
+            if self.timer.tick(time.delta_seconds()).just_finished() {
                 let position = body.position().translation.vector;
                 let to_target =
                     (Vector2::new(target.x, target.y) - position).normalize();
