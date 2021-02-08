@@ -1,33 +1,34 @@
 pub mod engines;
+pub mod rcs;
 
 use bevy::prelude::*;
 use bevy_rapier2d::{
-    na::{Isometry, Point2, UnitComplex, Vector2},
+    na::{Point2, Vector2},
     rapier::dynamics::RigidBody,
 };
 
 use crate::world::target::Target;
 
-use self::engines::Engines;
+use self::{engines::Engines, rcs::Rcs};
 
 pub const SHIP_SIZE: Vec2 = Vec2 { x: 150.0, y: 50.0 };
 
 // TASK: Factor out maneuvering thrusters from ship.
 // TASK: Factor out weapon from ship.
 pub struct Ship {
-    direction_setting: Vec2,
     weapon_timer: Timer,
 
     engines: Engines,
+    rcs: Rcs,
 }
 
 impl Ship {
     pub fn new() -> Self {
         Self {
-            direction_setting: Vec2::unit_x(),
             weapon_timer: Timer::from_seconds(0.2, true),
 
             engines: Engines::new(),
+            rcs: Rcs::new(),
         }
     }
 
@@ -39,29 +40,12 @@ impl Ship {
         &mut self.engines
     }
 
-    pub fn direction_setting(&self) -> Vec2 {
-        self.direction_setting
+    pub fn rcs(&self) -> &Rcs {
+        &self.rcs
     }
 
-    pub fn update_direction_setting(&mut self, body: &RigidBody, target: Vec2) {
-        let target = Vector2::new(target.x, target.y);
-        let direction = target - body.position().translation.vector;
-        self.direction_setting = Vec2::new(direction.x, direction.y);
-    }
-
-    // TASK: Improve realism. Ships should require torque to rotate, not just
-    //       change rotation magically.
-    pub fn control_rotation(&self, body: &mut RigidBody) {
-        let nav_marker_angle =
-            Vec2::unit_x().angle_between(self.direction_setting);
-
-        body.set_position(
-            Isometry::from_parts(
-                body.position().translation,
-                UnitComplex::from_angle(nav_marker_angle),
-            ),
-            true,
-        );
+    pub fn rcs_mut(&mut self) -> &mut Rcs {
+        &mut self.rcs
     }
 
     pub fn update_weapon(

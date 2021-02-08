@@ -63,7 +63,8 @@ impl InputPlugin {
 
                 if input.pressed(MouseButton::Left) {
                     let body = bodies.get(body.handle()).unwrap();
-                    ship.update_direction_setting(body, mouse_position_world);
+                    ship.rcs_mut()
+                        .update_direction_setting(body, mouse_position_world);
                 }
             }
         }

@@ -23,7 +23,7 @@ impl NavMarker {
         body: &RigidBody,
         transform: &mut Transform,
     ) {
-        let dir = ship.direction_setting().normalize();
+        let dir = ship.rcs().direction_setting().normalize();
 
         let position = body.position().translation.vector
             + Vector2::new(dir.x, dir.y) * 250.0;
