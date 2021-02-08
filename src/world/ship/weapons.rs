@@ -19,8 +19,7 @@ impl Weapons {
         }
     }
 
-    // TASK: Rename to `update`.
-    pub fn update_weapon(
+    pub fn update(
         &mut self,
         body: &RigidBody,
         target: &Target,

@@ -68,7 +68,7 @@ impl ShipPlugin {
     ) {
         for (mut ship, body, target) in ships.iter_mut() {
             let body = bodies.get(body.handle()).unwrap();
-            ship.weapons_mut().update_weapon(
+            ship.weapons_mut().update(
                 body,
                 &target,
                 &time,
