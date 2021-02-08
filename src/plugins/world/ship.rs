@@ -68,9 +68,14 @@ impl ShipPlugin {
     ) {
         for (mut ship, body, target) in ships.iter_mut() {
             let body = bodies.get(body.handle()).unwrap();
-            ship.update_weapon(body, &target, &time, |position, velocity| {
-                commands.spawn(Projectile::create(position, velocity));
-            });
+            ship.weapons_mut().update_weapon(
+                body,
+                &target,
+                &time,
+                |position, velocity| {
+                    commands.spawn(Projectile::create(position, velocity));
+                },
+            );
         }
     }
 }
