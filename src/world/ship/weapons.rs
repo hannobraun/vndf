@@ -8,6 +8,8 @@ use crate::world::target::Target;
 
 use super::SHIP_SIZE;
 
+// TASK: Add support for multiple weapons, each with a position and orientation
+//       that is offset to the ship position.
 pub struct Weapons {
     timer: Timer,
 }
