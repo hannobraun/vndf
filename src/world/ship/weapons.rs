@@ -8,15 +8,15 @@ use crate::world::target::Target;
 
 use super::SHIP_SIZE;
 
+// TASK: Add support for weapon orientations. Weapons should point in a specific
+//       direction and have a maximum angle at which they can shoot.
 pub struct Weapons {
-    // TASK: Add support different positions and orientations that are offset to
-    //       the ship position.
     weapons: Vec<Weapon>,
 }
 
 impl Weapons {
     pub fn new() -> Self {
-        let weapon = Weapon::new();
+        let weapon = Weapon::new(Vector2::new(0.0, 0.0));
 
         Self {
             weapons: vec![weapon],
@@ -33,7 +33,8 @@ impl Weapons {
         for weapon in &mut self.weapons {
             if let Some(target) = target.position() {
                 if weapon.timer.tick(time.delta_seconds()).just_finished() {
-                    let position = body.position().translation.vector;
+                    let position =
+                        body.position().translation.vector + weapon.offset;
                     let to_target = (Vector2::new(target.x, target.y)
                         - position)
                         .normalize();
@@ -50,12 +51,14 @@ impl Weapons {
 }
 
 pub struct Weapon {
+    offset: Vector2<f32>,
     timer: Timer,
 }
 
 impl Weapon {
-    pub fn new() -> Self {
+    pub fn new(offset: Vector2<f32>) -> Self {
         Self {
+            offset,
             timer: Timer::from_seconds(0.2, true),
         }
     }
