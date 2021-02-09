@@ -16,10 +16,11 @@ pub struct Weapons {
 
 impl Weapons {
     pub fn new() -> Self {
-        let weapon = Weapon::new(Vector2::new(0.0, 0.0));
+        let weapon_back = Weapon::new(Vector2::new(SHIP_SIZE.x * -0.75, 0.0));
+        let weapon_front = Weapon::new(Vector2::new(SHIP_SIZE.x * 0.75, 0.0));
 
         Self {
-            weapons: vec![weapon],
+            weapons: vec![weapon_back, weapon_front],
         }
     }
 
