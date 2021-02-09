@@ -16,8 +16,10 @@ pub struct Weapons {
 
 impl Weapons {
     pub fn new() -> Self {
+        let weapon = Weapon::new();
+
         Self {
-            weapons: vec![Weapon::new()],
+            weapons: vec![weapon],
         }
     }
 
