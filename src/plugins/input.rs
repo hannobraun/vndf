@@ -39,7 +39,6 @@ impl InputPlugin {
         }
     }
 
-    // TASK: Apply input to ship.
     fn handle_ship_controls(
         input: Res<Input<KeyCode>>,
         mut ships: Query<&mut Ship>,
@@ -52,6 +51,7 @@ impl InputPlugin {
             }
         }
 
+        // TASK: Apply input to ship.
         if input.pressed(KeyCode::A) {
             println!("Turn left");
         }
