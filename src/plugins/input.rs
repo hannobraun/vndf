@@ -126,6 +126,7 @@ impl InputPlugin {
         }
     }
 
+    // TASK: Change maximum thrust setting instead.
     fn handle_thrust_setting_change(
         mut events: ResMut<Events<MouseWheel>>,
         mut ships: Query<&mut Ship, With<Ship>>,
