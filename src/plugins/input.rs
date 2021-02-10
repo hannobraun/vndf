@@ -40,10 +40,18 @@ impl InputPlugin {
     }
 
     // TASK: Apply input to ship.
-    fn handle_ship_controls(input: Res<Input<KeyCode>>) {
-        if input.pressed(KeyCode::W) {
-            println!("Accelerate");
+    fn handle_ship_controls(
+        input: Res<Input<KeyCode>>,
+        mut ships: Query<&mut Ship>,
+    ) {
+        for mut ship in ships.iter_mut() {
+            if input.pressed(KeyCode::W) {
+                ship.engines_mut().set_thrust(1.0);
+            } else {
+                ship.engines_mut().set_thrust(0.0);
+            }
         }
+
         if input.pressed(KeyCode::A) {
             println!("Turn left");
         }

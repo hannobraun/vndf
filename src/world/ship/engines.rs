@@ -21,6 +21,17 @@ impl Engines {
         self.thrust
     }
 
+    // TASK: Remove duplication with `change_thrust`, probably by just removing
+    //       `change_thrust`.
+    pub fn set_thrust(&mut self, thrust: f32) {
+        self.thrust = thrust;
+        self.thrust = f32::min(f32::max(self.thrust, 0.0), 1.0);
+
+        for engine in &mut self.engines {
+            engine.thrust = self.thrust;
+        }
+    }
+
     /// Change the thrust by the given amount
     ///
     /// `change` will be added to thrust, and the result will be clamped to the
