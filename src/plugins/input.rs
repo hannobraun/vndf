@@ -14,7 +14,6 @@ use crate::{
     world::{ship::Ship, target::Target},
 };
 
-// TASK: Consider using more direct controls, based on WASD keys.
 pub struct InputPlugin;
 
 impl Plugin for InputPlugin {
@@ -22,6 +21,7 @@ impl Plugin for InputPlugin {
         app.add_resource(MousePosition::none())
             .add_system(exit_on_esc_system.system())
             .add_system(Self::handle_cursor_movement.system())
+            .add_system(Self::handle_ship_controls.system())
             .add_system(Self::handle_direction_setting.system())
             .add_system(Self::set_target.system())
             .add_system(Self::clear_target.system())
@@ -36,6 +36,22 @@ impl InputPlugin {
     ) {
         for event in events.drain() {
             *mouse_position = Some(MousePosition::from_event(event));
+        }
+    }
+
+    // TASK: Apply input to ship.
+    fn handle_ship_controls(input: Res<Input<KeyCode>>) {
+        if input.pressed(KeyCode::W) {
+            println!("Accelerate");
+        }
+        if input.pressed(KeyCode::A) {
+            println!("Turn left");
+        }
+        if input.pressed(KeyCode::D) {
+            println!("Turn right");
+        }
+        if input.pressed(KeyCode::S) {
+            println!("Stop rotation");
         }
     }
 
