@@ -126,14 +126,14 @@ impl InputPlugin {
         }
     }
 
-    // TASK: Change maximum thrust setting instead.
+    // TASK: Rename system.
     fn handle_thrust_setting_change(
         mut events: ResMut<Events<MouseWheel>>,
         mut ships: Query<&mut Ship, With<Ship>>,
     ) {
         for event in events.drain() {
             for mut ship in ships.iter_mut() {
-                ship.engines_mut().change_thrust(event.y / 10.0);
+                ship.engines_mut().change_max_thrust(event.y / 10.0);
             }
         }
     }
