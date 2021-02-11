@@ -25,7 +25,7 @@ impl Plugin for InputPlugin {
             .add_system(Self::handle_direction_setting.system())
             .add_system(Self::set_target.system())
             .add_system(Self::clear_target.system())
-            .add_system(Self::handle_thrust_setting_change.system());
+            .add_system(Self::handle_max_thrust_setting_change.system());
     }
 }
 
@@ -126,8 +126,7 @@ impl InputPlugin {
         }
     }
 
-    // TASK: Rename system.
-    fn handle_thrust_setting_change(
+    fn handle_max_thrust_setting_change(
         mut events: ResMut<Events<MouseWheel>>,
         mut ships: Query<&mut Ship, With<Ship>>,
     ) {
