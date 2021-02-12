@@ -2,7 +2,7 @@
 
 ## About
 
-This is a game about spaceships. I've been working on other iterations of it over the years ([[1]][VNDF2016], [[2]][VNDF2020]). No idea how far I'll get this time, or if it's the last one. It's just a hobby at this point.
+This is a game about spaceships. I've been working on other iterations of it over the years ([[1]][VNDF2016], [[2]][VNDF2020]). I consider this done now. I wanted to try out some concepts, I did, and I no longer feel the need to continue.
 
 
 ## License
